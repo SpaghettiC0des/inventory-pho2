@@ -45,7 +45,7 @@
                                 <label for="office-district" class="control-label">District</label>
                                 <select data-bind="selectPicker: district_id, 
                                     optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select District',
-                                        selectPickerOptions: { optionsArray: $parent.dataObjects.allDistricts; }" 
+                                        selectPickerOptions: { optionsArray: $parent.dataObjects.allDistricts }" 
                                             data-live-search="true" id="office-district"  name="office-district"></select>
                             </div>
                         </div>
@@ -140,13 +140,13 @@
                             <label for="item-supplier">Supplier</label>
                             <select data-bind="selectPicker: category_id, 
                                 optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select Supplier',
-                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allSuppliers; }" name="item-supplier" id="item-supplier" class="selectpicker"></select>
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allSuppliers }" name="item-supplier" id="item-supplier" class="selectpicker"></select>
                     </div>
                         <div class="col-md-8">
                             <label for="item-category" class="control-label">Category</label>
                             <select data-bind="selectPicker: category_id, 
                                     optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select Category',
-                                        selectPickerOptions: { optionsArray: $parent.dataObjects.allCategories; }" 
+                                        selectPickerOptions: { optionsArray: $parent.dataObjects.allCategories }" 
                                             data-live-search="true" id="item-category" id="item-category">
                             </select>
                         </div>
@@ -162,7 +162,7 @@
                             <label for="item-code" class="control-label">Expiration</label>
                             <div class="dtp-container fg-line">
                                 <input data-bind = "dateTimePicker : expiration, 
-                                    dateTimePickerOptions:{format:'YYYY-MM-DD';}" 
+                                    dateTimePickerOptions:{format:'YYYY-MM-DD'}" 
                                         type='text' class="form-control" placeholder="Click here...">
                             </div>
                         </div>
@@ -329,7 +329,7 @@
                             <label for="purchase-status ">Supplier</label>
                            <select data-bind="selectPicker: supplier_id, 
                                 optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select Supplier',
-                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allSuppliers; }" name="item-supplier" id="item-supplier" class="selectpicker">
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allSuppliers }" name="item-supplier" id="item-supplier" class="selectpicker">
                             </select>
                         </div>
                     </div>
