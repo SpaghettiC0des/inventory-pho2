@@ -22,6 +22,7 @@ class Dashboard_Controller extends Template_Controller {
     }
 
     public function index(){
+        
         $this->template->content = new View('dashboard/index');
     }
 

@@ -15,7 +15,7 @@ class Categories_Controller extends Dashboard_Controller {
 
     public function index(){
         $index = new View('categories/index');
-        $index->categories = $this->category_model->getAll();
+        $index->categories = $this->category_model->find_all();
         $this->template->content = $index;
     }
 

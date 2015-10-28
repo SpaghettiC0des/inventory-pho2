@@ -1,4 +1,4 @@
-;(function ( w, j , ko ) {
+(function ( w, j , ko ) {
 	"use strict";
 	var x = w.INVENTO.XHR, purchaseVM = {
 		date : ko.observable(),

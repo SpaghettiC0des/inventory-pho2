@@ -69,6 +69,44 @@
     </div>
 </div>
 
+<!-- Office Budgets -->
+<div data-bind = "with : officeBudgetVM" class="modal fade" id="addOfficeBudgetModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Add Office Budget</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="budget-office" class="control-label">Office</label>
+                            <select data-bind="selectPicker: office_id, 
+                                optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select District',
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allOffices }" 
+                                        data-live-search="true" id="office-district"  name="office-district" class="selectpicker"></select>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="budget-amount" class="control-label">Amount</label>
+                            <input data-bind = "textInput: amount" type="number" class="form-control text-center">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-link">Save</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <!-- Category -->
 <div data-bind="with: categoryVM" class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -110,7 +148,7 @@
     </div>
 </div>
 
-<!-- Item -->
+<!-- Item Modal-->
 <div data-bind="with: itemVM" class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-hidden="true">
     
     <div class="modal-dialog modal-lg">
@@ -138,10 +176,11 @@
                         </div>
                         <div class="col-md-8">
                             <label for="item-supplier">Supplier</label>
-                            <select data-bind="selectPicker: category_id, 
+                            <select data-bind="selectPicker: supplier_id, 
                                 optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select Supplier',
                                     selectPickerOptions: { optionsArray: $parent.dataObjects.allSuppliers }" name="item-supplier" id="item-supplier" class="selectpicker"></select>
-                    </div>
+                        </div>
+
                         <div class="col-md-8">
                             <label for="item-category" class="control-label">Category</label>
                             <select data-bind="selectPicker: category_id, 
@@ -150,6 +189,7 @@
                                             data-live-search="true" id="item-category" id="item-category">
                             </select>
                         </div>
+
                         <div class="col-md-4">
                             <label for="item-code" class="control-label">Code</label>
                             <div class="dtp-container fg-line">
@@ -226,6 +266,7 @@
     </div>
 </div>
 
+<!-- Supplier Modal -->
 <div data-bind = "with : supplierVM" class="modal fade" id="addSupplierModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -291,6 +332,7 @@
     </div>
 </div>
 
+<!-- Purchase Modal -->
 <div data-bind = "with : purchaseVM" class="modal fade" id="addPurchaseModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -361,6 +403,76 @@
                             </table>
                         </div>
                     </div>      
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-link">Save</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div data-bind = "with : userVM" class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Add User</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <label for="user-role">Role</label>
+                            <select name="user-rol" id="user-role" class="selectpicker"></select required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="user-name">Username</label>
+                            <div class="fg-line">
+                                <input data-bind = "textInput: username" type="text" class="form-control" placeholder="New username" required>    
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="user-email">Email</label>
+                            <div class="fg-line">
+                                <input data-bind = "textInput:email" type="email" class="form-control" placeholder="New user email" required>    
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div data-bind = "css: hasError " class="form-group">
+                        <div class="col-md-10">
+                            <div class="fg-line">
+                                <label for="user-password" class="control-label">Password</label>
+                                <input data-bind = "textInput: password,attr:{ type: pwdViewToggle }" id="user-password" 
+                                    name="user-password" class="form-control" placeholder="New user Pasword" required>      
+                            </div>
+                            <small data-bind = "text: errorMsg" class="help-block"></small>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <br><br>
+                            <div class="toggle-switch" data-ts-color="blue" data-toggle="tooltip" data-placement="top" 
+                                title="Show password">
+
+                               <label for="ts2" class="ts-label"></label>
+                               <input data-bind = "checked: pwdView" id="ts2" type="checkbox"  hidden="hidden">
+                               <label for="ts2" class="ts-helper"></label>
+                           </div>
+                        </div>
+                    </div>
                     
                 </div>
                 <div class="modal-footer">

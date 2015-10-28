@@ -3,10 +3,6 @@
 class Category_Model extends ORM {
  	protected $has_many = ['item'];
 
- 	public function __construct(){
- 		parent::__construct();
- 	}
-
 	public function getAll(){
 		return $this->db->get('categories');
 	}

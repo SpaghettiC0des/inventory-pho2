@@ -2,6 +2,7 @@
 	"use strict";
 	var x = w.INVENTO.XHR, itemVM = {
 		image_file_name: ko.observable(),
+		supplier_id : ko.observable(),
 		category_id : ko.observable(),
 		code : ko.observable(),
 		expiration : ko.observable(),

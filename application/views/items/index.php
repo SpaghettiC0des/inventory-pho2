@@ -9,6 +9,8 @@
                 <tr>
                     <th data-column-id="code" data-identifier="true">Code</th>
                     <th data-column-id="name">Name</th>
+                    <th data-column-id="supplier">Supplier</th>
+                    <th data-column-id="category">Category</th>
                     <th data-column-id="expiration" data-order="desc">Expiration</th>
                     <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
                 </tr>
@@ -18,6 +20,8 @@
                     <tr>
                         <td><?php echo $item->code; ?></td>
                         <td><?php echo $item->name; ?></td>
+                        <td><?php echo $item->supplier->name; ?></td>
+                        <td><?php echo $item->category->name; ?></td>
                         <td><?php echo \Carbon\Carbon::parse( $item->expiration )->toFormattedDateString(); ?></td>
                         <td>
                            <span>TODO: edit delete</span>

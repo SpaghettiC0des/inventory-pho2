@@ -3,10 +3,6 @@
 class Item_Model extends ORM {
  	
 	protected $belongs_to = ['category','supplier']; 
-	
-	public function __construct(){
-		parent::__construct();
-	}
 
 	public function insert($data){
 		$id = $this->db->insert('items', $data)->insert_id();

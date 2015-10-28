@@ -13,7 +13,7 @@ class Suppliers_Controller extends Dashboard_Controller {
 
     public function index(){
 		$index = new View('suppliers/index');
-        $index->suppliers = $this->supplier_model->getAll();
+        $index->suppliers = $this->supplier_model->find_all();
         $this->template->content = $index;
     }
 

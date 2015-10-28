@@ -294,7 +294,7 @@
 
                             <div class="profile-info">
                                <!--  Ritchie Prades -->
-                                Karl Marx Lopez
+                                <?php echo $this->auth->get_user()->username; ?>
                                 <i class="zmdi zmdi-arrow-drop-down"></i>
                             </div>
                         </a>
@@ -337,6 +337,16 @@
                             </ul>
                         </li>
                         
+                        <li class="sub-menu">
+                            <a href="#"><i class="zmdi zmdi-case"></i> Office Budgets</a>
+
+                            <ul>
+                                <li><a href="#" data-toggle="modal" data-target="#addOfficeBudgetModal">Add</a></li>
+                                <li><a href="<?php echo url::base(); ?>offices">List</a></li>
+                                <li><a href="#">Reports</a></li>
+                            </ul>
+                        </li>
+
                         <li class="sub-menu">
                             <a href="#"><i class="zmdi zmdi-format-list-numbered"></i> Categories</a>
 
@@ -391,7 +401,14 @@
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
-                        
+                        <li class="sub-menu">
+                            <a href="#"><i class="zmdi zmdi-accounts-alt"></i>Users</a>
+                            <ul>
+                                <li><a href="#" data-toggle="modal" data-target="#addUserModal">Add</a></li>
+                                <li><a href="<?php echo url::base(); ?>categories">List</a></li>
+                                <li><a href="#">Reports</a></li>
+                            </ul>
+                        </li>
                         <li class="sub-menu">
                             <a href="#"><i class="zmdi zmdi-chart"></i>Reports</a>
                             <ul>
@@ -683,8 +700,9 @@
         <script src="assets/js/app/view-models/officeVM.js"></script>
         <script src="assets/js/app/view-models/supplierVM.js"></script>
         <script src="assets/js/app/view-models/purchaseVM.js"></script>
+        <script src="assets/js/app/view-models/userVM.js"></script>
         <script src="assets/js/app/view-models/masterVM.js"></script>
-
+        <script src="assets/js/app/view-models/officeBudgetVM.js"></script>
         <script type="text/javascript">
         // $(".display-none").prepend("<center class = \"animated infinite pulse loader\"><h4>Loading Please Wait...</h4></center>");
         $(document).ready( function() {

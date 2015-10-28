@@ -15,7 +15,7 @@ class Items_Controller extends Dashboard_Controller {
 
     public function index(){
         $view = new View('items/index');
-        $view->items = $this->item_model->getAll();
+        $view->items = $this->item_model->with('category:supplier')->find_all();
         $this->template->content = $view;
     }
 

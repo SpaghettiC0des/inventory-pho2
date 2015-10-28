@@ -4,11 +4,6 @@ class Supplier_Model extends ORM {
  	
 	protected $has_many = ['item']; 
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
- 	
  	public function insert($data){
  		$id = $this->db->insert('suppliers', $data)->inser_id();
  		return $this->getOne( $id );

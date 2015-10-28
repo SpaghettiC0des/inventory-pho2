@@ -3,10 +3,6 @@
 class Transaction_Model extends ORM {
     #protected  = [''];
 
-    public function __construct(){
-        parent::__construct();
-    }
-
     public function insert($data){
         $id = $this->db->insert('transactions',$data)->insert_id();
         return $this->getOne($id);

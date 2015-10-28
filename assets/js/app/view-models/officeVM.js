@@ -4,7 +4,6 @@
 		officeVM = {
 			district_id : ko.observable(),
 			name : ko.observable(),
-			test : ko.observable(2)
 		}, oVM = officeVM;
 
 	oVM.handleSubmit = function() {

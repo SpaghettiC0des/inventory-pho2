@@ -2,11 +2,6 @@
  
 class District_Model extends ORM {
  	protected $has_many = ['office'];
-
-	public function __construct()
-	{
-		parent::__construct();
-	}
  	
 	public function insert($data){
 		$id = $this->db->insert('districts', $data)->insert_id();

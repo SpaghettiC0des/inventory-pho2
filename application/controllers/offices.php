@@ -13,7 +13,7 @@ class Offices_Controller extends Dashboard_Controller {
 
     public function index(){
 		$index = new View('offices/index');
-        $index->offices = $this->office_model->find_all();
+        $index->offices = $this->office_model->with('district')->find_all();
         $this->template->content = $index;
     }
 
