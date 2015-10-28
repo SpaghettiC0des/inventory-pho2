@@ -1,0 +1,19 @@
+;(function ( w, j , ko ) {
+	"use strict";
+	var x = w.INVENTO.XHR, dataObjects = {
+		allCategories : ko.observableArray([]),
+		allSuppliers : ko.observableArray([]),
+		allDistricts : ko.observableArray([]),
+	}, DO = dataObjects;
+
+	x.getJ( "ajax_source" ).done( function ( res ) {
+		
+		DO.allCategories( res.categories );
+		DO.allDistricts( res.districts );
+	}).fail( function() {
+		// alert('whoops, dataObjects!');
+	});
+
+	w.INVENTO.VM.dataObjects = dataObjects;
+
+}( window, jQuery, ko ));

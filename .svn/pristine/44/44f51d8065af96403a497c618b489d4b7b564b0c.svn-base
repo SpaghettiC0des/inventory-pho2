@@ -1,0 +1,9 @@
+{
+	"config":{
+		"vendor-dir":"application/vendor"
+	},
+    "require": {
+        "nesbot/carbon": "^1.20",
+		"anahkiasen/underscore-php": "^2.0"
+    }
+}

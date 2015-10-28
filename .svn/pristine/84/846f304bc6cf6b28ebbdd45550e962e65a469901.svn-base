@@ -1,0 +1,30 @@
+<div class="card display-none animated fadeIn">
+    <div class="card-header">
+        <h2>All items <small>
+    </div>
+    
+    <div class="table-responsive">
+        <table id="data-table-selection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th data-column-id="code" data-identifier="true">Code</th>
+                    <th data-column-id="name">Name</th>
+                    <th data-column-id="expiration" data-order="desc">Expiration</th>
+                    <th data-column-id="commands" data-formatter="commands" data-sortable="false">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items as $item) { ?>
+                    <tr>
+                        <td><?php echo $item->code; ?></td>
+                        <td><?php echo $item->name; ?></td>
+                        <td><?php echo \Carbon\Carbon::parse( $item->expiration )->toFormattedDateString(); ?></td>
+                        <td>
+                           <span>TODO: edit delete</span>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>

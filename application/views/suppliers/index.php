@@ -1,0 +1,30 @@
+<div class="card display-none animated fadeIn">
+    <div class="card-header">
+        <h2>All Suppliers <small>
+    </div>
+    
+    <div class="table-responsive">
+        <table id="data-table-selection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th data-column-id="code" data-identifier="true">Name</th>
+                    <th data-column-id="reprentative">Representative</th>
+                    <th data-column-id="contact" data-order="desc">Contact No.</th>
+                    <th data-column-id="email" data-order="desc">Email</th>
+                    <th data-column-id="address" data-order="desc">Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($suppliers as $supplier) { ?>
+                    <tr>
+                        <td><?php echo $supplier->name; ?></td>
+                        <td><?php echo $supplier->representative; ?></td>
+                        <td><?php echo $supplier->contact_number; ?></td>
+                        <td><?php echo $supplier->email; ?></td>
+                        <td><?php echo $supplier->address; ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
