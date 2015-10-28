@@ -338,7 +338,7 @@
                         </li>
                         
                         <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-case"></i> Office Budgets</a>
+                            <a href="#"><i class="zmdi zmdi-money"></i> Office Budgets</a>
 
                             <ul>
                                 <li><a href="#" data-toggle="modal" data-target="#addOfficeBudgetModal">Add</a></li>
@@ -416,6 +416,10 @@
                                 <li><a href="<?php echo url::base(); ?>categories">List</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="zmdi zmdi-settings"></i>System Settings</a>
+                            
                         </li>
                     </ul>
                 </div>
