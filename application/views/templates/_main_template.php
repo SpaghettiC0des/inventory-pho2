@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--[if IE 9 ]><html class="ie9"><![endif]-->
     
@@ -9,6 +10,8 @@
         <title>Inventory PHO</title>
 
         <!-- Vendor CSS -->
+        <link href="assets/vendors/bower_components/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="assets/vendors/bower_components/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet">
         <link href="assets/vendors/bootgrid/jquery.bootgrid.min.css" rel="stylesheet">
         <link href="assets/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
         <link href="assets/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
@@ -34,7 +37,9 @@
                 </li>
             
                 <li class="logo hidden-xs">
-                    <a href="index-2.html">Inventory PHO</a>
+                    <a href="<?php echo url::base(); ?>">
+                        <?php echo $settings->_name; ?>
+                    </a>
                 </li>
                 
                 <li class="pull-right">
@@ -342,7 +347,7 @@
 
                             <ul>
                                 <li><a href="#" data-toggle="modal" data-target="#addOfficeBudgetModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>offices">List</a></li>
+                                <li><a href="<?php echo url::base(); ?>budgets">List</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
@@ -381,7 +386,7 @@
                             <a href="#"><i class="zmdi zmdi-shopping-cart-plus"></i>Purchases</a>
                             <ul>
                                 <li><a href="#" data-toggle="modal" data-target="#addPurchaseModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>categories">List</a></li>
+                                <li><a href="<?php echo url::base(); ?>purchases">List</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
@@ -396,8 +401,8 @@
                         <li class="sub-menu">
                             <a href="#"><i class="zmdi zmdi-mail-send"></i>Requests</a>
                             <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addItemModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>categories">List</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#addRequestModal">Add</a></li>
+                                <li><a href="<?php echo url::base(); ?>requests">List</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
@@ -590,11 +595,9 @@
             <section id="content">
                 <div class="container">
                     <?php 
-                        
                         echo $content; 
-
+                        require Kohana::find_file('views/partials','modals');
                     ?>
-
                 </div>
             </section>
         </section>
@@ -656,12 +659,15 @@
                 <p>Sorry for the inconvenience!</p>
             </div>   
         <![endif]-->
-        <?php include Kohana::find_file('views/partials','modals'); ?>
+        
         <!-- Javascript Libraries -->
         <script src="assets/vendors/bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="assets/js/libs/ko.js"></script>
-        <script src="assets/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         
+        <script src="assets/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bower_components/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="assets/vendors/bower_components/datatables/js/dataTables.bootstrap.min.js"></script>
+
+        <script src="assets/js/libs/ko.js"></script>
         <script src="assets/vendors/bower_components/flot/jquery.flot.js"></script>
         <script src="assets/vendors/bower_components/flot/jquery.flot.resize.js"></script>
         <script src="assets/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
@@ -705,34 +711,10 @@
         <script src="assets/js/app/view-models/supplierVM.js"></script>
         <script src="assets/js/app/view-models/purchaseVM.js"></script>
         <script src="assets/js/app/view-models/userVM.js"></script>
-        <script src="assets/js/app/view-models/masterVM.js"></script>
+        <script src="assets/js/app/view-models/requestVM.js"></script>         
         <script src="assets/js/app/view-models/officeBudgetVM.js"></script>
-        <script type="text/javascript">
-        // $(".display-none").prepend("<center class = \"animated infinite pulse loader\"><h4>Loading Please Wait...</h4></center>");
-        $(document).ready( function() {
-            var DTselection = $("#data-table-selection");
-            DTselection.bootgrid({
-                css: {
-                    icon: 'zmdi icon',
-                    iconColumns: 'zmdi-view-module',
-                    iconDown: 'zmdi-expand-more',
-                    iconRefresh: 'zmdi-refresh',
-                    iconUp: 'zmdi-expand-less'
-                },
-                selection: true,
-                multiSelect: true,
-                rowSelect: true,
-                keepSelection: true,
-            });
-            setTimeout( function() {
-                // $(".loader").remove();
-                $(".card").removeClass("display-none");
-            },100);
-            
-
-        });
-            
-        </script>
+        <script src="assets/js/app/view-models/masterVM.js"></script>
+        
     </body>
   
 </html>

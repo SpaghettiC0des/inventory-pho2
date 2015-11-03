@@ -18,9 +18,9 @@ class Ajax_Source_Controller extends Dashboard_Controller {
         $categories = json_helper::convert( $this->category_model->getAll() );
         $items = json_helper::convert( $this->item_model->getAll() );
         $districts = json_helper::convert( $this->district_model->getAll() );
-        $offices = json_helper::convert( $this->office_model->find_all() );
+        $offices = json_helper::convert( $this->office_model->getAll() );
 
-        echo json_encode(compact('suppliers', 'categories', 'items', 'districts')) ;
+        echo json_encode(compact('suppliers', 'categories', 'items', 'districts','offices')) ;
     }
 
 }

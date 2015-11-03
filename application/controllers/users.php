@@ -17,9 +17,12 @@ class Users_Controller extends Dashboard_Controller {
             $this->auto_render = FALSE;
             $post = $this->input->post();
 
-            foreach ($post as $key => $value) {
-                $this->user_model->$key = $value;
-            }
+            $this->user_model->username = $post['username'];
+            $this->user_model->email = $post['email'];
+            $pass = $this->user_model->password = $post['password'];
+            echo $this->auth->hash($pass);
+            echo $this->auth->hash_password($pass);
+            die();
             $this->user_model->add( ORM::factory('role', 'login') );
             #$this->user_model->add( ORM::factory('role', 'admin') );
             $this->user_model->save();

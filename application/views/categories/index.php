@@ -1,11 +1,10 @@
-
-<div class="card display-none animated fadeIn">
+<div class="card animated fadeIn">
     <div class="card-header">
         <h2>All Categories<small>
     </div>
     
     <div class="table-responsive">
-        <table id="data-table-selection" class="table table-striped">
+        <table data-bind = "bootgrid" class="table table-striped">
             <thead>
                 <tr>
                     <th data-column-id="code" data-identifier="true">Name</th>

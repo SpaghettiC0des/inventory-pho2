@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
  
 class Request_Model extends ORM {
-    #protected  = [''];
+    protected $belongs_to = ['office'];
 
     public function insert($data){
         $id = $this->db->insert('requests',$data)->insert_id();
@@ -13,6 +13,6 @@ class Request_Model extends ORM {
     }
 
     public function getOne($id){
-        return $this->getwhere( 'requests', [ 'id' => $id ] )->result( TRUE );
+        return $this->getwhere( 'requests', [ 'id' => $id ] );
     }
 }

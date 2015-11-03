@@ -37,8 +37,11 @@ abstract class Template_Controller extends Controller {
 		
 		$this->district_model = ORM::factory('district');
 		$this->office_model = ORM::factory('office');
-		
+		$this->budget_model = ORM::factory('office_budget');
+
 		$this->purchase_model = ORM::factory('purchase');
+		$this->request_model = ORM::factory('request');
+		$this->setting_model = ORM::factory('setting');
 		// Load the template
 		$this->template = new View($this->template);
 

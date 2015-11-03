@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
  
 class Purchase_Model extends ORM {
- 	#protected $has_many = ['item'];
+ 	protected $belongs_to = ['supplier'];
 
  	public function insert($data){
  		$id = $this->db->insert('purchases', $data);

@@ -2,7 +2,8 @@
  
 class Office_Model extends ORM {
  	protected $belongs_to = ['district'];
-
+    protected $has_many = ['requests','office_budgets'];
+    
  	public function insert($data){
  		$id = $this->db->insert('offices', $data)->insert_id();
  		return $this->getOne($id);

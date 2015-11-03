@@ -2,7 +2,7 @@
  
 class Supplier_Model extends ORM {
  	
-	protected $has_many = ['item']; 
+	protected $has_many = ['items','purchases']; 
 
  	public function insert($data){
  		$id = $this->db->insert('suppliers', $data)->inser_id();

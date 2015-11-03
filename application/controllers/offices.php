@@ -4,13 +4,6 @@ class Offices_Controller extends Dashboard_Controller {
 
     const ALLOW_PRODUCTION = FALSE;
 
-    public function __construct(){
-        parent::__construct();
-        $this->auth = new Auth;
-        $this->cache = Cache::instance();
-        $this->session = Session::instance();
-    }
-
     public function index(){
 		$index = new View('offices/index');
         $index->offices = $this->office_model->with('district')->find_all();

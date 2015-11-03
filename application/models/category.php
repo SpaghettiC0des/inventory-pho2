@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
  
 class Category_Model extends ORM {
- 	protected $has_many = ['item'];
+ 	protected $has_many = ['items'];
 
 	public function getAll(){
 		return $this->db->get('categories');

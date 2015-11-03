@@ -1,22 +1,26 @@
-;(function ( w, j , ko ) {
+(function(w, j, ko) {
 	"use strict";
-	var x = w.INVENTO.XHR, dataObjects = {
-		allSuppliers : ko.observableArray([]),
-		allCategories : ko.observableArray([]),
-		allItems : ko.observableArray([]),
-		allDistricts : ko.observableArray([]),
-	}, DO = dataObjects;
+	var x = w.INVENTO.XHR,
+		dataObjects = {
+			allSuppliers: ko.observableArray([]),
+			allCategories: ko.observableArray([]),
+			allItems: ko.observableArray([]),
+			allDistricts: ko.observableArray([]),
+			allOffices: ko.observableArray([]),
+		},
+		DO = dataObjects;
 
-	x.getJ( "ajax_source" ).done( function ( res ) {
-		DO.allSuppliers( res.suppliers );
-		DO.allCategories( res.categories );
-		DO.allItems( res.items );
-		DO.allDistricts( res.districts );
+	x.getJ("ajax_source").done(function(res) {
+		DO.allSuppliers(res.suppliers);
+		DO.allCategories(res.categories);
+		DO.allItems(res.items);
+		DO.allDistricts(res.districts);
+		DO.allOffices(res.offices)
 
-	}).fail( function() {
+	}).fail(function() {
 		// alert('whoops, dataObjects!');
 	});
 
 	w.INVENTO.VM.dataObjects = dataObjects;
 
-}( window, jQuery, ko ));
+}(window, jQuery, ko));

@@ -4,16 +4,9 @@ class Purchases_Controller extends Dashboard_Controller {
 
     const ALLOW_PRODUCTION = FALSE;
 
-    public function __construct(){
-        parent::__construct();
-        $this->auth = new Auth;
-        $this->cache = Cache::instance();
-        $this->session = Session::instance();
-    }
-
     public function index(){
         $index = new View('purchases/index');
-        $index->purchases  = $this->purchase_model->getAll();
+        $index->purchases  = $this->purchase_model->with('supplier')->find_all();
         $this->template->content = $index;
     }
 

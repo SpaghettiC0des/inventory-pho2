@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
  
 class District_Model extends ORM {
- 	protected $has_many = ['office'];
+ 	protected $has_many = ['offices'];
  	
 	public function insert($data){
 		$id = $this->db->insert('districts', $data)->insert_id();

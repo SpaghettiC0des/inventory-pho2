@@ -69,7 +69,8 @@
     </div>
 </div>
 
-<!-- Office Budgets -->
+
+<!-- Add Office Budget Modal -->
 <div data-bind = "with : officeBudgetVM" class="modal fade" id="addOfficeBudgetModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -81,21 +82,29 @@
                 <div class="modal-body">
                     
                     <div class="form-group">
-                        <div class="col-md-12">
-                            <label for="budget-office" class="control-label">Office</label>
+                        <div class="col-md-6">
+                            <label for="budget-date" class="control-label">Until</label>
+                            <input data-bind = "dateTimePicker : date, 
+                                dateTimePickerOptions:{format:'YYYY-MM-DD'}" type="text" 
+                                    class="form-control input-mask" data-mask="0000-00-00" placeholder = "YYYY-MM-DD" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="budget-office" class="control-label">Offices</label>
                             <select data-bind="selectPicker: office_id, 
-                                optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select District',
+                                 optionsText: 'name',optionsValue: 'id', optionsCaption: 'Select Office',
                                     selectPickerOptions: { optionsArray: $parent.dataObjects.allOffices }" 
-                                        data-live-search="true" id="office-district"  name="office-district" class="selectpicker"></select>
+                                        name="item-supplier" id="item-supplier" class="selectpicker" data-live-search="true" required>
+                            </select>
                         </div>
                     </div>
-                        
+
                     <div class="form-group">
                         <div class="col-md-12">
-                            <label for="budget-amount" class="control-label">Amount</label>
-                            <input data-bind = "textInput: amount" type="number" class="form-control text-center">
+                            <label for="budget-amount" class="control-label">Amount(Php)</label>
+                            <input data-bind = "textInput: amount" type="number" min="1" step=".1" class="form-control text-center" placeholder="Put budget amount here">
                         </div>
                     </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-link">Save</button>
@@ -105,7 +114,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Category -->
 <div data-bind="with: categoryVM" class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -334,7 +342,7 @@
 
 <!-- Purchase Modal -->
 <div data-bind = "with : purchaseVM" class="modal fade" id="addPurchaseModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
                 <div class="modal-header">
@@ -349,16 +357,24 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-4">
+                            <label for="purchase-date" class="control-label">Date</label>
+                            <input data-bind = "dateTimePicker : datetime, 
+                                dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
+                                    class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm">
+                        </div>
+                        <div class="col-md-8">
                             <label for="purchase-ref-no">Reference Number</label>
-                            <input type="text" class="form-control input-mask" data-mask="A0-000-0000" placeholder="A0-000-0000">
+                            <div class="fg-line">
+                                <input data-bind = "textInput: reference_no" type="text" class="form-control input-mask" data-mask="A0-000-0000" placeholder="A0-000-0000">                            
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
                             <label for="purchase-status ">Status</label>
-                            <select name="purchase-status" id="purchase-status" class="selectpicker">
+                            <select data-bind = "value: status" name="purchase-status" id="purchase-status" class="selectpicker">
                                 <option value="Received">Received</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Ordered">Ordered</option>
@@ -368,14 +384,22 @@
 
                     <div class="form-group">
                         <div class="col-md-12">
-                            <label for="purchase-status ">Supplier</label>
+                            <label for="purchase-status ">Suppliers</label>
                            <select data-bind="selectPicker: supplier_id, 
                                 optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select Supplier',
                                     selectPickerOptions: { optionsArray: $parent.dataObjects.allSuppliers }" name="item-supplier" id="item-supplier" class="selectpicker">
                             </select>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="purchase-status ">Items</label>
+                            <select data-bind="selectPicker: selected_item, 
+                            optionsText: 'name', optionsCaption: 'Select Item',
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allItems }" name="item-supplier" id="item-supplier" class="selectpicker">
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-12">
                             <table class="table table-striped table-responsive">
@@ -383,21 +407,34 @@
                                     <tr>
                                         <th>Code</th>
                                         <th>Name</th>
+                                        <th>Expiration</th>
+                                        <th>Quantity</th>
                                         <th>Price</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Code</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
+                                        <th>Grand Total (Php)</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th data-bind = "text: grandTotal"></th>
                                     </tr>
                                 </tfoot>
-                                <tbody>
+                                <tbody data-bind = "foreach: items">
                                     <tr>
-                                        <td>asdfsadfsdf</td>
-                                        <td>sadfsdf</td>
-                                        <td>sadfsdf</td>
+                                        <td data-bind = "text: code"></td>
+                                        <td data-bind = "text: name"></td>
+                                        <td>
+                                            <input data-bind = "dateTimePicker : expiration_date, 
+                                                dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
+                                                    class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm" required>
+                                        </td>
+                                        <td><input data-bind = "textInput: quantity" type="number" min="1" step="1" class="form-control text-center"></td>
+                                        <td data-bind = "text: price"></td>
+                                        <td data-bind = "text: subTotal"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -414,6 +451,92 @@
     </div>
 </div>
 
+<!-- Add Request Modal -->
+<div data-bind = "with : requestVM" class="modal fade" id="addRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Add Request</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label for="purchase-date" class="control-label">Date</label>
+                                <input data-bind = "dateTimePicker : datetime, 
+                                    dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
+                                        class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm" required>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label for="request-office" class="control-label">Offices</label>
+                            <select data-bind="selectPicker: office_id, 
+                                 optionsText: 'name',optionsValue:'id', optionsCaption: 'Select Office',
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allOffices }" 
+                                        name="item-supplier" id="item-supplier" class="selectpicker" data-live-search="true" required>
+                             </select>   
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="request-item" class="control-label">Items</label>
+                            <select data-bind="selectPicker: selected_item, 
+                                 optionsText: 'name', optionsCaption: 'Select Item',
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allItems }" 
+                                        name="item-supplier" id="item-supplier" class="selectpicker" data-live-search="true" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Grand Total (Php)</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th data-bind = "text: grandTotal"></th>
+                                </tr>
+                            </tfoot>
+                            <tbody data-bind = "foreach: items">
+                                <tr>
+                                    <td data-bind = "text: code"></td>
+                                    <td data-bind = "text: name"></td>
+                                    <td>
+                                        <div class="fg-line">
+                                            <input data-bind = "textInput: quantity" type="number" min="1" step="1" class="form-control text-center">    
+                                        </div>
+                                    </td>
+                                    <td data-bind = "text: price"></td>
+                                    <td data-bind = "text: subTotal"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-link">Save</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add User Modal -->
 <div data-bind = "with : userVM" class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

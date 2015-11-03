@@ -1,10 +1,11 @@
-/*
- * Bootstrap Date time Picker custom binding
+/**
+ * Custom binding for date time picker
+ * @type {Object}
  */
 ko.bindingHandlers.dateTimePicker = {
     init: function(element, valueAccessor, allBindingsAccessor) {
         //initialize datepicker with some optional options
-        var options = allBindingsAccessor().dateTimePickerOptions || {};
+        var options = allBindingsAccessor().dateTimePickerOptions || {format: 'YYYY-MM-DD hh:mm'};
         $(element).datetimepicker(options);
 
         //when a user changes the date, update the view model
@@ -45,10 +46,10 @@ ko.bindingHandlers.dateTimePicker = {
 };
 
 
-/*
- *Select picker for Bootstrap custom binding
+/**
+ * Custom Binding for select picker
+ * @type {Object}
  */
-
 ko.bindingHandlers.selectPicker = {
     init: function(element, valueAccessor, allBindingsAccessor) {
 
@@ -99,5 +100,82 @@ ko.bindingHandlers.selectPicker = {
 
             $(element).selectpicker('refresh');
         }
+    }
+};
+
+/**
+ * Custom binding for boot grid
+ * @type {Object}
+ */
+ko.bindingHandlers.bootgrid = {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        // This will be called when the binding is first applied to an element
+        // Set up any initial state, event handlers, etc. here
+        var _default = {
+            css: {
+                icon: 'zmdi icon',
+                iconColumns: 'zmdi-view-module',
+                iconDown: 'zmdi-expand-more',
+                iconRefresh: 'zmdi-refresh',
+                iconUp: 'zmdi-expand-less'
+            },
+            formatters: {
+                "commands": function(column, row) {
+                    return "<button data-bind = \"click: $parent.getPurchase\" type=\"button\" class=\"btn btn-icon command-edit\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-format-list-numbered\"></span></button> " + 
+                        "<button type=\"button\" class=\"btn btn-icon command-delete\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button>";
+                }
+            },
+            selection: true,
+            multiSelect: true,
+            rowSelect: true,
+            keepSelection: true,
+        };
+
+        var options = allBindings().options || _default;
+
+        $(element).bootgrid(options);
+    },
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        // This will be called once when the binding is first applied to an element,
+        // and again whenever any observables/computeds that are accessed change
+        // Update the DOM element based on the supplied values here.
+    }
+};
+
+ko.bindingHandlers.numberInput = {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        // This will be called when the binding is first applied to an element
+        // Set up any initial state, event handlers, etc. here
+        $(element).attr('type','number').attr('min','1');
+        
+        $(element).on("change", function(){
+            if( this.value < 0 ) {
+                this.value = 1;
+            }
+        });
+    },
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        // This will be called once when the binding is first applied to an element,
+        // and again whenever any observables/computeds that are accessed change
+        // Update the DOM element based on the supplied values here.
+        
+        var value = $(element).val();
+        valueAccessor( value );
+        console.log($(element).val());
+    }
+};
+
+ko.bindingHandlers.dataTable = {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        // This will be called when the binding is first applied to an element
+        // Set up any initial state, event handlers, etc. here
+        var options = allBindings().dataTableOptions || {};
+        $(element).DataTable(options);
+    },
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        // This will be called once when the binding is first applied to an element,
+        // and again whenever any observables/computeds that are accessed change
+        // Update the DOM element based on the supplied values here.
+        
     }
 };
