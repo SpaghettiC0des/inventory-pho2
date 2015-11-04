@@ -83,10 +83,10 @@
                     
                     <div class="form-group">
                         <div class="col-md-6">
-                            <label for="budget-date" class="control-label">Until</label>
+                            <label for="budget-date" class="control-label">Effective Year</label>
                             <input data-bind = "dateTimePicker : date, 
-                                dateTimePickerOptions:{format:'YYYY-MM-DD'}" type="text" 
-                                    class="form-control input-mask" data-mask="0000-00-00" placeholder = "YYYY-MM-DD" required>
+                                dateTimePickerOptions:{format:'YYYY'}" type="text" 
+                                    class="form-control input-mask" data-mask="0000" placeholder = "YYYY" required>
                         </div>
                         <div class="col-md-6">
                             <label for="budget-office" class="control-label">Offices</label>
@@ -457,7 +457,7 @@
                         <div class="col-md-12">
                             <div class="well">
                                 Reference No. <strong data-bind = "text: fullDetails()[0][0].reference_no"></strong> <br /> 
-                                Purchase Datetime: <strong data-bind = "text:fullDetails()[0][0].datetime"></strong> <br />
+                                Purchase Date: <strong data-bind = "text: moment(fullDetails()[0][0].datetime).format('MMMM DD, YYYY hh:mm A')"></strong> <br />
                                 Ordered From: <strong data-bind = "text: fullDetails()[0][0].supplier_name"></strong> <br />
                                 Status: <strong data-bind = "text: fullDetails()[0][0].status"></strong>
                             </div>

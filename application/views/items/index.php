@@ -27,7 +27,8 @@
                 <tr>
                     <th>Code</th>
                     <th>Name</th>
-                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Expiration</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -35,8 +36,9 @@
                 <?php foreach ($items as $item) : ?>
                     <tr>
                         <td><strong><?php echo $item->code; ?></strong></td>
-                        <td><strong><?php echo $item->name; ?></td>
-                        <td><?php echo $item->category->name; ?></td>
+                        <td><strong><?php echo $item->item_name; ?></td>
+                        <td><?php echo $item->quantity;?></td>
+                        <td><?php echo date('D M d, Y',strtotime($item->expiration_date));?></td>
                         <td>
                            <div class="btn-group">
                                 <a href="javascript:void(0)" class="btn btn-sm">Edit</a> 

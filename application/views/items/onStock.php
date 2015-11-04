@@ -18,20 +18,20 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($items as $item) : ?>
+                <?php foreach ($stocks as $stock) : ?>
                     <tr>
-                        <td><?php echo $item->name; ?></td>
-                        <td><?php echo $item->code; ?></td>
-                        <td><?php echo $item->quantity; ?></td>
-                        <td><?php echo $item->price; ?></td>
-                        <td><?php echo $item->price; ?></td>
-                        <td><?php echo $item->status; ?></td>
+                        <td><?php echo $stock->item_name; ?></td>
+                        <td><?php echo $stock->code; ?></td>
+                        <td><?php echo $stock->quantity; ?></td>
+                        <td><?php echo $stock->cost; ?></td>
+                        <td><?php echo $stock->expiration_date; ?></td>
+                        <td><?php echo $stock->status; ?></td>
                         <td>
                             <div class="dropdown" data-animation="fadeIn,fadeOut">
                                 <button type="button" class="btn btn-primary btn-xs" data-toggle="dropdown">Actions <i class="caret"></i></button>
                                 
                                 <ul class="dropdown-menu pull-right bgm-gray">
-                                    <li><a data-bind = "click: function(){getFullDetails( <?php echo $purchase->id; ?> )}" href="javascript:void(0);">Full Details</a></li>
+                                    <li><a href="javascript:void(0);">Full Details</a></li>
                                     <li><a href="#">Edit Purchase</a></li>
                                     <li><a href="#">Delete Purchase</a></li>
                                 </ul>

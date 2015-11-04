@@ -2,14 +2,13 @@
     <div class="card-header">
         <h2>All Office Budgets <h2>
     </div>
-    
-    <div class="table-responsive">
-        <table data-bind = "bootgrid" class="table table-striped">
+    <div class="card-body card-padding">
+        <table data-bind = "dataTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th data-column-id="code" data-identifier="true">Office</th>
-                    <th data-column-id="name">Amount(Php)</th>
-                    <th data-column-id="until">Until</th>
+                    <th>Office</th>
+                    <th>Amount(Php)</th>
+                    <th>Until</th>
                     <th>Actions</th>
                 </tr>
             </thead>

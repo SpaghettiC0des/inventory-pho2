@@ -10,18 +10,18 @@
 
         <!-- Vendor CSS -->
        
-        <link href="assets/vendors/bootgrid/jquery.bootgrid.min.css" rel="stylesheet">
-        <link href="assets/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
-        <link href="assets/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
-        <link href="assets/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
-        <link href="assets/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
-        <link href="assets/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
-        <link href="assets/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/vendors/bootgrid/jquery.bootgrid.min.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/vendors/bower_components/animate.css/animate.min.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
             
         <!-- CSS -->
-        <link href="assets/vendors/bower_components/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet">
-        <link href="assets/css/app.min.1.css" rel="stylesheet">
-        <link href="assets/css/app.min.2.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/css/app.min.1.css" rel="stylesheet">
+        <link href="<?php echo url::base(); ?>assets/css/app.min.2.css" rel="stylesheet">
         
 
         
@@ -65,7 +65,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/1.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/1.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">David Belle</div>
@@ -76,7 +76,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/2.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/2.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Jonathan Morris</div>
@@ -87,7 +87,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/3.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/3.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Fredric Mitchell Jr.</div>
@@ -98,7 +98,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/4.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Glenn Jecobs</div>
@@ -109,7 +109,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/4.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Bill Phillips</div>
@@ -141,7 +141,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/1.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/1.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">David Belle</div>
@@ -152,7 +152,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/2.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/2.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Jonathan Morris</div>
@@ -163,7 +163,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/3.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/3.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Fredric Mitchell Jr.</div>
@@ -174,7 +174,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/4.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Glenn Jecobs</div>
@@ -185,7 +185,7 @@
                                     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="assets/img/profile-pics/4.jpg" alt="">
+                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <div class="lv-title">Bill Phillips</div>
@@ -295,7 +295,7 @@
                     <div class="profile-menu">
                         <a href="#">
                             <div class="profile-pic">
-                                <img src="assets/img/profile-pics/4.jpg" alt="">
+                                <img src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
                             </div>
 
                             <div class="profile-info">
@@ -348,7 +348,7 @@
 
                             <ul>
                                 <li><a href="#" data-toggle="modal" data-target="#addOfficeBudgetModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>budgets">List</a></li>
+                                <li><a href="<?php echo url::base(); ?>office_budgets">List</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
@@ -452,7 +452,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/2.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/2.jpg" alt="">
                                         <i class="chat-status-busy"></i>
                                     </div>
                                     <div class="media-body">
@@ -465,7 +465,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/1.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/1.jpg" alt="">
                                     </div>
                                     <div class="media-body">
                                         <div class="lv-title">David Belle</div>
@@ -477,7 +477,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/3.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/3.jpg" alt="">
                                         <i class="chat-status-online"></i>
                                     </div>
                                     <div class="media-body">
@@ -490,7 +490,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/4.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
                                         <i class="chat-status-online"></i>
                                     </div>
                                     <div class="media-body">
@@ -503,7 +503,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/5.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/5.jpg" alt="">
                                     </div>
                                     <div class="media-body">
                                         <div class="lv-title">Bill Phillips</div>
@@ -515,7 +515,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/6.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/6.jpg" alt="">
                                     </div>
                                     <div class="media-body">
                                         <div class="lv-title">Wendy Mitchell</div>
@@ -526,7 +526,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/7.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/7.jpg" alt="">
                                         <i class="chat-status-busy"></i>
                                     </div>
                                     <div class="media-body">
@@ -542,7 +542,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/2.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/2.jpg" alt="">
                                         <i class="chat-status-busy"></i>
                                     </div>
                                     <div class="media-body">
@@ -555,7 +555,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/3.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/3.jpg" alt="">
                                         <i class="chat-status-online"></i>
                                     </div>
                                     <div class="media-body">
@@ -568,7 +568,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/4.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
                                         <i class="chat-status-online"></i>
                                     </div>
                                     <div class="media-body">
@@ -581,7 +581,7 @@
                             <a class="lv-item" href="#">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="assets/img/profile-pics/7.jpg" alt="">
+                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/7.jpg" alt="">
                                         <i class="chat-status-busy"></i>
                                     </div>
                                     <div class="media-body">
@@ -632,31 +632,31 @@
                     <ul class="iew-download">
                         <li>
                             <a href="http://www.google.com/chrome/">
-                                <img src="assets/img/browsers/chrome.png" alt="">
+                                <img src="<?php echo url::base(); ?>assets/img/browsers/chrome.png" alt="">
                                 <div>Chrome</div>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.mozilla.org/en-US/firefox/new/">
-                                <img src="assets/img/browsers/firefox.png" alt="">
+                                <img src="<?php echo url::base(); ?>assets/img/browsers/firefox.png" alt="">
                                 <div>Firefox</div>
                             </a>
                         </li>
                         <li>
                             <a href="http://www.opera.com">
-                                <img src="assets/img/browsers/opera.png" alt="">
+                                <img src="<?php echo url::base(); ?>assets/img/browsers/opera.png" alt="">
                                 <div>Opera</div>
                             </a>
                         </li>
                         <li>
                             <a href="https://www.apple.com/safari/">
-                                <img src="assets/img/browsers/safari.png" alt="">
+                                <img src="<?php echo url::base(); ?>assets/img/browsers/safari.png" alt="">
                                 <div>Safari</div>
                             </a>
                         </li>
                         <li>
                             <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                                <img src="assets/img/browsers/ie.png" alt="">
+                                <img src="<?php echo url::base(); ?>assets/img/browsers/ie.png" alt="">
                                 <div>IE (New)</div>
                             </a>
                         </li>
@@ -667,60 +667,56 @@
         <![endif]-->
         
         <!-- Javascript Libraries -->
-        <script src="assets/vendors/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/jquery/dist/jquery.min.js"></script>
         
-        <script src="assets/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="assets/vendors/bower_components/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="assets/vendors/bower_components/datatables/js/dataTables.bootstrap.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/js/dataTables.bootstrap.min.js"></script>
 
-        <script src="assets/js/libs/ko.js"></script>
-        <script src="assets/vendors/bower_components/flot/jquery.flot.js"></script>
-        <script src="assets/vendors/bower_components/flot/jquery.flot.resize.js"></script>
-        <script src="assets/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
-        <script src="assets/vendors/sparklines/jquery.sparkline.min.js"></script>
-        <script src="assets/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/libs/ko.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/flot/jquery.flot.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/flot/jquery.flot.resize.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/sparklines/jquery.sparkline.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
         
-        <script src="assets/vendors/bower_components/moment/min/moment.min.js"></script>
-        <script src="assets/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
-        <script src="assets/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script>
-        <script src="assets/vendors/bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
-        <script src="assets/vendors/bower_components/Waves/dist/waves.min.js"></script>
-        <script src="assets/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
-        <script src="assets/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js"></script>
-        <script src="assets/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
-        <script src="assets/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-        <!-- Placeholder for IE9 -->
-        <!--[if IE 9 ]>
-            <script src="assets/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
-        <![endif]-->
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/moment/min/moment.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/Waves/dist/waves.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         
-        <script src="assets/js/flot-charts/curved-line-chart.js"></script>
-        <script src="assets/js/flot-charts/line-chart.js"></script>
-        <script src="assets/js/charts.js"></script>
-        <script src="assets/vendors/fileinput/fileinput.min.js"></script>
-        <script src="assets/vendors/input-mask/input-mask.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/flot-charts/curved-line-chart.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/flot-charts/line-chart.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/charts.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/fileinput/fileinput.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/input-mask/input-mask.min.js"></script>
  
-        <script src="assets/js/functions.js"></script>
-        <script src="assets/js/demo.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/functions.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/demo.js"></script>
 
-        <script src="assets/vendors/bootgrid/jquery.bootgrid.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/vendors/bootgrid/jquery.bootgrid.min.js"></script>
         
         <!-- Knockout ViewModels -->
-        <script src="assets/js/app/customBindings.js"></script>
-        <script src="assets/js/app/settings.js"></script>
-        <script src="assets/js/app/xhr.js"></script>
-        <script src="assets/js/app/view-models/allDataObjects.js"></script>
-        <script src="assets/js/app/view-models/categoryVM.js"></script>
-        <script src="assets/js/app/view-models/itemVM.js"></script>
-        <script src="assets/js/app/view-models/districtVM.js"></script>
-        <script src="assets/js/app/view-models/officeVM.js"></script>
-        <script src="assets/js/app/view-models/supplierVM.js"></script>
-        <script src="assets/js/app/view-models/purchaseVM.js"></script>
-        <script src="assets/js/app/view-models/userVM.js"></script>
-        <script src="assets/js/app/view-models/requestVM.js"></script>         
-        <script src="assets/js/app/view-models/officeBudgetVM.js"></script>
-        <script src="assets/js/app/view-models/transactionVM.js"></script>
-        <script src="assets/js/app/view-models/masterVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/customBindings.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/settings.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/xhr.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/allDataObjects.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/categoryVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/itemVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/districtVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/officeVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/supplierVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/purchaseVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/userVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/requestVM.js"></script>         
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/officeBudgetVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/transactionVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/masterVM.js"></script>
     </body>
   
 </html>

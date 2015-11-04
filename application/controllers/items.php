@@ -8,13 +8,14 @@ class Items_Controller extends Dashboard_Controller {
 
     public function index(){
         $view = new View('items/index');
-        $view->items = $this->item_model->with('category:supplier')->find_all();
+        $view->items = $this->item_model->getAll();
+        // echo gettype($view->items);die();
         $this->template->content = $view;
     }
 
-    public function onStock(){
+    public function on_stock(){
         $view = new View('items/onStock');
-        $view->items = $this->items_stock_model->with('item')->find_all();
+        $view->stocks = $this->item_model->getAllOnStock();
         $this->template->content = $view;
     }
 

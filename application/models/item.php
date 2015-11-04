@@ -15,11 +15,12 @@ class Item_Model extends ORM {
 	}
  	
  	public function getAll($isArray = FALSE){
- 		return $this->db->get('items')->result_array($isArray);
+        $q = @"SELECT item_name, code, expiration_date, quantity FROM vw_purchase_details";
+ 		return $this->db->query($q)->result_array($isArray);
  	}
 
     public function getAllOnStock(){
-        return $this->db->getwhere('item_stocks',['quantity > ' => 0, 'expiration >'=> \Carbon\Carbon::now()]);
+        return $this->db->getwhere('vw_purchase_details',['quantity > ' => 0]);
     }
 
     public function getAllOutOfStock(){
