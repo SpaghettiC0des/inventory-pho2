@@ -1,6 +1,6 @@
 <div class="card animated fadeIn">
     <div class="card-header">
-        <h2>All Requests <small>
+        <h2>All Requests <h2>
     </div>
     
     <div class="table-responsive">

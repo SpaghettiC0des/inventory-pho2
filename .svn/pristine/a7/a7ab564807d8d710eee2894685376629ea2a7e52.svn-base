@@ -1,0 +1,58 @@
+<div class="block-header">
+    <h2>Puchases</h2>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h2>All purchases list</h2>
+
+        <ul class="actions">
+            <li class="dropdown action-show">
+                <a href="#" data-toggle="dropdown">
+                    <i class="zmdi zmdi-more-vert"></i>
+                </a>
+
+                <div class="dropdown-menu pull-right">
+                    <p class="p-20">
+                        You can put anything here
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-body card-padding">
+        <table data-bind="dataTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Reference No.</th>
+                    <th>Supplier</th>
+                    <th>Grand Total (PHP)</th>
+                    <th>Purchase Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($purchases as $purchase) : ?>
+                    <tr>
+                        <td><strong><?php echo \Carbon\Carbon::parse( $purchase->datetime )->toFormattedDateString(); ?></strong></td>
+                        <td><strong><?php echo $purchase->reference_no; ?></td>
+                        <td><?php echo $purchase->supplier->name; ?></td>
+                        <td><?php echo $purchase->grand_total; ?></td>
+                        <td><?php echo $purchase->status ; ?></td>
+                        <td>
+                           <div class="btn-group">
+                                <a href="javascript:void(0)" class="btn btn-sm">Full Details</a> 
+                                <a href="javascript:void(0)" class="btn btn-sm">Edit Purchase</a> 
+                                <a href="javascript:void(0)" class="btn btn-danger btn-sm">Delete Purchase</a>
+                           </div>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

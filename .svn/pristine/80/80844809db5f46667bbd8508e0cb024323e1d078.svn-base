@@ -1,0 +1,22 @@
+<?php defined('SYSPATH') or die('No direct script access.');
+ 
+class Purchase_Model extends ORM {
+ 	protected $belongs_to = ['supplier'];
+    protected $has_many = ['item_stocks'];
+
+ 	public function insert($data){
+ 		$id = $this->db->insert('purchases', $data);
+ 		return $this->getOne($id);
+ 	}
+
+ 	public function getAll(){
+ 		return $this->db->get('purchases');
+ 	}
+
+    // public function getAllWithJoin($id){
+    //     return;
+    // }
+ 	public function getOne($id){
+ 		return $this->getwhere('purchases', ['id', $id]);
+ 	}
+ }

@@ -1,0 +1,100 @@
+
+<div class="card">
+    <div class="card-header">
+        <h2>All Purchases<small>
+    </div>
+    
+    <div>
+        <table data-bind = "dataTable, dataTableOptions: {  'order': [[ 0, 'desc' ]] }" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Reference No.</th>
+                    <th>Supplier</th>
+                    <th>Grand Total (Php)</th>
+                    <th>Purchase Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody data-bind = "with: purchaseVM">
+                <?php foreach ($purchases as $purchase) { ?>
+                    <tr>
+                        <td><?php echo \Carbon\Carbon::parse( $purchase->datetime )->toFormattedDateString(); ?></td>
+                        <td><?php echo $purchase->reference_no; ?></td>
+                        <td><?php echo $purchase->supplier->name; ?></td>
+                        <td><?php echo $purchase->grand_total; ?></td>
+                        <td><?php echo $purchase->status; ?></td>
+                        <td>
+                            <div class="dropdown" data-animation="fadeIn,fadeOut">
+                                <button type="button" class="btn btn-primary btn-xs" data-toggle="dropdown">Actions <i class="caret"></i></button>
+                                
+                                <ul class="dropdown-menu pull-right bgm-gray">
+                                    <li><a data-bind = "click: function(){getFullDetails( <?php echo $purchase->id; ?> )}" href="javascript:void(0);">Full Details</a></li>
+                                    <li><a href="#">Edit Purchase</a></li>
+                                    <li><a href="#">Delete Purchase</a></li>
+                                </ul>
+                            </div>
+                        </td>
+             
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- View purchase details Modal -->
+<div data-bind = "with : purchaseVM" class="modal fade" id="viewPurchaseDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">View Purchase Details</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <!-- <div class="form-group">
+                        <div class="col-md-12">
+                            <table data-bind = "with: fullDetails || {}" class="table table-stripe table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Item (Code)</th>
+                                        <th>Expiration</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Grand Total</th>\
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th data-bind = "text: grand_total || '' "></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody data-bind = "foreach: items">
+                                    <tr>
+                                        <td data-bind = "text: name + ' ' + code"></td>
+                                        <td data-bind = "text: expiration"></td>
+                                        <td data-bind = "text: quantity"></td>
+                                        <th data-bind = "text: price"></th>
+                                        <td data-bind = "text: subTotal"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-link">Save</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
