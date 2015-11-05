@@ -25,21 +25,20 @@
         <table data-bind="dataTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>District Name</th>
                     <th>Name</th>
+                    <th>District</th>
                     <th>Actions</th>
-                 
                 </tr>
             </thead>
-            <tbody>
+            <tbody data-bind = "with: officeVM">
                 <?php foreach ($offices as $office) : ?>
                     <tr>
+                        <td><strong><?php echo $office->name?></strong></td>
                         <td><strong><?php echo $office->district->name; ?></strong></td>
-                        <td><?php echo $office->name?></td>
                         <td>
                            <div class="btn-group">
-                                <a href="javascript:void(0)" class="btn btn-sm">Edit</a> 
-                                <a href="javascript:void(0)" class="btn btn-danger btn-sm">&times;</a>
+                                <button data-bind = "click: function(){edit(<?php echo $office->id; ?>)}" type="button" class="btn btn-sm">Edit</button>
+                                <button type="button" class="btn btn-danger btn-sm">&times;</button>
                            </div>
                         </td>
                     </tr>

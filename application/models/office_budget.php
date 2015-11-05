@@ -12,7 +12,7 @@ class Office_Budget_Model extends ORM {
         return $this->db->get('office_budgets');
     }
 
-    public function getOne($id){
-        return $this->db->getwhere('office_budgets', ['id'=>$id]);
+    public function getOne($office_id){
+        return $this->db->getwhere('office_budgets', ['office_id'=>$office_id]);
     }
 }

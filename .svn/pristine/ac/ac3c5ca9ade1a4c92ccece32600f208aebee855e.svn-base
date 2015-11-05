@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         
-                        <div data-bind = "style: {display: district_id() ? 'block' : 'none'}" class="form-group">
+                        <div class="form-group">
                             <div class="col-md-12">
                                 <label for="office-name" class="control-label">Name</label>
                                 <div class="fg-line">
@@ -69,48 +69,6 @@
     </div>
 </div>
 
-<div data-bind = "with : officeVM" class="modal fade" id="editOfficeModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form data-bind = "submit : handleUpdate" action="" class="form-horizontal">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Edit Office</h4>
-                </div>
-                <div class="modal-body">
-                <!-- WARNING! DO NOT REMOVE COMMENTS BELOW, KNOCKOUT JS BINDINGS. -->
-
-                    <!-- ko if: officeRecord().length -->
-                        <!-- ko foreach: officeRecord -->
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <label for="office-district" class="control-label">District</label>
-                                <select data-bind="selectPicker: parseInt(district_id), 
-                                    optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select District',
-                                        selectPickerOptions: { optionsArray: $root.dataObjects.allDistricts }" 
-                                            data-live-search="true" id="office-district"  name="office-district"></select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <label for="office-name" class="control-label">Name</label>
-                                <div class="fg-line">
-                                    <input data-bind = "textInput : name" id="office-name" name="office-name" type="text" class="form-control" placeholder="New office name" required>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /ko -->
-                    <!-- /ko -->
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-link">Save</button>
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!-- Add Office Budget Modal -->
 <div data-bind = "with : officeBudgetVM" class="modal fade" id="addOfficeBudgetModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -133,7 +91,7 @@
                         <div class="col-md-6">
                             <label for="budget-office" class="control-label">Offices</label>
                             <select data-bind="selectPicker: office_id, 
-                                optionsText: 'name',optionsValue: 'id', optionsCaption: 'Select Office',
+                                 optionsText: 'name',optionsValue: 'id', optionsCaption: 'Select Office',
                                     selectPickerOptions: { optionsArray: $parent.dataObjects.allOffices }" 
                                         name="item-supplier" id="item-supplier" class="selectpicker" data-live-search="true" required>
                             </select>
@@ -149,7 +107,7 @@
                     
                 </div>
                 <div class="modal-footer">
-                    <button data-bind = "enable: canSave" type="submit" class="btn btn-link">Save</button>
+                    <button type="submit" class="btn btn-link">Save</button>
                     <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
                 </div>
             </form>
@@ -423,7 +381,7 @@
                             <label for="purchase-status ">Items</label>
                             <select data-bind="selectPicker: selected_item, 
                             optionsText: 'name', optionsCaption: 'Select Item',
-                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allItems }" name="item-supplier" id="item-supplier" class="selectpicker" data-live-search="true">
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allItems }" name="item-supplier" id="item-supplier" class="selectpicker">
                             </select>
                         </div>
                     </div>
@@ -510,12 +468,12 @@
                             <table class="table table-stripe table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Item - (Code)</th>
+                                        <th>Item (Code)</th>
                                         <th>Unit</th>
                                         <th>Cost</th>
                                         <th>Expiration</th>
                                         <th>Quantity</th>
-                                        <th>Sub-total (Php</th>
+                                        <th>Sub-total</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -530,12 +488,12 @@
                                 </tfoot>
                                 <tbody data-bind = "foreach: fullDetails()[0]">
                                     <tr>
-                                        <td><strong data-bind = "text: item_name"></strong> - (<span data-bind = "text: code"></span>)</td>
+                                        <td> <strong data-bind = "text: item_name"></strong> - (<span data-bind = "text: code"></span>)</td>
                                         <td data-bind = "text: unit"></td>
                                         <td data-bind = "text: cost"></td>
                                         <td data-bind = "text: expiration_date"></td>
                                         <td data-bind = "text: quantity"></td>
-                                        <td><strong data-bind = "text: sub_total"></strong></td>
+                                        <td data-bind = "text: sub_total"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -633,13 +591,8 @@
                                         name="item-supplier" id="item-supplier" class="selectpicker" data-live-search="true" required>
                              </select>   
                         </div>
+                        
                         <div class="col-md-6">
-                            <label for="request-office-budget" class="control-label">Budget</label>
-                            <input data-bind = "value: budget" type="number" class="form-control" disabled="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
                             <label for="request-item" class="control-label">Items</label>
                             <select data-bind="selectPicker: selected_item, 
                                  optionsText: 'name', optionsCaption: 'Select Item',

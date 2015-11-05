@@ -14,10 +14,9 @@ class Item_Model extends ORM {
 		return $this->db->getwhere('items',['id' => $id]);
 	}
  	
- 	public function getAll(){
-        $q = @"SELECT reference_no,item_name, code, expiration_date, SUM(quantity) AS quantity 
-                FROM vw_purchase_details GROUP BY expiration_date";
- 		return $this->db->query($q);
+ 	public function getAll($isArray = FALSE){
+        $q = @"SELECT item_name, code, expiration_date, quantity FROM vw_purchase_details";
+ 		return $this->db->query($q)->result_array($isArray);
  	}
 
     public function getAllOnStock(){

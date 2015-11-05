@@ -21,61 +21,29 @@
             office_id: ko.observable(),
             selected_item: ko.observable(),
             items: ko.observableArray([]),
-            lastItemAdded: ko.observable(),
-            budget: ko.observable(0),
         },
         rVM = requestVM;
 
-    rVM.office_id.subscribe(function(){
-        x.post("requests/getBudget/" + rVM.office_id()).done(function(res){
-            var res = JSON.parse(res);
-            if (res.length) {
-                rVM.budget(res[0].amount);  
-                localStorage.setItem("budget",res[0].amount);   
-            }else{
-                rVM.budget(0);     
-                w.notif("Please add a budget for this office before adding a request", "warning");
-            }
-            
-        }).fail(function(){
-            w.notif("Whoops! Something went wrong.", "error");
-        });
-    });
-
     rVM.selected_item.subscribe( function () {
         if( rVM.selected_item() ) {
-            rVM.lastItemAdded(rVM.selected_item());
             rVM.items.push( new Item( rVM.selected_item() ) );
         }
     });
 
     rVM.grandTotal = ko.pureComputed( function () {
-        var total = 0, officeBudget = parseFloat(localStorage.budget);
-        $.each( rVM.items(), function(){
-            total = parseFloat(this.subTotal()) + total;    
-        });
-        
-        var currentBudget = officeBudget - total;
-        rVM.budget(currentBudget);
-        // if(total < officeBudget){
-        //     return total.toFixed(2);
-        // }else{
-        //     alert("Not enough budget!");
-        // }
-        return total.toFixed(2);
-        
-    });
+            var total = 0;
+            $.each( rVM.items(), function(){
+                total = parseFloat(this.subTotal()) + total;    
+            });
 
-    rVM.budget.subscribe(function(){
-
-    });
+            return total.toFixed(2);
+        })
 
     rVM.handleSubmit = function() {
         var data = {
             datetime: moment(rVM.datetime()).format('YYYY-MM-DD hh:mm'),
             office_id: rVM.office_id(),
             items: ko.toJSON(rVM.items()),
-            grand_total: rVM.grandTotal(),
         };
 
         x.post("requests/save", data).done(function(res) {

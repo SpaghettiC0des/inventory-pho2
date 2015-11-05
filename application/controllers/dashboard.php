@@ -32,8 +32,8 @@ class Dashboard_Controller extends Template_Controller {
         ];
         #echo Kohana::Debug($post);
         #die();
-        
-        $this->template->content = new View('dashboard/index');
+        $view = new View('dashboard/index');
+        $this->template->content = $view;
     }
 
     public function logout(){

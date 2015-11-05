@@ -25,7 +25,6 @@
         <table data-bind="dataTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Reference No.</th>
                     <th>Code</th>
                     <th>Name</th>
                     <th>Quantity</th>
@@ -36,7 +35,6 @@
             <tbody>
                 <?php foreach ($items as $item) : ?>
                     <tr>
-                        <td><strong><?php echo $item->reference_no; ?></strong></td>
                         <td><strong><?php echo $item->code; ?></strong></td>
                         <td><strong><?php echo $item->item_name; ?></td>
                         <td><?php echo $item->quantity;?></td>

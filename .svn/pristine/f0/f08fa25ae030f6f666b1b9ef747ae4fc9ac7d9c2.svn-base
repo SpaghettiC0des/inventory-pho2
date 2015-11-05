@@ -7,22 +7,8 @@
             office_id: ko.observable(),
             amount: ko.observable(),
 
-            canSave: ko.observable(true),
         },
         obVM = officeBudgetVM;
-
-    obVM.office_id.subscribe(function(){
-        x.post("office_budgets/hasBudgetRecord/" + obVM.office_id()).done(function(res){
-            if (res == 1) {
-                obVM.canSave(false);
-                w.notif("The office has existing record!", "warning");  
-            }else{
-                obVM.canSave(true);
-            }
-        }).fail(function(){
-            w.notif("Whoops! Something went wrong.", "error");
-        });
-    });
 
     obVM.handleSubmit = function() {
         var data = {

@@ -7,8 +7,8 @@
             <thead>
                 <tr>
                     <th>Office</th>
-                    <th>Amount(Php)</th>
-                    <th>Until</th>
+                    <th class="text-center">Amount(Php)</th>
+                    <th class="text-center">Effective Year</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -16,10 +16,12 @@
                 <?php foreach ($budgets as $budget) { ?>
                     <tr>
                         <td><?php echo $budget->office->name; ?></td>
-                        <td><?php echo $budget->amount; ?></td>
-                        <td><?php echo $budget->date; ?></td>
+                        <td class="text-center"><strong><?php echo $budget->amount; ?></strong></td>
+                        <td class="text-center"><?php echo $budget->year; ?></td>
                         <td>
-                            <span>todo</span>
+                            <div class="btn-group">
+                                <button class="btn btn-primary btn-sm">Edit</button>
+                            </div>
                         </td>
                     </tr>
                 <?php } ?>

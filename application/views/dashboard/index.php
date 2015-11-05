@@ -83,7 +83,7 @@
                     <div class="clearfix">
                         <div class="chart stats-bar"></div>
                         <div class="count">
-                            <small>Website Traffics</small>
+                            <small>Stock Items</small>
                             <h2>987,459</h2>
                         </div>
                     </div>

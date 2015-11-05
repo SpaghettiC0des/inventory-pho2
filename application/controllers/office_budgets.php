@@ -21,4 +21,12 @@ class Office_Budgets_Controller extends Dashboard_Controller {
         }
     
     }
+
+    public function hasBudgetRecord($officeID){
+        if(request::is_ajax() AND request::method() === 'post'){
+            $this->auto_render = FALSE;
+            $record = $this->budget_model->find($officeID);
+            echo $record;
+        }
+    }
 }
