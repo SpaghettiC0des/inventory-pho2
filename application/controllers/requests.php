@@ -19,6 +19,14 @@ class Requests_Controller extends Dashboard_Controller {
         }
     }
 
+    public function getData($id){
+        if(request::is_ajax() && request::method() === 'get'){
+            $this->auto_render = FALSE;
+
+            $requestData[] = $this->request_model->find($id)->as_array();
+            echo json_encode($requestData);
+       }
+    }
     public function save(){
         if(request::is_ajax() && request::method() === 'post'){
             $this->auto_render = FALSE;

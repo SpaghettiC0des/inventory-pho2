@@ -1,0 +1,52 @@
+;(function ( w, j , ko ) {
+	"use strict";
+	var x = w.INVENTO.XHR, 
+		officeVM = {
+			district_id : ko.observable(),
+			name : ko.observable(),
+
+			officeRecord: ko.observableArray([]),
+		}, oVM = officeVM;
+
+	oVM.edit = function(_id){
+		var office = ko.utils.arrayFilter( w.INVENTO.VM.dataObjects.allOffices(), function ( office ) {
+		    return _id == office.id; 
+		});
+
+		oVM.officeRecord(office);
+
+		$("#editOfficeModal").modal("show");	
+	};
+
+	oVM._delete = function(_id){
+		var confirmed = w.confirm("Delete office?");
+
+		// if(confirmed){
+		// 	x.post("offices/delete/"+ _id).done(function(res){
+		// 	    if (res) {
+		// 	        w.notif("Office deleted!", "success");  
+		// 	    }
+			    
+		// 	}).fail(function(){
+		// 	    w.notif("Whoops! Something went wrong.", "error");
+		// 	});
+		// }
+	};
+	oVM.handleSubmit = function() {
+		var data = ko.toJS( oVM );
+		delete data.edit;
+		delete data.handleSubmit;
+		x.post( "offices/save", data ).done( function ( res ) {
+			oVM.name( undefined );
+			
+			w.notif("New Office added!", "success");
+		}).fail( function() {
+			w.notif("Whoops! Something went wrong.", "danger");
+		});
+	};
+
+	oVM.handleUpdate = function(){
+		return;
+	};
+	w.INVENTO.VM.officeVM = oVM;
+}( window, jQuery, ko ));

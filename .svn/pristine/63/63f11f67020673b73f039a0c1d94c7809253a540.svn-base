@@ -1,0 +1,33 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+use Carbon\Carbon;
+
+class Settings_Controller extends Dashboard_Controller {
+
+    const ALLOW_PRODUCTION = FALSE;
+
+    // public function index(){
+        // $index = new View('categories/index');
+        // $index->categories = $this->category_model->find_all();
+        // $this->template->content = $index;
+    // }
+
+    public function save(){
+        if(request::is_ajax() && request::method() == 'post'){
+            $this->auto_render = FALSE;
+			   $settings = json_decode($this->setting_model->find(1)->configs);
+        //$this->template->settings = $settings;
+           
+            $post = security::xss_clean( $this->input->post() );
+			$site_currency_information = $post["currency"] ;
+			$site_currency_information = explode("|",$site_currency_information);
+			$site_currency_symbol = "&".$site_currency_information[0].";";
+			
+			print_r($post['image_file_name']);exit;
+			
+		
+			//print_r($post["address"]);exit;
+           // $this->setting_model->update( "1", $post );
+        }
+    }
+}

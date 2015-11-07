@@ -1,0 +1,16 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+class log_helper_Core {
+	public function add($level, $username, $action)
+	{
+		$data = array(
+			"user" => $username,
+			"level" =>$level,
+			"action" => $action
+		);
+		
+		$this->log_model->insert($data);
+	}
+	
+}
+?>
