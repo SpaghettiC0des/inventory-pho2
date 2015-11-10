@@ -1,0 +1,15 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+/**
+ * @package  Core
+ *
+ * Sets the default route to "welcome"
+ */
+$config['_default'] = 'auth';
+
+/**
+ * Items Routes
+ */
+$config['all-items'] = 'items/index';
+$config['all-on-stock'] = 'items/on_stock';
+$config['all-out-of-stock'] = 'items/out_of_stock';
+$config['all-expired'] = 'items/expired';

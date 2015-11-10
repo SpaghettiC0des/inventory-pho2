@@ -1,0 +1,78 @@
+(function(w, $, ko) {
+    "use strict";
+
+    function error() {
+        swal("No request available for this office", "", "error");
+    }
+
+    function success(msg) {
+        swal("trasaction " + msg + "!", "", "success");
+    }
+
+
+    var x = w.INVENTO.XHR,
+        transactionVM = {
+            date: ko.observable(),
+            details: ko.observable(),
+            office_id: ko.observable(),
+            amount: ko.observable(1),
+            selectedOfficeRefNos: ko.observableArray([]),
+            isVisible: ko.observable('none'),
+        },
+        tVM = transactionVM;
+
+    tVM.office_id.subscribe(function(selectedOffice) {
+        var record = ko.utils.arrayFilter(w.INVENTO.VM.dataObjects.allReferenceNumbers(),
+            function(rfn) {
+                return rfn.office_id == selectedOffice;
+            });
+        if (record.length) {
+            tVM.selectedOfficeRefNos(record);
+            return tVM.isVisible('block');
+        }
+
+        tVM.isVisible('none');
+        error();
+    });
+    tVM.canSave = ko.pureComputed(function() {
+        if (tVM.selectedOfficeRefNos().length) {
+            if (tVM.date() && tVM.details()) {
+                return true;
+            }
+        }
+
+        return false;
+    });
+    tVM.grandTotal = ko.pureComputed(function() {
+        if (tVM.details()) {
+            return (parseFloat(tVM.details().grand_total) - parseFloat(tVM.amount())).toFixed(2);
+        }
+        return 0;
+    });
+
+    tVM.hasGrandTotal = ko.pureComputed(function() {
+        if (tVM.grandTotal()) {
+            return 'block';
+        }
+
+        return 'none';
+    });
+    tVM.handleSubmit = function() {
+        var data = {
+            datetime: moment(tVM.date()).format('YYYY-MM-DD hh:mm'),
+            reference_no: tVM.details().reference_no,
+            office_id: tVM.office_id(),
+            amount_paid: tVM.amount(),
+            amount_left: tVM.grandTotal(),
+        };
+        x.post("transactions/save", data).done(function(res) {
+            if (res) {
+                swal("blahblah","","success")
+            }
+
+        }).fail(function() {
+            w.notif("Whoops! Something went wrong.", "error");
+        });
+    };
+    w.INVENTO.VM.transactionVM = tVM;
+}(window, jQuery, ko));

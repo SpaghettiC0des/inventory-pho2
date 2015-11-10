@@ -1,46 +1,57 @@
+<div class="block-header">
+    <h2>Stock Items</h2>
+</div>
 
-<div class="card animated fadeIn">
+<div class="card">
     <div class="card-header">
-        <h2>On stock Items<small>
+        <h2>All Stock Items</h2>
+
+        <ul class="actions">
+            <li class="dropdown action-show">
+                <a href="#" data-toggle="dropdown">
+                    <i class="zmdi zmdi-more-vert"></i>
+                </a>
+
+                <div class="dropdown-menu pull-right">
+                    <p class="p-20">
+                        You can put anything here
+                    </p>
+                </div>
+            </li>
+        </ul>
     </div>
-    
-    <div>
-        <table data-bind = "dataTable, dataTableOptions: {  'order': [[ 0, 'desc' ]] }" class="table table-striped">
+
+    <div class="card-body card-padding">
+        <table data-bind="dataTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Item</th>
+                    <th>Reference No.</th>
                     <th>Code</th>
-                    <th>Quantity</th>
-                    <!-- <th>Unit</th> -->
-                    <th>Price</th>
+                    <th>Name</th>
+                    <th class="text-center">Quantity</th>
                     <th>Expiration</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($stocks as $stock) : ?>
+                <?php foreach ($items as $item) : ?>
                     <tr>
-                        <td><?php echo $stock->item_name; ?></td>
-                        <td><?php echo $stock->code; ?></td>
-                        <td><?php echo $stock->quantity; ?></td>
-                        <td><?php echo $stock->cost; ?></td>
-                        <td><?php echo $stock->expiration_date; ?></td>
-                        <td><?php echo $stock->status; ?></td>
+                        <td><strong><?php echo $item->reference_no; ?></strong></td>
+                        <td><strong><?php echo $item->code; ?></strong></td>
+                        <td><strong><?php echo $item->item_name; ?></td>
+                        <td class="text-center"><?php echo "$item->quantity ".inflector::plural($item->unit,$item->quantity); ?></td>
+                        <td><?php echo date('D M d, Y',strtotime($item->expiration_date));?></td>
                         <td>
-                            <div class="dropdown" data-animation="fadeIn,fadeOut">
-                                <button type="button" class="btn btn-primary btn-xs" data-toggle="dropdown">Actions <i class="caret"></i></button>
-                                
-                                <ul class="dropdown-menu pull-right bgm-gray">
-                                    <li><a href="javascript:void(0);">Full Details</a></li>
-                                    <li><a href="#">Edit Purchase</a></li>
-                                    <li><a href="#">Delete Purchase</a></li>
-                                </ul>
+                            <div class="btn-group">
+                                <a href="javascript:void(0);"  class="btn bgm-bluegray btn-xs">Edit</a>
+                                <a href="javascript:void(0);" class="btn btn-danger btn-xs">&times;</a>
                             </div>
                         </td>
-             
                     </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
     </div>
 </div>
+
+
