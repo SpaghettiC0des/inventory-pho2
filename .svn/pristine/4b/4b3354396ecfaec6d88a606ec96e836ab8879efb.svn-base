@@ -1,0 +1,43 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+use Carbon\Carbon;
+
+class Settings_Controller extends Dashboard_Controller {
+
+    const ALLOW_PRODUCTION = FALSE;
+
+    // public function index(){
+        // $index = new View('categories/index');
+        // $index->categories = $this->category_model->find_all();
+        // $this->template->content = $index;
+    // }
+
+    public function save(){
+        if(request::is_ajax() && request::method() == 'post'){
+            $this->auto_render = FALSE;
+			   $settings = json_decode($this->setting_model->find(1)->configs);
+        //$this->template->settings = $settings;
+           
+            $post = security::xss_clean( $this->input->post() );
+			
+			$site_currency_information = $post["currency"] ;
+			$site_currency_information = explode("|",$site_currency_information);
+			$site_currency_symbol = "&".$site_currency_information[0].";";
+			
+			//print_r($post['image_file_name']);exit;
+			$data = array(
+			"name" => $post["name"],
+			"address" => $post["address"],
+			"currency" => $site_currency_symbol,
+			"favicon" => $post["image_file_name"]
+			);
+			
+			$json = json_encode($data,TRUE);
+			$data_setting = array("configs" => $json);
+		//	print_r($json);exit;
+			//print_r($post["address"]);exit;
+			log_helper::add("3",$this->current_role,$this->auth->get_user()->id,"Updated the System Settings");
+            $this->setting_model->update( "1", $data_setting );
+        }
+    }
+}

@@ -7,7 +7,23 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Inventory PHO</title>
-
+        <link rel="apple-touch-icon" sizes="57x57" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="<?php echo url::base(); ?>assets/img/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="<?php echo url::base(); ?>assets/img/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?php echo url::base(); ?>assets/img/favicons/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="<?php echo url::base(); ?>assets/img/favicons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
         <!-- Vendor CSS -->
        
         <link href="<?php echo url::base(); ?>assets/vendors/bootgrid/jquery.bootgrid.min.css" rel="stylesheet">
@@ -24,7 +40,16 @@
         <link href="<?php echo url::base(); ?>assets/css/app.min.2.css" rel="stylesheet">
         
 
-        
+        <style>
+            .display-block {
+                display: block;
+            }
+
+            .display-none {
+                display: none;
+            }
+        </style>
+
     </head>
     <body>
         <header id="header">
@@ -51,9 +76,9 @@
                             <label for="tw-switch" class="ts-helper"></label>
                         </div>
                     </li>
-                    <li id="top-search">
+                    <!-- <li id="top-search">
                         <a class="tm-search" href="#"></a>
-                    </li>
+                    </li> 
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="tm-message" href="#"><i class="tmn-counts">6</i></a>
                         <div class="dropdown-menu dropdown-menu-lg pull-right">
@@ -122,6 +147,7 @@
                             </div>
                         </div>
                     </li>
+                    -->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="tm-notification" href="#"><i class="tmn-counts">9</i></a>
                         <div class="dropdown-menu dropdown-menu-lg pull-right">
@@ -322,23 +348,23 @@
                     </div>
 
                     <ul class="main-menu">
-                        <li class="active"><a href="<?php echo url::base(); ?>dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a></li>
-                        <li class="sub-menu">
+                        <li class="<?php echo $uriClass->dashboard; ?>"><a href="<?php echo url::base(); ?>dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a></li>
+                        <li class="sub-menu <?php echo $uriClass->districts['toggled'];?> <?php echo $uriClass->districts['active']?>">
                             <a href="#"><i class="zmdi zmdi-pin-drop"></i> Districts</a>
 
                             <ul>
                                 <li><a href="#" data-toggle="modal" data-target="#addDistrictModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>districts">List</a></li>
+                                <li><a class="<?php echo $uriClass->districts['active']?>" href="<?php echo url::base(); ?>districts">List</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
 
-                        <li class="sub-menu">
+                        <li class="sub-menu <?php echo $uriClass->offices['toggled'];?> <?php echo $uriClass->offices['active']?>">
                             <a href="#"><i class="zmdi zmdi-case"></i> Offices</a>
 
                             <ul>
                                 <li><a href="#" data-toggle="modal" data-target="#addOfficeModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>offices">List</a></li>
+                                <li><a class="<?php echo $uriClass->offices['active']?>" href="<?php echo url::base(); ?>offices">List</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
@@ -353,12 +379,12 @@
                             </ul>
                         </li>
 
-                        <li class="sub-menu">
+                        <li class="sub-menu <?php echo $uriClass->categories['toggled']; ?>">
                             <a href="#"><i class="zmdi zmdi-format-list-numbered"></i> Categories</a>
 
-                            <ul>
+                            <ul class="<?php echo $uriClass->categories['display-block']; ?>">
                                 <li><a href="#" data-toggle="modal" data-target="#addCategoryModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>categories">List</a></li>
+                                <li><a class="<?php echo $uriClass->categories['active']; ?>" href="<?php echo url::base(); ?>categories">List</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
@@ -398,9 +424,9 @@
                             <a href="#"><i class="zmdi zmdi-money-box"></i>Transactions</a>
                             <ul>
                                 <li><a href="#" data-toggle="modal" data-target="#addTransactionModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>transactions">All</a></li>
+                                <li><a href="<?php echo url::base(); ?>all-transactions">All</a></li>
                                 <li><a href="<?php echo url::base(); ?>all-partial-transactions">Partials</a></li>
-                                <li><a href="<?php echo url::base(); ?>transactions">Paid</a></li>
+                                <li><a href="<?php echo url::base(); ?>all-paid-transactions">Paid</a></li>
                                 <li><a href="#">Reports</a></li>
                             </ul>
                         </li>
@@ -615,7 +641,7 @@
     
 
         <footer id="footer">
-            Copyright &copy; 2015 <a href="#todo">Design Interactive</a> Inventory System 
+            Copyright &copy; 2015 <a href="<?php echo url::base(); ?>dashboard">Design Interactive</a> Inventory System 
             
             <!-- <ul class="f-menu">
                 <li><a href="#">Home</a></li>

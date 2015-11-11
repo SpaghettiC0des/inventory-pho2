@@ -1,0 +1,63 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+use Carbon\Carbon;
+
+class Dashboard_Controller extends Template_Controller {
+
+    const ALLOW_PRODUCTION = FALSE;
+
+    public $template = 'templates/_main_template';
+
+    public function __construct(){
+        parent::__construct();
+
+        $this->auth = new Auth;
+        $this->cache = Cache::instance();
+        $this->session = Session::instance();
+
+        if (!$this->auth->logged_in()){
+            $this->session->set("requested_url","/".url::current()); // this will redirect from the login page back to this page/
+            url::redirect('/auth');
+        }
+        
+        $settings = json_decode($this->setting_model->find(1)->configs);
+        $this->template->settings = $settings;
+		
+		$this->user_info = json_decode($this->auth->get_user()->user_information);
+		$this->contact_info = json_decode($this->auth->get_user()->contact_information);
+		$this->profile_info = json_decode($this->auth->get_user()->user_avatar);
+		//print_r($this->auth->get_user()->user_information);exit;
+	
+
+        $this->current_role = $this->auth->get_user()->roles[1]->name;
+		
+		if(!empty($this->user_info->fullname)){
+			$this->user_log = $this->user_info->fullname;
+			}else{
+			$this->user_log = "User";
+			}
+		
+		
+    }
+
+    public function index(){
+        $post = array(
+            'username' => 'user1',
+            'email' => 'user@1.com',
+            'password' => 'user1'
+        );
+        #echo Kohana::Debug($post);
+        #die();
+        $view = new View('dashboard/index');
+	log_helper::add("2",$this->user_log,$this->auth->get_user()->id,"Access the System.");
+        $this->template->content = $view;
+		
+    }
+
+    public function logout(){
+        $this->auth->logout();
+        $this->session->destroy("requested_url");
+		log_helper::add("2",$this->user_log,$this->auth->get_user()->id,"Logged Out from the System.");
+        url::redirect('/auth');
+    }
+}

@@ -1,13 +1,19 @@
-     <div class="timeline">
-	 <?php foreach ($logs as $log ){?>
-                                <div class="t-view" data-tv-type="text">
+	 <div class="timeline">
+	 <div class="postedLogs">
+	 <?php foreach ($logs as $log ){ $profile_info = json_decode($log->user_avatar);?>
+		
+                                <div class="t-view postedlog" data-tv-type="text" id= "<?php echo $log->id?>">
                                     <div class="tv-header media">
-                                      <!--  <a href="#" class="tvh-user pull-left">
-                                            <img class="img-responsive" src="img/profile-pics/profile-pic-2.jpg" alt="">
-                                        </a> -->
+                                        <a href="#" class="tvh-user pull-left">
+                                            <img class="img-responsive" src="<?php if(!empty($profile_info->location)){
+												echo $profile_info->location;
+												}else{ echo "assets/uploads/blankpic.png"; }?>" alt="">
+                                        </a>
                                         <div class="media-body p-t-5">
                                             <strong class="d-block"><?php echo ucwords($log->user)?></strong>
-                                            <small class="c-gray"><?php echo date("F j, Y h:i:sa",strtotime($log->date_added))?></small>
+                                            <small class="c-gray"><?php echo date("F j, Y h:i:sa",strtotime($log->date_added));?></small>
+                                            <br /><br />
+                                            <p><?php echo $log->action?></p>
                                         </div>
                                         
                                       <!--  <ul class="actions m-t-20 hidden-xs">
@@ -28,7 +34,7 @@
                                         </ul>-->
                                     </div>
                                     <div class="tv-body">
-                                        <p><?php echo $log->action?></p>
+                                        <!-- <p><?#php echo $log->action?></p> -->
       
                                     
                                       <!--  <div class="clearfix"></div>
@@ -95,11 +101,12 @@
                                     </div> -->
                                 </div>
                                 <?php }?>
+								</div>
                             <!--    <div class="t-view" data-tv-type="image">
                                     <div class="tv-header media">
                                         <a href="#" class="tvh-user pull-left">
                                             <img class="img-responsive" src="img/profile-pics/profile-pic-2.jpg" alt="">
-                                        </a>
+											</a>
                                         <div class="media-body p-t-5">
                                             <strong class="d-block">Malinda Hollaway</strong>
                                             <small class="c-gray">April 05, 2014 at 11:00</small>
@@ -376,6 +383,6 @@
                                 <div class="clearfix"></div>
                             
                                 <div class="load-more">
-                                    <a href="#"><i class="zmdi zmdi-refresh-alt"></i> Load More...</a>
+                                    <a href="javascript:void(0)" id="load_more"><i class="zmdi zmdi-refresh-alt" ></i> Load More...</a>
                                 </div>
                             </div>

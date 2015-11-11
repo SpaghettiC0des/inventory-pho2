@@ -1,0 +1,49 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.');
+
+class Logs_Controller extends Dashboard_Controller {
+
+    const ALLOW_PRODUCTION = FALSE;
+
+    public function index(){
+		$index = new View('logs/index');
+		$limit = 5;
+		$index->logs = $this->log_model->orderby('id','DESC')->find_all($limit);
+        $this->template->content = $index;
+    }
+	
+	public function load_more_logs(){
+		if( request::is_ajax() && request::method() === 'post'){
+			$this->auto_render = FALSE;
+			$id = $this->input->post("id");
+			$logs = $this->log_model->get_more_logs($id);
+			//return $logs;
+			$html = "";
+			foreach($logs as $log){
+			echo	"<div class=\"t-view postedlog\" data-tv-type=\"text\" id= \"$log->id\">
+                 <div class=\"tv-header media\">
+									
+				 <div class=\"media-body p-t-5\">
+				<strong class=\"d-block\">".ucwords($log->user)."</strong>
+				<small class=\"c-gray\">".date("F j, Y h:i:sa",strtotime($log->date_added))."</small>
+				</div>
+				
+				</div>
+                <div class=\"tv-body\">
+                <p>$log->action</p>
+				  </div>
+				  </div>";
+				
+				}
+			
+			}
+		}
+
+    public function save(){
+    	if( request::is_ajax() && request::method() === 'post') {
+    		$this->auto_render = FALSE;
+    		$post = security::xss_clean( $this->input->post() );
+    		$latest = json_helper::convert( $this->district_model->insert( $post ) );
+            echo json_encode( $latest );
+    	}
+    }
+}

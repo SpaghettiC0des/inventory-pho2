@@ -4,7 +4,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h2>All Transactions</h2>
+        <h2><?php echo $header; ?></h2>
 
         <ul class="actions">
             <li class="dropdown action-show">
