@@ -1,0 +1,90 @@
+(function(w, j, ko) {
+	"use strict";
+	var x = w.INVENTO.XHR,
+		officeVM = {
+			district_id: ko.observable(),
+			name: ko.observable(),
+
+			updateID: ko.observable(),
+		},
+		oVM = officeVM;
+
+	oVM.edit = function(_id) {
+		oVM.updateID(_id);
+		var office = ko.utils.arrayFilter(w.INVENTO.VM.dataObjects.allOffices(), function(office) {
+			return _id == office.id;
+		});
+
+		oVM.district_id(office[0].district_id);
+		oVM.name(office[0].name);
+		$("#editOfficeModal").modal("show");
+	};
+
+	oVM.deleteOffice = function(_id) {
+		swal({
+			title: "Are you sure?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete it!",
+			cancelButtonText: "Cancel",
+			closeOnConfirm: false,
+			closeOnCancel: true
+		}, function(isConfirm) {
+			if (isConfirm) {
+				x.post("offices/delete/"+ _id).done(function(res){
+				    if (res) {
+				        swal({
+				        	title: "Office Deleted!",  
+				        	type: "success", 
+				        	timer: 1500, 	
+				        });  
+				    }
+
+				}).fail(function(){
+				    w.notif("Whoops! Something went wrong.", "error");
+				});
+
+				
+			}
+		});
+	};
+	oVM.handleSubmit = function() {
+		var data = ko.toJS(oVM);
+		delete data.edit;
+		delete data.deleteOffice;
+		delete data.updateID;
+		delete data.handleSubmit;
+		delete data.handleUpdate;
+
+		x.post("offices/save", data).done(function(res) {
+			oVM.name(undefined);
+
+			w.notif("New Office added!", "success");
+		}).fail(function() {
+			w.notif("Whoops! Something went wrong.", "danger");
+		});
+	};
+
+	oVM.handleUpdate = function() {
+		var data = ko.toJS(oVM);
+		delete data.edit;
+		delete data.deleteOffice;
+		delete data.updateID;
+		delete data.handleSubmit;
+		delete data.handleUpdate;
+
+		x.post("offices/update/" + oVM.updateID(), data).done(function(res){
+		    if (res) {
+		    	$("#editOfficeModal").modal("hide");
+		       	swal("Office updated!","","success");
+		    }
+		    
+		}).fail(function(){
+		    w.notif("Whoops! Something went wrong.", "error");
+		});
+
+
+	};
+	w.INVENTO.VM.officeVM = oVM;
+}(window, jQuery, ko));

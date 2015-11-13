@@ -6,10 +6,10 @@
 			return $.post( _base + url, data );
 		},
 		get : function ( url) {
-			return $.get( url );
+			return $.get( _base + url );
 		},
 		getJ : function ( url) {
-			return $.getJSON( url );
+			return $.getJSON( _base + url );
 		},
 	};
 

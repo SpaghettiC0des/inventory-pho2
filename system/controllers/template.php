@@ -28,22 +28,7 @@ abstract class Template_Controller extends Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->user_model = ORM::factory('user');
-		$this->supplier_model = ORM::factory('supplier');
-		$this->category_model = ORM::factory('category');
-		$this->item_model = ORM::factory('item');
-		$this->item_stock_model = ORM::factory('item_stock');
-
-		$this->district_model = ORM::factory('district');
-		$this->office_model = ORM::factory('office');
-		$this->budget_model = ORM::factory('office_budget');
-
-		$this->purchase_model = ORM::factory('purchase');
-		$this->request_model = ORM::factory('request');
-		$this->transaction_model = ORM::factory('transaction');
-		$this->setting_model = ORM::factory('setting');
-		$this->log_model = ORM::factory('log');
-		//$this->user_model = ORM::factory('user');
+		
 		// Load the template
 		$this->template = new View($this->template);
 

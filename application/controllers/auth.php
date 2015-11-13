@@ -15,10 +15,16 @@ class Auth_Controller extends Template_Controller {
         $this->session = Session::instance();
         $this->cache = Cache::instance();
         $this->auth = new Auth;
-
+       
         if ($this->auth->logged_in()){
+            $this->role = $this->auth->get_user()->roles[1]->name;
+            if(isset($this->role)){
+                if($this->role == 'admin'){
+                    url::redirect('/dashboard');
+                }
+            }
             #$this->session->set("requested_url","/".url::current()); // this will redirect from the login page back to this page/
-            url::redirect('/dashboard');
+           
         }
     }
 
@@ -44,10 +50,18 @@ class Auth_Controller extends Template_Controller {
                     $remember = TRUE;
                 }
                 if($this->auth->login( $credentials['username'], $credentials['password'], $remember )){
-                    if( isset($requested_url )){
-                        url::redirect( $requested_url );
+                    
+                    $role = $this->auth->get_user()->roles[1]->name;
+                    if($role === 'admin'){
+                        
+                        if( isset($requested_url )){
+                            return url::redirect( $requested_url );
+                        }
+                        return url::redirect('/dashboard');
+                    }else{
+                        return url::redirect('/office/dashboard');
                     }
-                    url::redirect('/dashboard');
+                    
 
                 }else{
                     $this->session->set_flash('error','Username/Password incorrect.');

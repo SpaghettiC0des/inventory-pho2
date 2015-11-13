@@ -1,0 +1,33 @@
+<div class="card animated fadeIn">
+    <div class="card-header">
+        <h2>Reports <h2>
+    </div>
+    
+                        <div class="card-body card-padding">
+                            <div role="tabpanel">
+                                <ul class="tab-nav" role="tablist">
+                                    <li class="active"><a href="#purchases" aria-controls="purchases" role="tab" data-toggle="tab">Purchases</a></li>
+                                    <li><a href="#profile11" aria-controls="profile11" role="tab" data-toggle="tab">Profile</a></li>
+                                    <li><a href="#messages11" aria-controls="messages11" role="tab" data-toggle="tab">Messages</a></li>
+                                    <li><a href="#settings11" aria-controls="settings11" role="tab" data-toggle="tab">Settings</a></li>
+                                </ul>
+                              
+                                <div class="tab-content" data-bind="with: reportVM">
+                                    <div role="tabpanel" class="tab-pane active" id="purchases" >
+                                  		<canvas id="lineChart" width="890" height="450"></canvas>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="profile11">
+                                        <p>2</p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="messages11">
+                                        <p>3</p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="settings11">
+                                        <p>4</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+            
+</div>

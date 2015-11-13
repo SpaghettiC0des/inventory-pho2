@@ -316,152 +316,14 @@
         </header>
         
         <section id="main">
-            <aside id="sidebar">
-                <div class="sidebar-inner c-overflow">
-                    <div class="profile-menu">
-                        <a href="#">
-                            <div class="profile-pic">
-                                <img src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
-                            </div>
+            <?php 
+            if($this->current_role == 'admin'){
+                require Kohana::find_file('views/partials/admin','admin_sidebar');
+            } else {
+                require Kohana::find_file('views/partials/office','office_sidebar');
+            }
 
-                            <div class="profile-info">
-                               <!--  Ritchie Prades -->
-                                <?php echo $this->auth->get_user()->username; ?>
-                                <i class="zmdi zmdi-arrow-drop-down"></i>
-                            </div>
-                        </a>
-
-                        <ul class="main-menu">
-                            <li>
-                                <a href="<?php echo url::base().'profile'?>"><i class="zmdi zmdi-account"></i> View Profile</a>
-                            </li>
-                            <!-- <li>
-                                <a href="#"><i class="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
-                            </li> -->
-                            <li>
-                                <a href="#"><i class="zmdi zmdi-settings"></i> Settings</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo url::base().'dashboard/logout'; ?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <ul class="main-menu">
-                        <li class="<?php echo $uriClass->dashboard; ?>"><a href="<?php echo url::base(); ?>dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a></li>
-                        <li class="sub-menu <?php echo $uriClass->districts['toggled'];?> <?php echo $uriClass->districts['active']?>">
-                            <a href="#"><i class="zmdi zmdi-pin-drop"></i> Districts</a>
-
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addDistrictModal">Add</a></li>
-                                <li><a class="<?php echo $uriClass->districts['active']?>" href="<?php echo url::base(); ?>districts">List</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu <?php echo $uriClass->offices['toggled'];?> <?php echo $uriClass->offices['active']?>">
-                            <a href="#"><i class="zmdi zmdi-case"></i> Offices</a>
-
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addOfficeModal">Add</a></li>
-                                <li><a class="<?php echo $uriClass->offices['active']?>" href="<?php echo url::base(); ?>offices">List</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-money"></i> Office Budgets</a>
-
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addOfficeBudgetModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>office_budgets">List</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu <?php echo $uriClass->categories['toggled']; ?>">
-                            <a href="#"><i class="zmdi zmdi-format-list-numbered"></i> Categories</a>
-
-                            <ul class="<?php echo $uriClass->categories['display-block']; ?>">
-                                <li><a href="#" data-toggle="modal" data-target="#addCategoryModal">Add</a></li>
-                                <li><a class="<?php echo $uriClass->categories['active']; ?>" href="<?php echo url::base(); ?>categories">List</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-truck"></i> Suppliers</a>
-
-                           <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addSupplierModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>suppliers">List</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi zmdi-dropbox"></i> Items</a>
-
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addItemModal">Add</a></li>
-                                <li><a href="<?php echo url::site(); ?>all-items">All Items</a></li>
-                                <li><a href="<?php echo url::site(); ?>all-on-stock">On Stock</a></li>
-                                <li><a href="<?php echo url::site(); ?>all-out-of-stock">Out of Stock</a></li>
-                                <li><a href="<?php echo url::site(); ?>all-expired">Expired</a></li>
-                                <li><a href="<?php echo url::site(); ?>items">Reports</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-shopping-cart-plus"></i>Purchases</a>
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addPurchaseModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>purchases">List</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-money-box"></i>Transactions</a>
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addTransactionModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>all-transactions">All</a></li>
-                                <li><a href="<?php echo url::base(); ?>all-partial-transactions">Partials</a></li>
-                                <li><a href="<?php echo url::base(); ?>all-paid-transactions">Paid</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-mail-send"></i>Requests</a>
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addRequestModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>requests">List</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-accounts-alt"></i>Users</a>
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addUserModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>categories">List</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="#"><i class="zmdi zmdi-chart"></i>Reports</a>
-                            <ul>
-                                <li><a href="#" data-toggle="modal" data-target="#addItemModal">Add</a></li>
-                                <li><a href="<?php echo url::base(); ?>categories">List</a></li>
-                                <li><a href="#">Reports</a></li>
-								<li><a href="<?php echo url::base(); ?>logs">System Logs</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" data-toggle="modal" data-target="#editSettingsModal"><i class="zmdi zmdi-settings"></i>System Settings</a>
-                            
-                        </li>
-                    </ul>
-                </div>
-            </aside>
+            ?>
             
             <aside id="chat">
                 <ul class="tab-nav tn-justified" role="tablist">
@@ -630,7 +492,12 @@
                     
                         <?php 
                             echo $content; 
-                            require Kohana::find_file('views/partials','modals');
+                            if($this->current_role == 'admin'){
+                                require Kohana::find_file('views/partials/admin','modals');
+
+                            }else if($this->current_role == 'office_user'){
+                                require Kohana::find_file('views/partials/office','modals');
+                            }
                         ?>   
                     
                 </div>
@@ -701,7 +568,7 @@
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/js/jquery.dataTables.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/js/dataTables.bootstrap.min.js"></script>
-
+        <script src="<?php echo url::base(); ?>assets/js/plugins/knockout.chart/libs/chart.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/libs/ko.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/flot/jquery.flot.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/flot/jquery.flot.resize.js"></script>
@@ -729,26 +596,35 @@
         <script src="<?php echo url::base(); ?>assets/js/demo.js"></script>
 
         <script src="<?php echo url::base(); ?>assets/vendors/bootgrid/jquery.bootgrid.min.js"></script>
-        
-        <!-- Knockout ViewModels -->
+       
+        <script src="<?php echo url::base(); ?>assets/js/plugins/knockout.chart/src/knockout.chart.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/customBindings.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/settings.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/xhr.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/allDataObjects.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/categoryVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/itemVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/districtVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/officeVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/supplierVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/profileVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/settingVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/purchaseVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/userVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/requestVM.js"></script>         
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/officeBudgetVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/transactionVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/masterVM.js"></script>
+        
+        <?php  if($this->current_role == 'admin'){?>
+        <!-- Knockout ViewModels for ADMIN-->
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/allDataObjects.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/categoryVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/itemVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/districtVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/officeVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/supplierVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/profileVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/settingVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/purchaseVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/userVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/requestVM.js"></script>         
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/officeBudgetVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/transactionVM.js"></script>
+        <script src="assets/js/app/view-models/admin/reportVM.js"></script>
+        <?php } else if ($this->current_role == 'office_user'){?>
+        <!-- Knockout ViewModels for OFFICE USER -->
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/allDataObjects.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/requestVM.js"></script>
+        <?php } ?>
 
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/masterVM.js"></script>
     </body>
   
 </html>
