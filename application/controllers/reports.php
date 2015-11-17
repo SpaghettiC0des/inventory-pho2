@@ -41,15 +41,18 @@ class Reports_Controller extends Dashboard_Controller {
 	
 	public function get_purchases()
 	{
-		  if(request::is_ajax() && request::method() === 'get'){
+		  if(request::is_ajax() && request::method() === 'post'){
             $this->auto_render = FALSE;
 			$more_total = array();
 			$more_supp_name = array();
-
+			 $post = security::xss_clean($this->input->post());
+			 $monthFrom = date("n",strtotime($post['monthFrom']));
+			 $monthTo = date("n",strtotime($post['monthTo']));
+			 $year = $post['year'];
 			$suppliers = $this->supplier_model->find_all();
 
 			foreach($suppliers as $supplier){
-			    $purchaseData = $this->purchase_model->where('supplier_id',$supplier->id)->find_all();
+   $purchaseData = $this->purchase_model->get_sum_purchases($monthFrom,$monthTo,$year,$supplier->id);
 			    $total = 0;
 			foreach($purchaseData as $purchases){
 				$total += $purchases->grand_total;

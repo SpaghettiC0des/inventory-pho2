@@ -17,6 +17,6 @@ class Request_Model extends ORM {
     }
 
     public function getReferenceNumbers(){
-        return $this->db->select('id as request_id, office_id, reference_no, grand_total')->from('requests')->get()->result_array();
+        return $this->db->select('id as request_id, office_id, reference_no, grand_total')->from('requests')->where('grand_total >',0)->get()->result_array();
     }
 }

@@ -34,12 +34,16 @@ class Transactions_Controller extends Dashboard_Controller {
             foreach ($post as $key => $value) {
                 $this->transaction_model->$key = $value;
             }
-		    log_helper::add("1",$this->user_log,$this->user_id,"Added New Transaction.");
-            
+            $budget = $this->budget_model->where('office_id',$post['office_id'])->find();
+            $budget_left = (float)$budget->amount_left - (float)$post['amount_paid'];
+           
+            $this->budget_model->updateBudget($post['office_id'], $budget_left);
+
             $request = $this->request_model->find($request_id);
             $request->grand_total = $post['amount_left'];
             $request->save();
 
+            log_helper::add("1",$this->user_log,$this->user_id,"Added New Transaction.");
             echo $this->transaction_model->save();
         }
     }

@@ -494,7 +494,6 @@
                             echo $content; 
                             if($this->current_role == 'admin'){
                                 require Kohana::find_file('views/partials/admin','modals');
-
                             }else if($this->current_role == 'office_user'){
                                 require Kohana::find_file('views/partials/office','modals');
                             }
@@ -617,10 +616,12 @@
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/requestVM.js"></script>         
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/officeBudgetVM.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/transactionVM.js"></script>
-        <script src="assets/js/app/view-models/admin/reportVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/reportVM.js"></script>
+        
         <?php } else if ($this->current_role == 'office_user'){?>
         <!-- Knockout ViewModels for OFFICE USER -->
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/allDataObjects.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/budgetRequestVM.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/requestVM.js"></script>
         <?php } ?>
 

@@ -9,6 +9,19 @@ class Requests_Controller extends Dashboard_Controller {
         $index->requests  = $this->request_model->with('office')->find_all();
         $this->template->content = $index;
     }
+    public function requestBudget(){
+        if(request::is_ajax() && request::method() === 'post'){
+           $this->auto_render = FALSE;
+
+           $post = security::xss_clean($this->input->post());
+           $post['office_id'] = 1;
+           $request = $this->request_model;
+           // foreach ($post as $key => $value) {
+           //     $request->$key = $value;
+           // }
+           echo json_encode($post);
+       }
+    }
 
     public function getBudget($office_id){
         if(request::is_ajax() && request::method() === 'post'){
@@ -31,11 +44,12 @@ class Requests_Controller extends Dashboard_Controller {
         if(request::is_ajax() && request::method() === 'post'){
             $this->auto_render = FALSE;
             $post = security::xss_clean( $this->input->post() );
-
+            $officeBudget = arr::remove('currentBudget',$post);
             if($post['status'] == 'Approved'){
-                echo (float)$post['grand_total'];
+                $this->budget_model->updateBudget($post['office_id'], $officeBudget);
+                echo $this->request_model->insert( $post );
             }
-            // $this->request_model->insert( $post );
+            $this->request_model->insert( $post );
         }
     }
 }

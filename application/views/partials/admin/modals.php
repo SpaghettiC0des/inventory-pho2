@@ -817,7 +817,6 @@
                             <label for="transaction-date" class="control-label">Date</label>
                             <input data-bind = "dateTimePicker: date" type="text" class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder="0000-00-00 00:00">
                         </div>
-                        
                     </div>
 
                     <div class="form-group">
@@ -874,17 +873,21 @@
                     
                     <div class="form-group">
                         <div class="col-md-4">
-                            <label for="purchase-date" class="control-label">Date</label>
+                            <label for="request-date" class="control-label">Date</label>
                             <input data-bind = "dateTimePicker : datetime, 
                                 dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
                                     class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm" required>
                         </div>
-                        
+
                     </div>
                     <div class="form-group">
+                        <div class="col-md-6">
+                            <label for="request-ref-no" class="control-label">Reference Number</label>
+                            <input data-bind = "textInput: reference_no" type="text" class="form-control input-mask" data-mask="A0-000-0000" placeholder="A0-000-0000">                            
+                        </div>
                         <div class="col-md-4">
-                            <label for="purchase-status" class="control-label">Status</label>
-                            <select data-bind = "value: status" name="purchase-status" id="purchase-status" class="selectpicker">
+                            <label for="request-status" class="control-label">Status</label>
+                            <select data-bind = "value: status" name="request-status" id="request-status" class="selectpicker">
                                 <option value="Received">Received</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Approved">Approved</option>
@@ -1067,7 +1070,10 @@
                     <div class="form-group">
                         <div class="col-md-5">
                             <label for="user-role">Role</label>
-                            <select name="user-rol" id="user-role" class="selectpicker"></select required>
+                            <select data-bind="value: role" name="user-role" id="user-role" class="selectpicker">
+                                <option value="2">Admin</option>
+                                <option value="3">Office User</option>
+                            </select required>
                         </div>
                     </div>
 
@@ -1096,7 +1102,7 @@
                             <div class="fg-line">
                                 <label for="user-password" class="control-label">Password</label>
                                 <input data-bind = "textInput: password,attr:{ type: pwdViewToggle }" id="user-password" 
-                                    name="user-password" class="form-control" placeholder="New user Pasword" required>      
+                                    name="user-password" class="form-control" maxlength="13" placeholder="New user Pasword" required>      
                             </div>
                             <small data-bind = "text: errorMsg" class="help-block"></small>
 
@@ -1107,13 +1113,22 @@
                             <div class="toggle-switch" data-ts-color="blue" data-toggle="tooltip" data-placement="top" 
                                 title="Show password">
 
-                               <label for="ts2" class="ts-label"></label>
-                               <input data-bind = "checked: pwdView" id="ts2" type="checkbox"  hidden="hidden">
-                               <label for="ts2" class="ts-helper"></label>
+                               <label for="user-show-password" class="ts-label"></label>
+                               <input data-bind = "checked: pwdView" id="user-show-password" type="checkbox"  hidden="hidden">
+                               <label for="user-show-password" class="ts-helper"></label>
                            </div>
                         </div>
                     </div>
                     
+                    <div data-bind="css: passwordMismatched,style: {display: hasPassword}" class="form-group">
+                        <div class="col-md-12">
+                            <div class="fg-line">
+                                <label for="user-password-retype" class="control-label">Re-type Password</label>
+                                <input data-bind="textInput: password_retype" name="user-password-retype" id="user-password-retype" type="password" class="form-control">
+                            </div>
+                            <small data-bind = "text: pwedCheckMsg" class="help-block"></small>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>

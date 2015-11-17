@@ -49,6 +49,7 @@ abstract class Controller_Core {
 		$this->transaction_model = ORM::factory('transaction');
 		$this->setting_model = ORM::factory('setting');
 		$this->log_model = ORM::factory('log');
+		
 		//$this->user_model = ORM::factory('user');
 	}
 

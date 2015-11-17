@@ -59,6 +59,8 @@
 		var data = {
 			reference_no: pVM.reference_no(),
 			datetime: moment(pVM.datetime()).format('YYYY-MM-DD hh:mm'),
+			year: moment(pVM.datetime()).format('YYYY'),
+			month: moment(pVM.datetime()).format('MM'),
 			supplier_id: pVM.supplier_id(),
 			items: _items,
 			grand_total: pVM.grandTotal(),

@@ -39,10 +39,10 @@
                         </div> -->
                         <div class="col-md-6">
                             <label for="request-office-budget" class="control-label">Budget</label>
-                            <input data-bind = "value: budget" type="number" class="form-control" disabled="">
+                            <input data-bind = "value: budget" type="number" class="form-control" readonly="">
                         </div>
                     </div>
-                    <div data-bind = "style: canAdd">
+                    <div>
                         <div class="form-group">
                             <div class="col-md-12">
                                 <label for="request-item" class="control-label">Items</label>
@@ -93,6 +93,40 @@
                                 </tbody>
                             </table>
                         </div>   
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Budget Request Modal -->
+<div data-bind = "with : budgetRequestVM" class="modal fade" id="addBudgetRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Budget Request</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label for="budget-request-year" class="control-label">Year</label>
+                            <input data-bind = "dateTimePicker : year, 
+                                dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
+                                    class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="control-label">Request Amount (Php)</label>
+                            <input data-bind="textInput: amount" type="number" class="form-control text-center">
+                        </div> 
                     </div>
                     
                 </div>

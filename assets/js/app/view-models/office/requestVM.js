@@ -18,13 +18,13 @@
     var x = w.INVENTO.XHR,
         requestVM = {
             datetime: ko.observable(),
-            office_id: ko.observable(),
             selected_item: ko.observable(),
             items: ko.observableArray([]),
             status: ko.observable(),
             lastItemAdded: ko.observable(),
-            budget: ko.observable(0.00),
 
+            budget: ko.observable(),
+            hasBudget: ko.observable(true),
             requestData: ko.observableArray([]),
         },
         rVM = requestVM;
@@ -33,51 +33,6 @@
         return "REF NO. " + d.reference_no + " " + d.item_name + " (" + d.code + ")";
     };
 
-    rVM.office_id.subscribe(function() {
-        x.post("requests/getBudget/" + rVM.office_id()).done(function(res) {
-            var res = JSON.parse(res);
-            if (res.length) {
-                rVM.budget(res[0].amount_given);
-                localStorage.setItem("budget", res[0].amount_given);
-            } else {
-                rVM.budget(0.00);
-                rVM.office_id(undefined);
-                $("#addRequestModal").modal("hide");
-                swal({
-                    title: "Add budget for this office?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes",
-                    cancelButtonText: "Not yet",
-                    closeOnConfirm: true,
-                    closeOnCancel: true
-                }, function(isConfirm) {
-                    if (isConfirm) {
-                        w.INVENTO.VM.officeBudgetVM.office_id(rVM.office_id());
-                        $("#addOfficeBudgetModal").modal("show");
-
-                    }
-                });
-            }
-
-        }).fail(function() {
-            w.notif("Whoops! Something went wrong.", "error");
-        });
-    });
-
-    rVM.canAdd = ko.pureComputed(function() {
-        if (typeof this.office_id() === "undefined" && this.budget() === 0) {
-
-            return {
-                display: 'none'
-            };
-        } else {
-            return {
-                display: 'block'
-            };
-        }
-    }, rVM);
 
     rVM.selected_item.subscribe(function() {
         if (rVM.selected_item()) {

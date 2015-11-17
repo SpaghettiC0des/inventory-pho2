@@ -15,16 +15,20 @@ class Users_Controller extends Dashboard_Controller {
     public function save(){
         if(request::is_ajax() AND request::method() === 'post'){
             $this->auto_render = FALSE;
-            $post = $this->input->post();
+            $post = security::xss_clean($this->input->post());
 
-            $this->user_model->username = $post['username'];
-            $this->user_model->email = $post['email'];
-            $pass = $this->user_model->password = $post['password'];
-            echo $this->auth->hash($pass);
-            echo $this->auth->hash_password($pass);
-            die();
-            $this->user_model->add( ORM::factory('role', 'login') );
-            #$this->user_model->add( ORM::factory('role', 'admin') );
+            
+            // echo $this->auth->hash("admin").'<br />';
+            // echo $this->auth->hash_password("admin");
+            // die();
+            $role = arr::remove('role',$post);
+            foreach ($post as $key => $value) {
+                $this->user_model->$key = $value;
+            }
+            $this->user_model->add( ORM::factory('role', 'login'));
+            $this->user_model->add( ORM::factory('role', $role));
+            
+            
             $this->user_model->save();
 
         }

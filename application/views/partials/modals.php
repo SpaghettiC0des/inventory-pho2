@@ -874,17 +874,20 @@
                     
                     <div class="form-group">
                         <div class="col-md-4">
-                            <label for="purchase-date" class="control-label">Date</label>
+                            <label for="request-date" class="control-label">Date</label>
                             <input data-bind = "dateTimePicker : datetime, 
                                 dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
                                     class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm" required>
                         </div>
-                        
+                        <div class="col-md-4">
+                            <label for="request-ref-no" class="control-label">Reference No.</label>
+                            <input type="text" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-4">
-                            <label for="purchase-status" class="control-label">Status</label>
-                            <select data-bind = "value: status" name="purchase-status" id="purchase-status" class="selectpicker">
+                            <label for="request-status" class="control-label">Status</label>
+                            <select data-bind = "value: status" name="request-status" id="request-status" class="selectpicker">
                                 <option value="Received">Received</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Approved">Approved</option>

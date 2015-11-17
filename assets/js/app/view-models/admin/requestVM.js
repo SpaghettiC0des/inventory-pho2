@@ -21,6 +21,7 @@
             office_id: ko.observable(),
             selected_item: ko.observable(),
             items: ko.observableArray([]),
+            reference_no:ko.observable(),
             status: ko.observable(),
             lastItemAdded: ko.observable(),
             budget: ko.observable(0.00),
@@ -117,7 +118,9 @@
             office_id: rVM.office_id(),
             items: ko.toJSON(rVM.items()),
             status: rVM.status(),
+            reference_no: rVM.reference_no(),
             grand_total: rVM.grandTotal(),
+            currentBudget: rVM.budget(),
         };
 
         x.post("requests/save", data).done(function(res) {

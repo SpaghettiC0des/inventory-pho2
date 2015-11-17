@@ -4,6 +4,7 @@
         dataObjects = {
             // allSuppliers: ko.observableArray([]),
             // allCategories: ko.observableArray([]),
+            currentBudget: ko.observable(),
             allItems: ko.observableArray([]),
             // allDistricts: ko.observableArray([]),
             // allOffices: ko.observableArray([]),
@@ -16,6 +17,7 @@
         // DO.allSuppliers(res.suppliers);
         // DO.allCategories(res.categories);
         DO.allItems(res.items);
+        DO.currentBudget(res.budget);
         // DO.allDistricts(res.districts);
         // DO.allOffices(res.offices);
         DO.allReferenceNumbers(res.reference_numbers);

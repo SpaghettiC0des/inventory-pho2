@@ -16,5 +16,20 @@ class Purchase_Model extends ORM {
  	public function getPurchaseDetails($id){
  		return $this->db->from('vw_purchase_details')->where('purchase_id', $id)->get()->result_array();
  	}
+	
+	public function get_sum_purchases($monthFrom,$monthTo,$year,$supplier_id)
+	{
+	$query = "
+	 SELECT `purchases`.*
+	 FROM (`purchases`)
+	 WHERE month >= $monthFrom
+	 AND month <= $monthTo
+	 AND year = $year
+	 AND supplier_id = $supplier_id
+	";
+	//print_r($query);exit;
+		$result = $this->db->query($query);
+		return $result;
+	}
 
  }

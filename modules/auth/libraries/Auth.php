@@ -113,11 +113,11 @@ class Auth_Core {
 		if (is_string($password))
 		{
 			// Get the salt from the stored password
-			$salt = $this->find_salt($this->driver->password($password));
+			$salt = $this->find_salt($this->driver->password($username));
 
 			// Create a hashed password using the salt from the stored password
 			$password = $this->hash_password($password, $salt);
-
+			// echo $password; die();
 		}
 
 		return $this->driver->login($username, $password, $remember);

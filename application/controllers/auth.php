@@ -14,7 +14,7 @@ class Auth_Controller extends Template_Controller {
 
         $this->session = Session::instance();
         $this->cache = Cache::instance();
-        $this->auth = new Auth;
+        $this->auth = Auth::instance();
        
         if ($this->auth->logged_in()){
             $this->role = $this->auth->get_user()->roles[1]->name;

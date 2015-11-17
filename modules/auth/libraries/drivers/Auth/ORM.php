@@ -80,10 +80,13 @@ class Auth_ORM_Driver extends Auth_Driver {
 	 */
 	public function login($user, $password, $remember)
 	{
+
 		if ( ! is_object($user))
 		{
 			// Load the user
 			$user = ORM::factory('user', $user);
+			// echo $password.'<br />';
+			// echo $user->password;die();
 		}	
 
 		// If the passwords match, perform a login

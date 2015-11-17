@@ -15,4 +15,7 @@ class Office_Budget_Model extends ORM {
     public function getOne($office_id){
         return $this->db->getwhere('office_budgets', array('office_id'=>$office_id));
     }
+    public function updateBudget($office_id, $amount){
+        return $this->db->update('office_budgets', array('amount_left'=>$amount),array('office_id'=>$office_id));
+    }
 }

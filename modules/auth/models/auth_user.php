@@ -29,6 +29,7 @@ class Auth_User_Model extends ORM {
 	 */
 	public function validate(array & $array, $save = FALSE)
 	{
+		
 		$array = Validation::factory($array)
 			->pre_filter('trim')
 			->add_rules('email', 'required', 'length[4,127]', 'valid::email', array($this, 'email_available'))
@@ -49,6 +50,7 @@ class Auth_User_Model extends ORM {
 	 */
 	public function login(array & $array, $redirect = FALSE)
 	{
+		
 		$array = Validation::factory($array)
 			->pre_filter('trim')
 			->add_rules('username', 'required', 'length[4,127]')
