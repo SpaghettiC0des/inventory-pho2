@@ -2,10 +2,6 @@
 
 class Office_Dashboard_Controller extends Office_Base_Controller {
 
-    public function __construct(){
-        parent::__construct();
-    }
-    
     public function index() {
         $this->template->content = new View('office/dashboard/index');
     }

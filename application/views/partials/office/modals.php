@@ -11,32 +11,18 @@
                     
                     <div class="form-group">
                         <div class="col-md-4">
-                            <label for="purchase-date" class="control-label">Date</label>
+                            <label for="request-date" class="control-label">Date</label>
                             <input data-bind = "dateTimePicker : datetime, 
                                 dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
                                     class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm" required>
                         </div>
-                        
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-4">
-                            <label for="purchase-status" class="control-label">Status</label>
-                            <select data-bind = "value: status" name="purchase-status" id="purchase-status" class="selectpicker">
-                                <option value="Received">Received</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Approved">Approved</option>
-                            </select>
+                        <div class="col-md-8">
+                            <label for="request-ref-no" class="control-label">Reference Number</label>
+                            <input data-bind = "textInput: reference_no" type="text" class="form-control input-mask" data-mask="A0-000-0000" placeholder="A0-000-0000"> 
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <!-- <div class="col-md-6">
-                            <label for="request-office" class="control-label">Offices</label>
-                            <select data-bind="selectPicker: office_id, 
-                                 optionsText: 'name',optionsValue:'id', optionsCaption: 'Select Office',
-                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allOffices }" 
-                                        name="request-office" id="request-office" class="selectpicker" data-live-search="true">
-                             </select>   
-                        </div> -->
                         <div class="col-md-6">
                             <label for="request-office-budget" class="control-label">Budget</label>
                             <input data-bind = "value: budget" type="number" class="form-control" readonly="">

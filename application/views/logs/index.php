@@ -1,9 +1,14 @@
 	 <div class="timeline">
 	 <div class="postedLogs">
+	 <?php $current_date = false; ?>
 	 <?php foreach ($logs as $log ){ $profile_info = json_decode($log->user_avatar);
 		 $user_info = json_decode($log->user_information);?>
-		
                                 <div class="t-view postedlog" data-tv-type ="text" id= "<?php echo $log->id?>">
+						
+							<?php if(date("F d, Y",strtotime($log->current_date)) != $current_date){?>
+							 <?php $current_date = date("F d, Y",strtotime($log->current_date)); ?>
+								<span><h4><?php echo $current_date;?></h4></span>
+							<?php }?>
                                     <div class="tv-header media">
                                         <a href="#" class="tvh-user pull-left">
                                             <img class="img-responsive" src="<?php if(!empty($profile_info->location)){
@@ -12,7 +17,7 @@
                                         </a>
                                         <div class="media-body p-t-5">
                                             <strong class="d-block"><?php echo ucwords($user_info->fullname)?></strong>
-                                            <small class="c-gray"><?php echo date("F j, Y h:i:sa",strtotime($log->date_added));?></small>
+                        <small class="c-gray"><?php echo date("F j, Y h:i:sa",strtotime($log->date_added));?></small>
                                             <br /><br />
                                             <p><?php echo $log->action?></p>
                                         </div>
@@ -34,8 +39,8 @@
                                             </li> 
                                         </ul>-->
                                     </div>
-                                    <div class="tv-body">
-                                        <!-- <p><?#php echo $log->action?></p> -->
+                                   <!-- <div class="tv-body">
+                                         <p><?#php echo $log->action?></p> 
       
                                     
                                       <!--  <div class="clearfix"></div>
@@ -46,8 +51,8 @@
                                             <li class="tvbs-views">23K Views</li>
                                         </ul>
                                         
-                                        <a class="tvc-more" href="#"><i class="zmdi zmdi-mode-comment"></i> View all 54 Comments</a>-->
-                                    </div>
+                                        <a class="tvc-more" href="#"><i class="zmdi zmdi-mode-comment"></i> View all 54 Comments</a>
+                                    </div>-->
 									
 									
 									

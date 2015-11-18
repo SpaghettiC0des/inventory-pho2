@@ -70,7 +70,7 @@ class Profile_Controller extends Dashboard_Controller {
             $this->auto_render = FALSE;
 			
 		$client_id =	$this->auth->get_user()->id;
-		
+		print_r($_FILES['profile-image']);exit;
 		if (!empty($_FILES['profile-image']['name'])) {
 			$tempFile = $_FILES["profile-image"]["tmp_name"];
 			$filename = $_FILES["profile-image"]["name"];

@@ -82,7 +82,7 @@
             year: moment(obVM.year()).format('YYYY'),
             office_id: obVM.office_id(),
             amount_given: obVM.amount(),
-            amouny_left: obVM.amount(),
+            amount_left: obVM.amount(),
         };
 
         x.post("office_budgets/save", data).done(function(res) {

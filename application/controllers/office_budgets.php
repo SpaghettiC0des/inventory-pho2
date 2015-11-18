@@ -55,7 +55,9 @@ class Office_Budgets_Controller extends Dashboard_Controller {
     public function delete($id){
         if(request::is_ajax() AND request::method() === 'post'){
             $this->auto_render = FALSE;
-			log_helper::add("2",$this->user_log,$this->user_id,"Deleted a Office Budget.");
+			 $officeBudget = $this->budget_model->with('office')->find($id);
+		//	 print_r($officeBudget);exit;
+			log_helper::add("2",$this->user_log,$this->user_id,"Deleted a Office Budget for ".$officeBudget->office->name.".");
             echo $this->budget_model->delete($id);
         }
     }

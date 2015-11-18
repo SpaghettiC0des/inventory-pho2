@@ -35,7 +35,7 @@ ko.bindingHandlers.dateTimePicker = {
         //when the view model is updated, update the widget
         if (picker) {
             var koDate = ko.utils.unwrapObservable(valueAccessor());
-
+			
             //in case return from server datetime i am get in this form for example /Date(93989393)/ then fomat this
             if (typeof koDate !== "undefined") {
                 koDate = (typeof(koDate) !== 'object') ? new Date(parseFloat(koDate.replace(/[^0-9]/g, ''))) : koDate;
@@ -46,6 +46,7 @@ ko.bindingHandlers.dateTimePicker = {
         }
     }
 };
+
 
 
 /**
@@ -205,3 +206,12 @@ ko.bindingHandlers.dataTable = {
 
     }
 };
+
+
+ko.bindingHandlers.hidden = (function() {
+    function setVisibility(element, valueAccessor) {
+        var hidden = ko.unwrap(valueAccessor());
+        $(element).css('visibility', hidden ? 'hidden' : 'visible');
+    }
+    return { init: setVisibility, update: setVisibility };
+})();

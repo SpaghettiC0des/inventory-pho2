@@ -10,7 +10,8 @@ class log_helper_Core {
 			"user" => $username,
 			"level" =>$level,
 			"user_id" =>$user_id,
-			"action" => $action
+			"action" => $action,
+			"current_date" => date("Y-m-d")
 		);
 		
 		$log->insert($data);

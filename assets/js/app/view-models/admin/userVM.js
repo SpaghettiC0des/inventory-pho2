@@ -3,6 +3,7 @@
     var x = w.INVENTO.XHR,
         userVM = {
             role: ko.observable(),
+            office_id: ko.observable(),
             username: ko.observable(),
             email: ko.observable(),
             password: ko.observable(),
@@ -12,6 +13,16 @@
             pwedCheckMsg: ko.observable(),
         },
         uVM = userVM;
+
+    uVM.isOffice = ko.pureComputed(function() {
+        if (this.role() == 3) {
+            this.office_id(undefined);
+            return 'block';
+        } else {
+            this.office_id(undefined);
+            return 'none';
+        }
+    }, uVM);
 
     uVM.hasError = ko.pureComputed(function() {
         if (uVM.password()) {
@@ -51,7 +62,7 @@
 
             self.pwedCheckMsg('Password mismatched!');
             return 'has-error';
-        }else{
+        } else {
             self.pwedCheckMsg('');
             return '';
         }
@@ -60,13 +71,14 @@
     uVM.handleSubmit = function() {
         var data = {
             role: uVM.role(),
+            office_id: uVM.office_id(),
             username: uVM.username(),
             email: uVM.email(),
             password: uVM.password(),
         };
-
-        if (!uVM.hasError()) {
-            console.log(data);
+        
+        if (uVM.hasError()) {
+            return;
         }
 
         x.post("users/save", data).done(function(res) {

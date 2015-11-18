@@ -163,6 +163,7 @@
                                         </li>
                                     </ul>
                                 </div>
+								
                                 <div class="lv-body">
                                     <a class="lv-item" href="#">
                                         <div class="media">
@@ -574,6 +575,8 @@
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/sparklines/jquery.sparkline.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+		
+        <script src="<?php echo url::base(); ?>assets/js/plugins/knockout-file-bind.js"></script>
         
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/moment/min/moment.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>

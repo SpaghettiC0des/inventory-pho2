@@ -31,4 +31,8 @@ class Item_Model extends ORM {
     public function getAllExpired(){
         return $this->db->getwhere('vw_all_items', array('expiration_date <=' => date('Y-m-d')));
     }
+
+    public function getNewlyAdded(){
+        return $this->db->get('items');
+    }
 }

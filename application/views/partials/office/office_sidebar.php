@@ -7,7 +7,6 @@
                 </div>
 
                 <div class="profile-info">
-                   <!--  Ritchie Prades -->
                     <?php echo $this->auth->get_user()->username; ?>
                     <i class="zmdi zmdi-arrow-drop-down"></i>
                 </div>
@@ -34,13 +33,19 @@
                 <a href="#"><i class="zmdi zmdi-mail-send"></i>Requests</a>
                 <ul data-bind="with: requestVM">
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#addRequestModal">
-                            Request Items <span class="label label-warning">No budget assigned</span>
+                        <a data-bind="disable: !hasBudget" href="#" data-toggle="modal" data-target="#addRequestModal">
+                            Request Items <span data-bind="hidden: hasBudget" class="label label-warning">No budget assigned</span>
                         </a>
                     </li>
-                    <li><a data-bind="enable: hasBudget" href="#" data-toggle="modal" data-target="#addBudgetRequestModal">Request Budget</a></li>  
-                    <li><a href="<?php echo url::base(); ?>requests">List</a></li>
-                    <li><a href="#">Reports</a></li>
+                    <!-- ko ifnot: hasBudget -->
+                    <li>
+                        <a data-bind="disable: hasBudget" href="#" data-toggle="modal" data-target="#addBudgetRequestModal">
+                            Request Budget
+                        </a>
+                    </li>  
+                    <!-- /ko -->
+                    <li><a href="<?php echo url::base(); ?>office/requests">List</a></li>
+                    <li><a href="#">Reports</a></li>    
                 </ul>
             </li>
         </ul>

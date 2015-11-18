@@ -16,10 +16,11 @@ class Settings_Controller extends Dashboard_Controller {
         if(request::is_ajax() && request::method() == 'post'){
             $this->auto_render = FALSE;
            $client_id =	$this->auth->get_user()->id;
-		   
+		  $settings = json_decode($this->setting_model->find(1)->configs);
 			$site_address = $this->input->post('site-address',null,true);
 			$site_name = $this->input->post('site-name',null,true);
 			$site_currency = $this->input->post('site-currency',null,true);
+			$item_expiration = $this->input->post('item-expiration',null,true);
 			//print_r($site_address);exit;
 			
 		if (!empty($_FILES['site-favicon']['name'])) {
@@ -53,7 +54,8 @@ class Settings_Controller extends Dashboard_Controller {
 			"name" => $site_name,
 			"address" => $site_address,
 			"currency" => $site_currency_symbol,
-			"favicon" => $json
+			"favicon" => $json,
+			"item_expiration" => $item_expiration
 			);
 			
 			$data_json = json_encode($data,TRUE);

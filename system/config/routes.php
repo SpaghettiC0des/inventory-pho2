@@ -12,9 +12,10 @@ $config['_default'] = 'auth';
  * Items Routes
  */
 $config['all-items'] = 'items/index';
-$config['all-on-stock'] = 'items/on_stock';
-$config['all-out-of-stock'] = 'items/out_of_stock';
-$config['all-expired'] = 'items/expired';
+$config['newly-added-items'] = 'items/newly_added';
+$config['all-on-stock-items'] = 'items/on_stock';
+$config['all-out-of-stock-items'] = 'items/out_of_stock';
+$config['all-expired-items'] = 'items/expired';
 
 /**
  * Transaction Routes
@@ -26,5 +27,6 @@ $config['all-paid-transactions'] = 'transactions/allPaid';
 // ADMIN ROUTES: END
 
 // OFFICE ROUTES: START
-$config['office/dashboard'] = 'office_dashboard';
+$config['office/dashboard'] = 'office/office_dashboard';
+$config['office/requests'] = 'office/office_requests';
 // OFFICE ROUTES: END

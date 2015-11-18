@@ -21,21 +21,17 @@ class Ajax_Source_Controller extends Controller {
 
   public function office(){
     $auth = new Auth;
-    $office_id = $auth->get_user()->id;
+    $office_id = $auth->get_user()->office_id;
     $items = $this->item_model->getAllOnStock();
 
-    $budget_record = $this->budget_model->where('office_id',$office_id);
-    if($budget_record->count_all() > 0){
-      $budget = $budget_record->find()->as_array();
-    }else{
-      $budget = [];
-    }
+    $budget_record = $this->budget_model->getOne($office_id);
+    
     foreach ($items as $key => $value) {
         $arr[$key] = $value;
     }
     $items = $arr;
    
-    echo json_encode(compact('items','budget','id'));
+    echo json_encode(compact('items','budget_record'));
   }
 
 }

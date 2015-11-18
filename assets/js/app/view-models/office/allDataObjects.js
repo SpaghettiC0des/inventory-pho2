@@ -17,7 +17,8 @@
         // DO.allSuppliers(res.suppliers);
         // DO.allCategories(res.categories);
         DO.allItems(res.items);
-        DO.currentBudget(res.budget);
+
+        DO.currentBudget(res.budget_record);
         // DO.allDistricts(res.districts);
         // DO.allOffices(res.offices);
         DO.allReferenceNumbers(res.reference_numbers);

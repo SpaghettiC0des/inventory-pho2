@@ -45,6 +45,7 @@ class Requests_Controller extends Dashboard_Controller {
             $this->auto_render = FALSE;
             $post = security::xss_clean( $this->input->post() );
             $officeBudget = arr::remove('currentBudget',$post);
+            
             if($post['status'] == 'Approved'){
                 $this->budget_model->updateBudget($post['office_id'], $officeBudget);
                 echo $this->request_model->insert( $post );

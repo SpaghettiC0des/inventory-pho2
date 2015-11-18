@@ -342,15 +342,28 @@
                             <label for="category-description" class="control-label">Site Currency</label>
                             <div class="fg-line">
                              	<select  name="site-currency" id="site-currency" required class="form-control">
-                    				<option value="#8369|PHP" >₱ - PHP</option>
-                    				<option value="#36|USD" >$ - USD</option>
-                    				<option value="#128|EURO" >€ - EURO</option>
-                    				<option value="#163|POUND" >£ - POUND</option>
-                    				<option value="#165;YEN" >¥ - YEN</option>
-                    				<option value="#8355|FRANC" >₣ - FRANC</option>
-                    				<option value="#8356|LIRA" >₤ - LIRA</option>
-                    				<option value="#8359|PESETA" >₧ - PESETA</option>
-                    			    <option value="#8361|WON" >₩ - WON</option>
+                    				<option value="#8369|PHP" <?php $settings->currency=="&#8369;"?$selected="selected":$selected="";echo $selected;?>>₱ - PHP</option>
+                    				<option value="#36|USD" <?php $settings->currency=="&#36;"?$selected="selected":$selected="";echo $selected;?>>$ - USD</option>
+                    				<option value="#128|EURO" <?php $settings->currency=="&#128;"?$selected="selected":$selected="";echo $selected;?>>€ - EURO</option>
+                    				<option value="#163|POUND" <?php $settings->currency=="&#163;"?$selected="selected":$selected="";echo $selected;?>>£ - POUND</option>
+                    				<option value="#165|YEN" <?php $settings->currency=="&#165;"?$selected="selected":$selected="";echo $selected;?>>¥ - YEN</option>
+                    				<option value="#8355|FRANC" <?php $settings->currency=="&#8355;"?$selected="selected":$selected="";echo $selected;?>>₣ - FRANC</option>
+                    				<option value="#8356|LIRA" <?php $settings->currency=="&#8356;"?$selected="selected":$selected="";echo $selected;?>>₤ - LIRA</option>
+                    				<option value="#8359|PESETA" <?php $settings->currency=="&#8359;"?$selected="selected":$selected="";echo $selected;?>>₧ - PESETA</option>
+                    			    <option value="#8361|WON" <?php $settings->currency=="&#8361;"?$selected="selected":$selected="";echo $selected;?>>₩ - WON</option>
+                    			</select>
+                            </div>
+                        </div>
+                    </div>
+					
+					 <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="category-description" class="control-label">Expired Item Notification</label>
+                            <div class="fg-line">
+                             	<select  name="item-expiration" id="item-expiration" required class="form-control">
+                    				<option value="3days" <?php# $settings->item_expiration=="3days"?$selected="selected":$selected="";echo $selected;?>>3 days before expiration</option>
+                    				<option value="1week" <?php# $settings->item_expiration=="1week"?$selected="selected":$selected="";echo $selected;?>>1 week before expiration</option>
+                    				<option value="1month" <?php# $settings->item_expiration=="1month"?$selected="selected":$selected="";echo $selected;?>>1 month before expiration</option>
                     			</select>
                             </div>
                         </div>
@@ -364,7 +377,7 @@
                                     <span class="btn btn-info btn-file">
                                         <span class="fileinput-new">Select image</span>
                                         <span class="fileinput-exists">Change</span>
-                                        <input id="test-upload" type="file" name="site-favicon" required>
+                                        <input id="test-upload" type="file" name="site-favicon" >
                                     </span>
                                     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                                 </div>
@@ -533,7 +546,7 @@
                                     <span class="btn btn-info btn-file">
                                         <span class="fileinput-new">Select image</span>
                                         <span class="fileinput-exists">Change</span>
-                                        <input data-bind = "value: image_file_name" id="test-upload" type="file" name="item-image">
+                                        <input data-bind="file: image_file_name" id="test-upload" type="file" name="item-image">
                                     </span>
                                     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                                 </div>
@@ -611,6 +624,104 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Item Modal-->
+<div data-bind="with: itemVM" class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-hidden="true">
+    
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form data-bind = "submit : handleUpdate"action="" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Edit Item</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label for="item-image" class="control-label">Image(Opional)</label>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
+                                <div>
+                                    <span class="btn btn-info btn-file">
+                                        <span class="fileinput-new">Select image</span>
+                                        <span class="fileinput-exists">Change</span>
+                                        <input data-bind = "value: image_file_name" id="test-upload" type="file" name="item-image">
+                                    </span>
+                                    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label for="item-category" class="control-label">Category</label>
+                            <select data-bind="selectPicker: category_id, 
+                                    optionsText: 'name', optionsValue : 'id', optionsCaption: 'Select Category',
+                                        selectPickerOptions: { optionsArray: $parent.dataObjects.allCategories }" 
+                                            data-live-search="true" id="item-category" id="item-category" name="item-category">
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="item-code" class="control-label">Code</label>
+                            <div class="dtp-container fg-line">
+                                <input data-bind = "textInput : code" id="item-code" 
+                                    type="text" name="item-code" class="form-control input-mask" 
+                                        data-mask="A-00-00000" placeholder="A-00-00000" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label for="item-name" class="control-label">Name</label>
+                            <div class="dtp-container fg-line">
+                                <input data-bind = "textInput : name" id="item-name" 
+                                    name="item-name" type="text" class="form-control" placeholder="New item name" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label for="item-unit" class="control-label">Unit</label>
+                            <div class="dtp-container fg-line">
+                                <input data-bind = "textInput : unit" id="item-unit" 
+                                    type="text" class="form-control" placeholder = "e.g. Box, Bottles, etc." required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="item-cost" class="control-label">Cost</label>
+                            <div class="dtp-container fg-line">
+                                <input data-bind = "textInput : cost" id="item-cost" 
+                                    type="number" min="1" step=".1" class="form-control text-center" placeholder="Unit cost" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="item-price" class="control-label">Price</label>
+                            <div class="dtp-container fg-line">
+                                <input data-bind = "textInput : price" id="item-price" 
+                                    type="number" min="1" step=".1" class="form-control text-center" placeholder="Php" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="item-description" class="control-label">Description</label>
+                            <div class="dtp-container fg-line">
+                                <textarea data-bind = "textInput : description" 
+                                    id="item-description" name="item-description" 
+                                        cols="30" rows="3" class="form-control" placeholder = "Optional"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Update</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </form>
@@ -1060,7 +1171,7 @@
 <div data-bind = "with : userVM" class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
+            <form data-bind = "submit : handleSubmit" action="" class="form-horizontal" novalidate>
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Add User</h4>
@@ -1069,17 +1180,25 @@
                     
                     <div class="form-group">
                         <div class="col-md-5">
-                            <label for="user-role">Role</label>
+                            <label for="user-role" class="control-label">Role</label>
                             <select data-bind="value: role" name="user-role" id="user-role" class="selectpicker">
                                 <option value="2">Admin</option>
                                 <option value="3">Office User</option>
                             </select required>
                         </div>
+                        <div data-bind="style: {display: isOffice}" class="col-md-7">
+                            <label for="user-office" class="control-label">Offices</label>
+                            <select data-bind="selectPicker: office_id, 
+                                 optionsText: 'name', optionsCaption: 'Select office',optionsValue:'id',
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allOffices }" 
+                                        name="user-office" id="user-office" class="selectpicker" data-live-search="true" required>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-12">
-                            <label for="user-name">Username</label>
+                            <label for="user-name" class="control-label">Username</label>
                             <div class="fg-line">
                                 <input data-bind = "textInput: username" type="text" class="form-control" placeholder="New username" required>    
                             </div>
@@ -1089,7 +1208,7 @@
 
                     <div class="form-group">
                         <div class="col-md-12">
-                            <label for="user-email">Email</label>
+                            <label for="user-email" class="control-label">Email</label>
                             <div class="fg-line">
                                 <input data-bind = "textInput:email" type="email" class="form-control" placeholder="New user email" required>    
                             </div>

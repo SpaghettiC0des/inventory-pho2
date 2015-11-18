@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
  
 class Office_Budget_Model extends ORM {
-    protected  $belongs_to = array('office');
+    protected $belongs_to = array('office');
 
     public function insert($data){
         $id = $this->db->insert('office_budgets', $data)->insert_id();
@@ -13,7 +13,7 @@ class Office_Budget_Model extends ORM {
     }
 
     public function getOne($office_id){
-        return $this->db->getwhere('office_budgets', array('office_id'=>$office_id));
+        return $this->db->getwhere('office_budgets', array('office_id'=>$office_id))->result_array();
     }
     public function updateBudget($office_id, $amount){
         return $this->db->update('office_budgets', array('amount_left'=>$amount),array('office_id'=>$office_id));

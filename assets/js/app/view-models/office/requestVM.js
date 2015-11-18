@@ -18,16 +18,17 @@
     var x = w.INVENTO.XHR,
         requestVM = {
             datetime: ko.observable(),
+            reference_no: ko.observable(),
             selected_item: ko.observable(),
             items: ko.observableArray([]),
             status: ko.observable(),
             lastItemAdded: ko.observable(),
 
             budget: ko.observable(),
-            hasBudget: ko.observable(true),
             requestData: ko.observableArray([]),
         },
-        rVM = requestVM;
+        rVM = requestVM,
+        DO = w.INVENTO.VM.dataObjects;
 
     rVM.displayText = function(d) {
         return "REF NO. " + d.reference_no + " " + d.item_name + " (" + d.code + ")";
@@ -70,16 +71,24 @@
         }
     });
 
+    rVM.hasBudget = ko.pureComputed(function() {
+        if (typeof DO.currentBudget() !== "undefined" && DO.currentBudget().length) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+
     rVM.handleSubmit = function() {
         var data = {
             datetime: moment(rVM.datetime()).format('YYYY-MM-DD hh:mm'),
-            office_id: rVM.office_id(),
+            reference_no: rVM.reference_no(),
             items: ko.toJSON(rVM.items()),
-            status: rVM.status(),
             grand_total: rVM.grandTotal(),
         };
 
-        x.post("requests/save", data).done(function(res) {
+        x.post("office/office_requests/save", data).done(function(res) {
             if (res) {
                 w.notif("New Request added!", "success");
             }
@@ -90,7 +99,7 @@
     };
 
     rVM.edit = function(_id) {
-        x.getJ("requests/getData/" + _id).done(function(res) {
+        x.getJ("office/requests/getData/" + _id).done(function(res) {
             res[0].items = JSON.parse(res[0].items);
             // console.log(res.items);
             rVM.requestData(res);
@@ -116,9 +125,14 @@
         });
 
     };
-
+    $("#addRequestModal").on("show.bs.modal", function() {
+        var amountLeft = DO.currentBudget()[0].amount_left;
+        rVM.budget(amountLeft);
+        localStorage['budget'] = amountLeft;
+    });
     $("#addRequestModal").on("hide.bs.modal", function() {
-        localStorage['budget'] = null;
+        rVM.items([]);
+        localStorage['budget'] = 0.00;
     });
     w.INVENTO.VM.requestVM = rVM;
 }(window, jQuery, ko));

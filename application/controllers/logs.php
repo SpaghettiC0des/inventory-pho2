@@ -18,6 +18,8 @@ class Logs_Controller extends Dashboard_Controller {
 			$logs = $this->log_model->get_more_logs($id);
 			//return $logs;
 			$html = "";
+			$current_date = false;
+			
 			foreach($logs as $log){
 			$profile_info = json_decode($log->user_avatar);
 			if(!empty($profile_info->location)){
@@ -25,7 +27,13 @@ class Logs_Controller extends Dashboard_Controller {
 									}else{ 
 									$profile = "assets/uploads/blankpic.png"; }
 									
+			 if(date("F d, Y",strtotime($log->current_date)) != $current_date){
+							 $current_date = date("F d, Y",strtotime($log->current_date)); 
+							 print_r($current_date);
+						 }
+									
 			echo	"<div class=\"t-view postedlog\" data-tv-type=\"text\" id= \"$log->id\">
+				<span><h4>".$current_date."</h4></span>
                  <div class=\"tv-header media\">
 							<a href=\"#\" class=\"tvh-user pull-left\">
 								<img class=\"img-responsive\" src=\"$profile\" alt=\"\">
