@@ -36,9 +36,9 @@
 
     <div class="card">
         <div class="card-header">
-            <h2>Sales Statistics <small>DUMMY DATA ONLY. TODO: ADD CHART REPORT OVERVIEWS</small></h2>
+            <h2>Item Statistics</h2>
             
-            <ul class="actions">
+            <!-- <ul class="actions">
                 <li>
                     <a href="#">
                         <i class="zmdi zmdi-refresh-alt"></i>
@@ -66,17 +66,18 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
         </div>
         
         <div class="card-body">
-            <div class="chart-edge">
+            <!-- <div class="chart-edge">
                 <div id="curved-line-chart" class="flot-chart "></div>
-            </div>
+            </div> -->
+            <div id="chartdiv"></div>
         </div>
     </div>
-
-    <div class="mini-charts">
+    
+    <!-- <div class="mini-charts">
         <div class="row">
             <div class="col-sm-6 col-md-3">
                 <div class="mini-charts-item bgm-cyan">
@@ -126,5 +127,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>  

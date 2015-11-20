@@ -28,7 +28,7 @@ class Users_Controller extends Dashboard_Controller {
             $this->user_model->add( ORM::factory('role', 'login'));
             $this->user_model->add( ORM::factory('role', $role));
             
-            
+            	log_helper::add("1",$this->user_log,$this->user_id,"Added New ".$role." User.");
             $this->user_model->save();
 
         }

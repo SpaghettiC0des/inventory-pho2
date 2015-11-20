@@ -16,7 +16,7 @@
 												}else{ echo "assets/uploads/blankpic.png"; }?>" alt="">
                                         </a>
                                         <div class="media-body p-t-5">
-                                            <strong class="d-block"><?php echo ucwords($user_info->fullname)?></strong>
+                                            <strong class="d-block"><?php if(!empty($user_info->fullname)){ echo ucwords($user_info->fullname);}else{ echo "User";}?></strong>
                         <small class="c-gray"><?php echo date("F j, Y h:i:sa",strtotime($log->date_added));?></small>
                                             <br /><br />
                                             <p><?php echo $log->action?></p>

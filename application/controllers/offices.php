@@ -16,7 +16,7 @@ class Offices_Controller extends Dashboard_Controller {
             $post = security::xss_clean( $this->input->post() );
 
            $this->office_model->insert( $post );
-				log_helper::add("1",$this->user_log,$this->user_id,"Added New Office");
+				log_helper::add("1",$this->user_log,$this->user_id,"Added New Office named ".$post['name']);
         }
     }
 

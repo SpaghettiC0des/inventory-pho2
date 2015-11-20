@@ -8,7 +8,7 @@
 
         <ul class="actions">
             <li class="dropdown action-show">
-                <a href="#" data-toggle="dropdown">
+                <a href="javascript:void(0);" data-toggle="dropdown">
                     <i class="zmdi zmdi-more-vert"></i>
                 </a>
 
@@ -42,7 +42,7 @@
                             <td><strong><?php echo $item->code; ?></strong></td>
                             <td>
                                 <strong><?php echo $item->name; ?> 
-                                <button class="zmdi zmdi-comment-more btn btn-link pull-right" data-trigger="hover" data-placement="right" data-toggle="popover" data-placement="top" data-content="<?php echo $item->description; ?>" title="" data-original-title="<?php echo $item->name; ?> Description"></button>
+                                    <button class="zmdi zmdi-comment-more btn btn-link pull-right" data-trigger="hover" data-placement="right" data-toggle="popover" data-placement="top" data-content="<?php echo $item->description; ?>" title="" data-original-title="<?php echo $item->name; ?> Description"></button>
                                 </strong>
                             </td>
                             <td><?php echo $item->category->name; ?></td>
@@ -57,7 +57,7 @@
                             
                             <td>
                                 <div class="btn-group">
-                                    <a data-bind="click: edit.bind('id',<?php echo $item->id; ?>)" href="#"  class="btn bgm-bluegray btn-xs">Edit</a>
+                                    <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn bgm-bluegray btn-xs item-edit">Edit</a>
                                     <a href="javascript:void(0);" class="btn btn-danger btn-xs">&times;</a>
                                 </div>
                             </td>
@@ -68,14 +68,14 @@
                                 <td><strong><?php echo $item->code; ?></strong></td>
                                 <td>
                                     <strong><?php echo $item->name; ?> 
-                                    <button class="zmdi zmdi-comment-more btn btn-link pull-right" data-trigger="hover" data-placement="right" data-toggle="popover" data-placement="top" data-content="<?php echo $item->description; ?>" title="" data-original-title="<?php echo $item->name; ?> Description"></button>
+                                        <button class="zmdi zmdi-comment-more btn btn-link pull-right" data-trigger="hover" data-placement="right" data-toggle="popover" data-placement="top" data-content="<?php echo $item->description; ?>" title="" data-original-title="<?php echo $item->name; ?> Description"></button>
                                     </strong>
                                 </td>                                <td><?php echo $item->category->name; ?></td>
                                 <td class="text-center"><label class="label label-info">New Item</label></td>
                                 <td class="text-center"><label class="label label-warning">N/A</label></td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="#"  class="btn bgm-bluegray btn-xs" data-toggle="modal" data-target="#editItemModal">Edit</a>
+                                        <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn bgm-bluegray btn-xs item-edit">Edit</a>
                                         <a href="javascript:void(0);" class="btn btn-danger btn-xs">&times;</a>
                                     </div>
                                 </td>

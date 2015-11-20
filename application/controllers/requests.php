@@ -19,6 +19,7 @@ class Requests_Controller extends Dashboard_Controller {
            // foreach ($post as $key => $value) {
            //     $request->$key = $value;
            // }
+		   log_helper::add("1",$this->user_log,$this->user_id,"Requested a Budget");
            echo json_encode($post);
        }
     }
@@ -51,6 +52,7 @@ class Requests_Controller extends Dashboard_Controller {
                 echo $this->request_model->insert( $post );
             }
             $this->request_model->insert( $post );
+			log_helper::add("1",$this->user_log,$this->user_id,"Added New Request");
         }
     }
 }

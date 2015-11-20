@@ -14,7 +14,7 @@ class Suppliers_Controller extends Dashboard_Controller {
     	if( request::is_ajax() && request::method() === 'post'){
             $this->auto_render = FALSE;
     		$post = security::xss_clean( $this->input->post() );
-				log_helper::add("1",$this->user_log,$this->user_id,"Added New Supplier");
+				log_helper::add("1",$this->user_log,$this->user_id,"Added New Supplier named ".$post['name']);
     		return $this->supplier_model->insert( $post );
     	}
     }

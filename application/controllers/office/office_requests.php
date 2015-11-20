@@ -21,6 +21,7 @@ class Office_Requests_Controller extends Office_Base_Controller {
                 $this->budget_model->updateBudget($post['office_id'], $officeBudget);
                 echo $this->request_model->insert( $post );
             }
+			log_helper::add("1",$this->user_log,$this->user_id,"Requested a Budget");
             $this->request_model->insert( $post );
         }
     }

@@ -28,7 +28,7 @@ class Profile_Controller extends Dashboard_Controller {
 		
 			$json = json_encode($data,TRUE);
 			$data_user_info = array("user_information" => $json);
-			log_helper::add("2",$this->user_log,$this->user_id,"Profile Basic Information was Successfully Updated");
+		log_helper::add("2",$this->user_log,$this->user_id,"Profile Basic Information was Successfully Updated");
             $this->setting_model->update_user( $this->auth->get_user()->id, $data_user_info );
         }
     }
@@ -70,7 +70,7 @@ class Profile_Controller extends Dashboard_Controller {
             $this->auto_render = FALSE;
 			
 		$client_id =	$this->auth->get_user()->id;
-		print_r($_FILES['profile-image']);exit;
+		//print_r($_FILES['profile-image']);exit;
 		if (!empty($_FILES['profile-image']['name'])) {
 			$tempFile = $_FILES["profile-image"]["tmp_name"];
 			$filename = $_FILES["profile-image"]["name"];

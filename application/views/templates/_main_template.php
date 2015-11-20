@@ -7,6 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Inventory PHO</title>
+
         <link rel="apple-touch-icon" sizes="57x57" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-60x60.png">
         <link rel="apple-touch-icon" sizes="72x72" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-72x72.png">
@@ -38,7 +39,11 @@
         <link href="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo url::base(); ?>assets/css/app.min.1.css" rel="stylesheet">
         <link href="<?php echo url::base(); ?>assets/css/app.min.2.css" rel="stylesheet">
-        
+        <script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+        <script src="http://www.amcharts.com/lib/3/serial.js"></script>
+        <script src="http://www.amcharts.com/lib/3/themes/light.js"></script>
+        <script src="http://amcharts.com/lib/3/plugins/export/export.js" type="text/javascript"></script>
+        <link href="http://amcharts.com/lib/3/plugins/export/export.css" rel="stylesheet" type="text/css">
 
         <style>
             .display-block {
@@ -48,6 +53,32 @@
             .display-none {
                 display: none;
             }
+
+            #chartdiv {
+                width       : 100%;
+                height      : 500px;
+                font-size   : 11px;  
+            }                                       
+
+            .amcharts-export-menu-top-right {
+              top: 10px;
+              right: 0;
+            }   
+
+            #district-report {
+                width       : 100%;
+                height      : 500px;
+                font-size   : 11px;  
+            }                                       
+            .am-chart {
+                width       : 100%;
+                height      : 500px;
+                font-size   : 11px;  
+            }   
+            .amcharts-export-menu-top-right {
+              top: 10px;
+              right: 0;
+            }                                                   
         </style>
 
     </head>
@@ -76,78 +107,6 @@
                             <label for="tw-switch" class="ts-helper"></label>
                         </div>
                     </li>
-                    <!-- <li id="top-search">
-                        <a class="tm-search" href="#"></a>
-                    </li> 
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="tm-message" href="#"><i class="tmn-counts">6</i></a>
-                        <div class="dropdown-menu dropdown-menu-lg pull-right">
-                            <div class="listview">
-                                <div class="lv-header">
-                                    Messages
-                                </div>
-                                <div class="lv-body">
-                                    <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/1.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">David Belle</div>
-                                                <small class="lv-small">Cum sociis natoque penatibus et magnis dis parturient montes</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/2.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Jonathan Morris</div>
-                                                <small class="lv-small">Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/3.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Fredric Mitchell Jr.</div>
-                                                <small class="lv-small">Phasellus a ante et est ornare accumsan at vel magnauis blandit turpis at augue ultricies</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Glenn Jecobs</div>
-                                                <small class="lv-small">Ut vitae lacus sem ellentesque maximus, nunc sit amet varius dignissim, dui est consectetur neque</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Bill Phillips</div>
-                                                <small class="lv-small">Proin laoreet commodo eros id faucibus. Donec ligula quam, imperdiet vel ante placerat</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <a class="lv-footer" href="#">View All</a>
-                            </div>
-                        </div>
-                    </li>
-                    -->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="tm-notification" href="#"><i class="tmn-counts">9</i></a>
                         <div class="dropdown-menu dropdown-menu-lg pull-right">
@@ -591,9 +550,13 @@
         <script src="<?php echo url::base(); ?>assets/js/flot-charts/curved-line-chart.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/flot-charts/line-chart.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/charts.js"></script>
-        <script src="<?php echo url::base(); ?>assets/vendors/fileinput/fileinput.min.js"></script>
+       <!-- <script src="<?php echo url::base(); ?>assets/vendors/fileinput/fileinput.min.js"></script> -->
+	   
         <script src="<?php echo url::base(); ?>assets/vendors/input-mask/input-mask.min.js"></script>
- 
+		<!-- <script src="<?php echo url::base(); ?>assets/js/plugins/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+
+        <script src="<?php echo url::base(); ?>assets/js/plugins/bootstrap-fileinput-master/js/fileinput_locale_LANG.js"></script>-->
+		
         <script src="<?php echo url::base(); ?>assets/js/functions.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/demo.js"></script>
 
@@ -629,6 +592,183 @@
         <?php } ?>
 
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/masterVM.js"></script>
+        
+        <script>
+           //  var chart = AmCharts.makeChart("chartdiv", {
+           //   "type": "serial",
+           //   "theme": "light",
+           //   "marginRight": 70,
+           //   "dataProvider": [{
+           //     "country": "USA",
+           //     "visits": 3025,
+           //     "color": "#FF0F00"
+           //   }, {
+           //     "country": "China",
+           //     "visits": 1882,
+           //     "color": "#FF6600"
+           //   }, {
+           //     "country": "Japan",
+           //     "visits": 1809,
+           //     "color": "#FF9E01"
+           //   }, {
+           //     "country": "Germany",
+           //     "visits": 1322,
+           //     "color": "#FCD202"
+           //   }, {
+           //     "country": "UK",
+           //     "visits": 1122,
+           //     "color": "#F8FF01"
+           //   }, {
+           //     "country": "France",
+           //     "visits": 1114,
+           //     "color": "#B0DE09"
+           //   }, {
+           //     "country": "India",
+           //     "visits": 984,
+           //     "color": "#04D215"
+           //   }, {
+           //     "country": "Spain",
+           //     "visits": 711,
+           //     "color": "#0D8ECF"
+           //   }, {
+           //     "country": "Netherlands",
+           //     "visits": 665,
+           //     "color": "#0D52D1"
+           //   }, {
+           //     "country": "Russia",
+           //     "visits": 580,
+           //     "color": "#2A0CD0"
+           //   }, {
+           //     "country": "South Korea",
+           //     "visits": 443,
+           //     "color": "#8A0CCF"
+           //   }, {
+           //     "country": "Canada",
+           //     "visits": 441,
+           //     "color": "#CD0D74"
+           //   }],
+           //   "valueAxes": [{
+           //     "axisAlpha": 0,
+           //     "position": "left",
+           //     "title": "Sales per item"
+           //   }],
+           //   "startDuration": 1,
+           //   "graphs": [{
+           //     "balloonText": "<b>[[category]]: [[value]]</b>",
+           //     "fillColorsField": "color",
+           //     "fillAlphas": 0.9,
+           //     "lineAlpha": 0.2,
+           //     "type": "column",
+           //     "valueField": "visits"
+           //   }],
+           //   "chartCursor": {
+           //     "categoryBalloonEnabled": false,
+           //     "cursorAlpha": 0,
+           //     "zoomable": false
+           //   },
+           //   "categoryField": "country",
+           //   "categoryAxis": {
+           //     "gridPosition": "start",
+           //     "labelRotation": 50
+           //   },
+           //   "export": {
+           //     "enabled": true
+           //   }
+
+           // });   
+           // 
+           // var chartData = [{
+           //      "country": "USA",
+           //      "visits": 4252
+           //  }, {
+           //      "country": "China",
+           //      "visits": 1882
+           //  }, {
+           //      "country": "Japan",
+           //      "visits": 1809
+           //  }, {
+           //      "country": "Germany",
+           //      "visits": 1322
+           //  }, {
+           //      "country": "UK",
+           //      "visits": 1122
+           //  }, {
+           //      "country": "France",
+           //      "visits": 1114
+           //  }, {
+           //      "country": "India",
+           //      "visits": 984
+           //  }, {
+           //      "country": "Spain",
+           //      "visits": 711
+           //  }, {
+           //      "country": "Netherlands",
+           //      "visits": 665
+           //  }, {
+           //      "country": "Russia",
+           //      "visits": 580
+           //  }, {
+           //      "country": "South Korea",
+           //      "visits": 443
+           //  }, {
+           //      "country": "Canada",
+           //      "visits": 441
+           //  }, {
+           //      "country": "Brazil",
+           //      "visits": 395
+           //  }, {
+           //      "country": "Italy",
+           //      "visits": 386
+           //  }, {
+           //      "country": "Australia",
+           //      "visits": 384
+           //  }, {
+           //      "country": "Taiwan",
+           //      "visits": 338
+           //  }, {
+           //      "country": "Poland",
+           //      "visits": 328
+           //  }];
+           
+            
+            function AmChartConstructor(URL, catField, valField, el, lineColor) {
+                $.getJSON(window.INVENTO.baseURL + "/reports/" + URL).done(function(chartData) {
+                    var chart = new AmCharts.AmSerialChart();
+                    chart.dataProvider = chartData;
+                    chart.categoryField = catField;
+                    chart.export = {enabled:true};
+                    chart.responsive = {enabled:true};
+                    chart.angle = 30;
+                    chart.depth3D = 15;
+                    var graph = new AmCharts.AmGraph();
+                    graph.valueField = valField;
+                    graph.type = "column";
+                    graph.lineColor = lineColor || "#555";
+                    graph.fillColorsField = "color";
+                    graph.fillAlphas = 0.8;
+                    graph.balloonText = "[[category]]: <b>[[value]]</b>"
+                    graph.colors = ["#542654"];
+
+                    chart.addGraph(graph);
+
+                    chart.write(el);
+                    graph.animationPlayed = true;
+                    var categoryAxis = chart.categoryAxis;
+                    categoryAxis.autoGridCount = true;
+                    categoryAxis.gridCount = chartData.length;
+                    categoryAxis.gridPosition = "start";
+                    categoryAxis.labelRotation = 90;
+                });
+            }
+
+            AmCharts.ready(function(){
+
+
+                AmChartConstructor("getDistrictStatistics", "name","offices","district-report","#FF5722");
+                AmChartConstructor("getItemStatistics", "item","quantity","chartdiv");
+                AmChartConstructor("getOfficeBudgetStatistics", "office_name","budget","office-budget-report","#8BC34A");
+            });          
+        </script>
     </body>
   
 </html>

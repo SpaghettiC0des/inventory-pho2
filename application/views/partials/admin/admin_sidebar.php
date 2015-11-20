@@ -37,7 +37,7 @@
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#addDistrictModal">Add</a></li>
                     <li><a class="<?php echo $uriClass->districts['active']?>" href="<?php echo url::base(); ?>districts">List</a></li>
-                    <li><a href="#">Reports</a></li>
+                    <li><a href="<?php echo url::base(); ?>districts/reports">Reports</a></li>
                 </ul>
             </li>
 
@@ -57,7 +57,7 @@
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#addOfficeBudgetModal">Add</a></li>
                     <li><a href="<?php echo url::base(); ?>office_budgets">List</a></li>
-                    <li><a href="#">Reports</a></li>
+                    <li><a href="<?php echo url::base(); ?>office_budgets/reports">Reports</a></li>
                 </ul>
             </li>
 
@@ -134,7 +134,7 @@
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#addItemModal">Add</a></li>
                     <li><a href="<?php echo url::base(); ?>categories">List</a></li>
-                    <li><a href="#">Reports</a></li>
+                    <li><a href="<?php echo url::base(); ?>reports">Reports</a></li>
                     <li><a href="<?php echo url::base(); ?>logs">System Logs</a></li>
                 </ul>
             </li>

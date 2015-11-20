@@ -19,7 +19,7 @@ class Categories_Controller extends Dashboard_Controller {
             $hasExisting = $this->category_model->where('name', $post['name'])->count_all();
             if( !$hasExisting ) {
                 $last = $this->category_model->insert($post);
-				log_helper::add("1",$this->user_log,$this->user_id,"Added New Category");
+				log_helper::add("1",$this->user_log,$this->user_id,"Added New Category named ".$post['name']);
             }else{
                echo 0;
             }

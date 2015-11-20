@@ -38,10 +38,10 @@
                                 <h2>Contact</h2>
                                 
                                 <ul>
-                                    <li><i class="zmdi zmdi-phone"></i><?php if(!empty($this->contact_info->mobile)){echo $this->contact_info->mobile;}?></li>
-                                    <li><i class="zmdi zmdi-email"></i><?php if(!empty($this->contact_info->email)){echo $this->contact_info->email;}?></li>
+                                    <li><i class="zmdi zmdi-phone"></i><?php if(!empty($this->contact_info->mobile)){echo $this->contact_info->mobile;}else{echo "Contact Number";}?></li>
+                                    <li><i class="zmdi zmdi-email"></i><?php if(!empty($this->contact_info->email)){echo $this->contact_info->email;}else{ echo "Email Address";}?></li>
                                     <!--<li><i class="zmdi zmdi-facebook-box"></i> malinda.hollaway</li>-->
-                                    <li><i class="zmdi zmdi-twitter"></i><?php if(!empty($this->contact_info->twitter)){echo $this->contact_info->twitter;}?></li>
+                                    <li><i class="zmdi zmdi-twitter"></i><?php if(!empty($this->contact_info->twitter)){echo $this->contact_info->twitter;}else{echo "Twitter";}?></li>
 									
                                     <!--<li>
                                         <i class="zmdi zmdi-pin"></i>
@@ -284,7 +284,7 @@
                                             <dt class="p-t-10">Mobile Phone</dt>
                                             <dd>
                                                 <div class="fg-line">
-                                               <input data-bind="value : mobile" type="text" class="form-control" placeholder="<?php if(!empty($this->contact_info->mobile)) {echo $this->contact_info->mobile;}?>" required>
+                                               <input  data-bind="value : mobile" type="text" class="form-control" placeholder="<?php if(!empty($this->contact_info->mobile)) {echo $this->contact_info->mobile;}?>" required>
                                                 </div>
                                             </dd>
                                         </dl>

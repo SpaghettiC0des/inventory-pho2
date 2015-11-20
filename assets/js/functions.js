@@ -2,6 +2,9 @@
 /*
 * Layout
 */
+if ($('[data-toggle="popover"]')[0]) {
+    $('[data-toggle="popover"]').popover();
+}
 
 (function(){
     //Get saved layout type from LocalStorage
@@ -661,9 +664,7 @@ $(document).ready(function(){
     /*
      * Popover
      */
-    if ($('[data-toggle="popover"]')[0]) {
-        $('[data-toggle="popover"]').popover();
-    }
+    
     
     /*
      * Message
@@ -900,16 +901,29 @@ $(document).ready(function(){
         
     }
      
-    $("#test-upload").fileinput({
-        uploadAsync: false,
-        uploadUrl: "/items/handleUpload", // your upload server url
-        uploadExtraData: function() {
-            return {
-                userid: 'admin',
-                username: 'admin'
-            };
-        }
-    });
+    // $("#test-upload").fileinput({
+        // uploadAsync: false,
+        // uploadUrl: "/items/handleUpload", // your upload server url
+		// initialPreview: [
+		// "<img src='assets/uploads/user-1-564d4477f15db-Hydrangeas.jpg' class='file-preview-image' alt='Desert' title='Desert'>"
+		// ],
+        // uploadExtraData: function() {
+            // return {
+                // userid: 'admin',
+                // username: 'admin'
+            // };
+        // }
+    // });
+	
+	// $("#site-favicon").fileinput({
+ //        browseClass: "btn btn-primary btn-block",
+ //        showCaption: false,
+ //        showRemove: false,
+ //        showUpload: false,
+	// 	initialPreview: [
+	// 	"<img src='assets/uploads/user-1-564d4477f15db-Hydrangeas.jpg' class='file-preview-image' alt='Desert' title='Desert'>"
+	// 	]
+ //    });
 	
 	
 	$("a#load_more").on("click",function () {
@@ -962,8 +976,5 @@ $(document).ready(function(){
 	});
 	return false;
 				});
-				
-		
-				
 		
 });

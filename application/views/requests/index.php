@@ -16,7 +16,7 @@
             <tbody data-bind = "with: requestVM">
                 <?php foreach ($requests as $request) { ?>
                     <tr>
-                        <td><?php echo $request->datetime; ?></td>
+                        <td><?php echo date('F j, Y',strtotime($request->datetime)); ?></td>
                         <td><?php echo $request->office->name; ?></td>
                         <td><?php echo $request->status; ?></td>
                         <td>

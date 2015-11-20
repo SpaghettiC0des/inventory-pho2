@@ -19,14 +19,14 @@ class Purchase_Model extends ORM {
 	
 	public function get_sum_purchases($monthFrom,$monthTo,$year,$supplier_id)
 	{
-	$query = "
-	 SELECT `purchases`.*
-	 FROM (`purchases`)
-	 WHERE month >= $monthFrom
-	 AND month <= $monthTo
-	 AND year = $year
-	 AND supplier_id = $supplier_id
-	";
+	$query = "SELECT SUM(grand_total) AS total
+FROM purchases
+WHERE month >= $monthFrom
+ AND month <= $monthTo
+ AND year = $year
+ AND supplier_id = $supplier_id
+ GROUP BY supplier_id
+";  
 	//print_r($query);exit;
 		$result = $this->db->query($query);
 		return $result;

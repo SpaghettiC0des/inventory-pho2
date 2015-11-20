@@ -15,4 +15,12 @@ class District_Model extends ORM {
  	public function getOne($id){
  		return $this->db->getwhere('districts',  array('id' => $id) )->result(TRUE);
  	}
+
+    public function districtStatistics(){
+        $query = @"SELECT d.name, COUNT(o.name) as offices FROM districts d, offices o
+            where d.id = o.district_id
+            GROUP BY d.id";
+
+        return $this->db->query($query)->result_array();
+    }
 }

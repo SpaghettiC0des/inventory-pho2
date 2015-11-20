@@ -20,11 +20,6 @@ class Office_Base_Controller extends Template_Controller
             url::redirect('/auth');
         } 
         else if ($this->auth->logged_in('admin')) {
-            $req_url = $this->session->get('requested_url');
-            
-            if (isset($req_url)) {
-                return url::redirect($req_url);
-            }
             url::redirect('/dashboard');
         }
         

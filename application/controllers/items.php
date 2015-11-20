@@ -71,10 +71,18 @@ class Items_Controller extends Dashboard_Controller {
 			);
 			}
             $item = $this->item_model->insert( $post );
-			log_helper::add("1",$this->user_log,$this->user_id,"Added New Item");
+			log_helper::add("1",$this->user_log,$this->user_id,"Added New Item named ".$post['name']);
         }
     }
 
+    public function update($id){
+        if(request::is_ajax() AND request::method() == 'post'){
+            $this->auto_render = FALSE;
+            $post = security::xss_clean($this->input->post());
+
+            $this->item_model->update($post, $id);
+        }   
+    }   
     public function handleUpload(){
         $this->auto_render = FALSE;
         echo $this->input->post();

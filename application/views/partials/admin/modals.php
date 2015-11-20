@@ -651,7 +651,7 @@
                                     <span class="btn btn-info btn-file">
                                         <span class="fileinput-new">Select image</span>
                                         <span class="fileinput-exists">Change</span>
-                                        <input data-bind = "value: image_file_name" id="test-upload" type="file" name="item-image">
+                                        <input id="test-upload" type="file" name="item-image">
                                     </span>
                                     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                                 </div>
