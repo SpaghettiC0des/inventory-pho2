@@ -15,8 +15,8 @@ class Districts_Controller extends Dashboard_Controller {
     	if( request::is_ajax() && request::method() === 'post') {
     		$this->auto_render = FALSE;
     		$post = security::xss_clean( $this->input->post() );
-    		$latest = json_helper::convert( $this->district_model->insert( $post ) );
-			log_helper::add("1",$this->user_log,$this->user_id,"Added New District named ".$post->name.".");
+    		$latest = $this->district_model->insert( $post );
+			log_helper::add("1",$this->user_log,$this->user_id,"Added New District named ".$post['name'].".");
 	
             echo json_encode( $latest );
     	}
@@ -44,7 +44,7 @@ class Districts_Controller extends Dashboard_Controller {
 			
             $district->name = $post;
 			log_helper::add("1",$this->user_log,$this->user_id,"Updated a District. ".$changes);
-            echo $district->save($id);
+            echo json_encode($this->district_model->getOne($district->save($id)));
         }
     }
 

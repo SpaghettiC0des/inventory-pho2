@@ -28,7 +28,7 @@ class Requests_Controller extends Dashboard_Controller {
         if(request::is_ajax() && request::method() === 'post'){
             $this->auto_render = FALSE;
 
-            $budget = $this->budget_model->getOne($office_id)->as_array();
+            $budget = $this->budget_model->getOne($office_id);
             echo json_encode($budget);
         }
     }

@@ -4,20 +4,20 @@
 		DO = w.INVENTO.VM.dataObjects,
 		districtVM = {
 			name: ko.observable(),
-			updateID:ko.observable(),
+			updateID: ko.observable(),
 		},
 		dVM = districtVM;
 
-	dVM.edit = function(_id) {
-		// console.log(event);
-		// console.log(this);
+	$("#districtsDT").on("click", ".district-edit", function() {
+		var _id = $(this).data("id");
 		dVM.updateID(_id);
 		var district = ko.utils.arrayFilter(DO.allDistricts(), function(district) {
 			return district.id == _id;
 		});
+
 		dVM.name(district[0].name);
 		$("#editDistrictModal").modal("show");
-	};
+	});
 
 	dVM.deleteDistrict = function(_id) {
 		swal({
@@ -29,17 +29,20 @@
 			cancelButtonText: "Cancel",
 			closeOnConfirm: false,
 			closeOnCancel: true
+
 		}, function(isConfirm) {
 			if (isConfirm) {
-				x.post("districts/delete/"+_id).done(function(res){
-				    if (res) {
-				        swal("Deleted!", "", "success");
-				    }
-				}).fail(function(){
-				    w.notif("Whoops! Something went wrong.", "error");
+				x.post("districts/delete/" + _id).done(function(res) {
+					if (res) {
+						$("#districtTR_" + _id).addClass("animated zoomOutDown").hide('slow');
+						swal.close();
+						// swal("Deleted!", "", "success");
+					}
+				}).fail(function() {
+					w.notif("Whoops! Something went wrong.", "error");
 				});
 
-				
+
 			}
 		});
 
@@ -60,15 +63,34 @@
 			w.notif("Whoops! Something went wrong.", "danger");
 		});
 	};
-	dVM.handleUpdate = function(){
-		x.post("districts/update/" + dVM.updateID(),{name: dVM.name()}).done(function(res){
-		    if (res) {
-		    	$("#editDistrictModal").modal("hide");
-		        swal("Updated!","","success");
-		    }
-		    
-		}).fail(function(){
-		    w.notif("Whoops! Something went wrong.", "error");
+
+	dVM.handleUpdate = function() {
+		var _id = dVM.updateID(),
+			districtsDT = w.INVENTO.DT.districtsDT,
+			tableRow = $("#districtTR_" + _id),
+			dtData = districtsDT.row(tableRow).data();
+
+		x.post("districts/update/" + _id, {
+			name: dVM.name()
+		}).done(function(res) {
+			if (res) {
+				$("#editDistrictModal").modal("hide");
+				var res = JSON.parse(res)[0];
+
+				var test = _.findIndex(w.INVENTO.VM.dataObjects.allDistricts(),function(d){
+					return d == res;
+				});
+
+				console.log(test);return;
+				dtData[0] = res.name;
+				dtData[2] = moment(res.updated_at).format("MMM DD, YYYY");
+				districtsDT.row(tableRow).data(dtData).draw();
+
+				// swal("Updated!", "", "success");
+			}
+
+		}).fail(function() {
+			w.notif("Whoops! Something went wrong.", "error");
 		});
 	};
 

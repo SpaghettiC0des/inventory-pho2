@@ -125,7 +125,7 @@
                 <a href="#"><i class="zmdi zmdi-accounts-alt"></i>Users</a>
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#addUserModal">Add</a></li>
-                    <li><a href="<?php echo url::base(); ?>categories">List</a></li>
+                    <li><a href="<?php echo url::base(); ?>users">List</a></li>
                     <li><a href="#">Reports</a></li>
                 </ul>
             </li>

@@ -1,3 +1,4 @@
+
 <div class="block-header">
     <h2>Districts</h2>
 </div>
@@ -5,20 +6,6 @@
 <div class="card">
     <div class="card-header">
          <h2>All Categories</h2>
-
-        <!-- <ul class="actions">
-            <li class="dropdown action-show">
-                <a href="#" data-toggle="dropdown">
-                    <i class="zmdi zmdi-more-vert"></i>
-                </a>
-
-                <div class="dropdown-menu pull-right">
-                    <p class="p-20">
-                        TODO
-                    </p>
-                </div>
-            </li>
-        </ul> -->
     </div>
 
     <div class="card-body card-padding">
@@ -33,13 +20,13 @@
             </thead>
             <tbody data-bind = "with: districtVM">
                 <?php foreach ($districts as $district) { ?>
-                    <tr>
+                    <tr id="districtTR_<?php echo $district->id; ?>">
                         <td><?php echo $district->name; ?></td>
                         <td><?php echo \Carbon\Carbon::parse( $district->created_at )->toFormattedDateString(); ?></td>
                         <td><?php echo \Carbon\Carbon::parse( $district->updated_at )->toFormattedDateString(); ?></td>
                         <td>
                             <div class="btn-group">
-                                <button data-bind = "click: function(){edit(<?php echo $district->id; ?>)}" type="button" class="btn bgm-bluegray btn-xs">Edit</button>
+                                <button data-id="<?php echo $district->id; ?>" type="button" class="btn bgm-bluegray btn-xs district-edit">Edit</button>
                                 <button data-bind = "click: function(){deleteDistrict(<?php echo $district->id; ?>)}" type="button" class="btn bgm-red btn-xs">&times;</button>
                             </div>
                         </td>

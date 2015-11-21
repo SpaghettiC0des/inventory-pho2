@@ -523,7 +523,7 @@
         
         <!-- Javascript Libraries -->
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/jquery/dist/jquery.min.js"></script>
-        
+        <script src="<?php echo url::base(); ?>assets/js/libs/lodash.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/js/jquery.dataTables.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/js/dataTables.bootstrap.min.js"></script>
@@ -732,7 +732,7 @@
            
             
             function AmChartConstructor(URL, catField, valField, el, lineColor) {
-                $.getJSON(window.INVENTO.baseURL + "/reports/" + URL).done(function(chartData) {
+                $.getJSON(window.INVENTO.baseURL + "reports/" + URL).done(function(chartData) {
                     var chart = new AmCharts.AmSerialChart();
                     chart.dataProvider = chartData;
                     chart.categoryField = catField;

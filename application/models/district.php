@@ -13,7 +13,7 @@ class District_Model extends ORM {
  	}
 
  	public function getOne($id){
- 		return $this->db->getwhere('districts',  array('id' => $id) )->result(TRUE);
+ 		return $this->db->getwhere('districts',  array('id' => $id) )->result_array();
  	}
 
     public function districtStatistics(){

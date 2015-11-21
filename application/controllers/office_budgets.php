@@ -31,7 +31,7 @@ class Office_Budgets_Controller extends Dashboard_Controller {
             $post = security::xss_clean($this->input->post());
 
             if($this->budget_model->insert($post)){
-			log_helper::add("2",$this->user_log,$this->user_id,"Added New Office Budget.");
+			    log_helper::add("2",$this->user_log,$this->user_id,"Added New Office Budget.");
                 echo 1;
             }
         }

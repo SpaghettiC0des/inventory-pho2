@@ -9,7 +9,9 @@ class Users_Controller extends Dashboard_Controller {
     }
     
     public function index() {
-        return;
+        $view = new View('users/index');
+        $view->users = $this->user_model->with('roles:office')->find_all();
+        $this->template->content = $view;
     }
 
     public function save(){
@@ -29,7 +31,7 @@ class Users_Controller extends Dashboard_Controller {
             $this->user_model->add( ORM::factory('role', $role));
             
             	log_helper::add("1",$this->user_log,$this->user_id,"Added New ".$role." User.");
-            $this->user_model->save();
+            echo $this->user_model->save();
 
         }
     }

@@ -27,7 +27,7 @@ class Reports_Controller extends Controller
                     array_push($arr, array("item" => $key->name, "quantity" => 0, "color" => "#8BC34A"));
                 }
             }
-            echo json_encode($arr, JSON_PRETTY_PRINT);
+            echo json_encode($arr);
         }
     }
     

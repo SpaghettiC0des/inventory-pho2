@@ -36,7 +36,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h2>District Statistics</h2>
+            <h2>District Offices</h2>
         </div>
         
         <div class="card-body">

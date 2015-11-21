@@ -35,6 +35,14 @@
 	};
 
 	$(".table").on("click", ".item-edit", function() {
+
+		swal({
+			title: "Getting item details.",
+			text: "Please wait...",
+			type: "info",
+			showLoaderOnConfirm:true,
+			showConfirmButton:false,
+		});
 		var itemID = $(this).data('item-id');
 		iVM.updateID(itemID);
 		x.getJ("items/getOne/" + itemID).done(function(res) {
@@ -48,8 +56,9 @@
 				iVM.cost(res.cost);
 				iVM.price(res.price);
 				iVM.description(res.description);
-
+				swal.close();
 				$("#editItemModal").modal("show");
+
 			}
 
 		}).fail(function() {
