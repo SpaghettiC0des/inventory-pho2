@@ -7,9 +7,9 @@
                                     </a>
                                     
                                     <div class="dropdown pmop-message">
-                                        <a data-toggle="dropdown" href="#" class="btn bgm-white btn-float z-depth-1">
+                                      <!--  <a data-toggle="dropdown" href="#" class="btn bgm-white btn-float z-depth-1">
                                             <i class="zmdi zmdi-comment-text-alt"></i>
-                                        </a>
+                                        </a> -->
                                         
                                         <div class="dropdown-menu">
                                             <textarea placeholder="Write something..."></textarea>
@@ -102,7 +102,7 @@
                         
                         <div class="pm-body clearfix">
                             <ul class="tab-nav tn-justified">
-                                <li class="active waves-effect"><a href="profile-about.html">About</a></li>
+                                <li class="active waves-effect"><a href="javascript:void(0);">About</a></li>
                               <!--  <li class="waves-effect"><a href="profile-timeline.html">Timeline</a></li>
                                 <li class="waves-effect"><a href="profile-photos.html">Photos</a></li>
                                 <li class="waves-effect"><a href="profile-connections.html">Connections</a></li> -->
@@ -149,17 +149,17 @@
                                     <h2><i class="zmdi zmdi-account m-r-5"></i> Basic Information</h2>
                                     
                                     <ul class="actions">
-                                        <li class="dropdown">
+                                    <!--    <li class="dropdown">
                                             <a href="#" data-toggle="dropdown">
                                                 <i class="zmdi zmdi-more-vert"></i>
-                                            </a>
+                                            </a> -->
                                             
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li>
-                                                    <a data-pmb-action="edit" href="#">Edit</a>
-                                                </li>
+                                        <!--      <ul class="dropdown-menu dropdown-menu-right">
+                                                <li> -->
+                                                    <button data-pmb-action="edit" class="btn btn-primary btn-sm waves-effect" href="#">Edit</button>
+                                          <!--       </li>
                                             </ul>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                 </div>
                                 <div class="pmbb-body p-l-30">
@@ -245,17 +245,17 @@
                                     <h2><i class="zmdi zmdi-phone m-r-5"></i> Contact Information</h2>
                                     
                                     <ul class="actions">
-                                        <li class="dropdown">
+                                     <!--    <li class="dropdown">
                                             <a href="#" data-toggle="dropdown">
                                                 <i class="zmdi zmdi-more-vert"></i>
                                             </a>
                                             
                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                <li>
-                                                    <a data-pmb-action="edit" href="#">Edit</a>
-                                                </li>
+                                                <li> -->
+                                                    <button data-pmb-action="edit" class="btn btn-primary btn-sm waves-effect" href="#">Edit</button>
+                                              <!--   </li>
                                             </ul>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                 </div>
                                 <div class="pmbb-body p-l-30">

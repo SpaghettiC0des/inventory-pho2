@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <table data-bind="dataTable" class="table table-striped">
+        <table data-bind="dataTable, tableName: 'officesDT'" id="officesDT" class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -34,15 +34,15 @@
             </thead>
             <tbody data-bind = "with: officeVM">
                 <?php foreach ($offices as $office) : ?>
-                    <tr>
+                    <tr id="officeTR_<?php echo $office->id; ?>">
                         <td><strong><?php echo $office->name?></strong></td>
                         <td><strong><?php echo $office->district->name; ?></strong></td>
-                        <td><?php echo date('M d, Y h:m A',strtotime($office->created_at)) ?></td>
-                        <td><?php echo date('M d, Y h:m A',strtotime($office->updated_at)) ?></td>
+                        <td><?php echo date('F j, Y h:m A',strtotime($office->created_at)) ?></td>
+                        <td><?php echo date('F j, Y h:m A',strtotime($office->updated_at)) ?></td>
                         <td>
                            <div class="btn-group">
-                                <a href="javascript:void(0);" data-bind = "click: function(){edit(<?php echo $office->id; ?>)}" class="btn bgm-bluegray btn-xs">Edit</a>
-                                <a href="javascript:void(0);" data-bind = "click: function(){deleteOffice(<?php echo $office->id; ?>)}" class="btn btn-danger btn-xs">&times;</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $office->id?>" class="btn bgm-bluegray btn-xs office-edit">Edit</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $office->id?>" class="btn btn-danger btn-xs office-delete">&times;</a>
                            </div>
                         </td>
                     </tr>

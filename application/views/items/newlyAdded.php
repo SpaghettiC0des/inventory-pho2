@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <table data-bind="dataTable" class="table table-striped">
+        <table data-bind="dataTable" id="itemsDT" class="table table-striped">
             <thead>
                 <tr>
                     <th>Code</th>
@@ -36,7 +36,7 @@
             <tbody>
                 <?php foreach ($items as $item) : ?>
                     <?php if(!isset($item->item_stocks[0])) : ?>
-                    <tr>
+                    <tr id="itemTR_<?php echo $item->id?>">
                         <td><strong><?php echo $item->code; ?></strong></td>
                         <td><strong><?php echo $item->name; ?></td>
                         <td><strong><?php echo $item->unit; ?></td>
@@ -44,10 +44,10 @@
                         <td><strong>₱ <?php echo $item->price; ?></td>
 
                         <td>
-                            <div class="btn-group">
-                                <a href="javascript:void(0);"  class="btn bgm-bluegray btn-xs">Edit</a>
-                                <a href="javascript:void(0);" class="btn btn-danger btn-xs">&times;</a>
-                            </div>
+                                <div class="btn-group">
+                                    <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn bgm-bluegray btn-xs item-edit">Edit</a>
+                                    <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn btn-danger btn-xs item-delete">&times;</a>
+                                </div>
                         </td>
                     </tr>
                     <?php endif ?>

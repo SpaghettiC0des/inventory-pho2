@@ -21,8 +21,10 @@ class Settings_Controller extends Dashboard_Controller {
 			$site_name = $this->input->post('site-name',null,true);
 			$site_currency = $this->input->post('site-currency',null,true);
 			$item_expiration = $this->input->post('item-expiration',null,true);
-			//print_r($site_address);exit;
+			$notiftype = $this->input->post('notiftype',null,true);
+			$notifdate = $this->input->post('notifdate',null,true);
 			
+		//	print_r($_FILES['site-favicon']['tmp_name']);exit;
 		if (!empty($_FILES['site-favicon']['name'])) {
 			$tempFile = $_FILES["site-favicon"]["tmp_name"];
 			$filename = $_FILES["site-favicon"]["name"];
@@ -55,7 +57,9 @@ class Settings_Controller extends Dashboard_Controller {
 			"address" => $site_address,
 			"currency" => $site_currency_symbol,
 			"favicon" => $json,
-			"item_expiration" => $item_expiration
+			"item_expiration" => $item_expiration,
+			"notiftype" => $notiftype,
+			"notifdate" => $notifdate
 			);
 			
 			$data_json = json_encode($data,TRUE);
@@ -69,4 +73,12 @@ class Settings_Controller extends Dashboard_Controller {
   
 		move_uploaded_file($tempFile,$targetFile); 
 	}
+	
+	public function getOne(){
+	     if(request::is_ajax() AND request::method() == 'get'){
+            $this->auto_render = FALSE;
+            $setting = $this->setting_model->getOne();
+            echo json_encode($setting);
+        }
+		}
 }

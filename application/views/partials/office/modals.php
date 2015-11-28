@@ -124,3 +124,85 @@
         </div>
     </div>
 </div>
+
+
+<!-- email -->
+
+<div data-bind = "with : messageVM" class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" data-bind="submit : emailSending" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Send Message</h4>
+                </div>
+                <div class="modal-body">
+				 <label for="user-name" class="control-label">To: <span data-bind="text : receiverName"></span></label>
+				</br>
+				</br>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="fg-line">
+                                <input data-bind = "value : subject" id="email-subject" name="email-subject" type="text" class="form-control" placeholder="Subject *" required>
+                            </div>
+                        </div>
+                    </div>
+					
+			      <div class="form-group">
+				  <div class="col-md-12">
+                                <div class="fg-line">
+                                    <textarea class="form-control" data-bind="value : content" rows="5" placeholder="Type your Message *" id="email-content" name="email-content" required></textarea>
+                                </div>
+                                </div>
+                            </div>
+					
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Reply Email -->
+
+<div data-bind = "with : messageVM" class="modal fade" id="replyEmailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" data-bind="submit : replyEmailSending" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Reply Message</h4>
+                </div>
+                <div class="modal-body">
+				 <label for="user-name" class="control-label">Reply To: <span data-bind="text : receiverName"></span></label>
+				</br>
+				</br>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="fg-line">
+                                <input data-bind = "value : subject" id="email-subject" name="email-subject" type="text" class="form-control" placeholder="Subject *" required>
+                            </div>
+                        </div>
+                    </div>
+					
+			      <div class="form-group">
+				  <div class="col-md-12">
+                                <div class="fg-line">
+                                    <textarea class="form-control" data-bind="value : content" rows="5" placeholder="Type your Message *" id="email-content" name="email-content" required></textarea>
+                                </div>
+                                </div>
+                            </div>
+					
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,48 +1,41 @@
-<?php defined('SYSPATH') or die('No direct script access.');
- 
-class Log_Model extends ORM {
- 	//protected $belongs_to = array('supplier');
-   // protected $has_many = array('item_stocks');
+<?php
+defined('SYSPATH') or die('No direct script access.');
 
- 	public function insert($data){
- 		$id = $this->db->insert('logs', $data);
-		return $id->insert_id();
-		//print_r($id);exit;
- 		//return $this->getOne($id);
- 	}
-
- 	public function getPurchaseDetails($id){
- 		return $this->db->from('vw_purchase_details')->where('purchase_id', $id)->get()->result_array();
- 	}
+class Log_Model extends ORM
+{
     
- 	public function getOne($id){
- 		return $this->getwhere('logs', array('id', $id));
- 	}
- 
- 
-	public function get_more_logs($id){
-		$query = $this->db
-		->select('logs.*','users.user_avatar','users.user_information')
-		->join('users','users.id','logs.user_id','left')
-		->where(array('logs.id <' => $id))
-		->orderby("logs.id","DESC")
-		->limit(5)
-		->get("logs");
-		//print_r($query);exit;
-		return $query;
-		}
-		
-	public function get_logs(){
-		$query = $this->db
-		->select('logs.*','users.user_avatar','users.user_information')
-		->join('users','users.id','logs.user_id','left')
-		->orderby("logs.id","DESC")
-		->limit(5)
-		->get("logs");
-		//print_r($query);exit;
-		return $query;
-		}
- 
- 
- 
- }//end of model
+    //protected $belongs_to = array('supplier');
+    // protected $has_many = array('item_stocks');
+    
+    public function insert($data) {
+        $id = $this->db->insert('logs', $data);
+        return $id->insert_id();
+        
+        //print_r($id);exit;
+        //return $this->getOne($id);
+        
+    }
+    
+    public function getPurchaseDetails($id) {
+        return $this->db->from('vw_purchase_details')->where('purchase_id', $id)->get()->result_array();
+    }
+    
+    public function getOne($id) {
+        return $this->getwhere('logs', array('id', $id));
+    }
+    
+    public function get_more_logs($id) {
+        $query = $this->db->select('logs.*', 'users.user_avatar', 'users.user_information')->join('users', 'users.id', 'logs.user_id', 'left')->where(array('logs.id <' => $id))->orderby("logs.id", "DESC")->limit(5)->get("logs");
+        
+        //print_r($query);exit;
+        return $query;
+    }
+    
+    public function get_logs() {
+        $query = $this->db->select('logs.*', 'users.user_avatar', 'users.user_information')->join('users', 'users.id', 'logs.user_id', 'left')->orderby("logs.id", "DESC")->limit(5)->get("logs");
+        
+        //print_r($query);exit;
+        return $query;
+    }
+}
+ //end of model

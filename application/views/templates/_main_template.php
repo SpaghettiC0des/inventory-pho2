@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Inventory PHO</title>
+        <title> <?php echo $settings->name; ?></title>
 
         <link rel="apple-touch-icon" sizes="57x57" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-60x60.png">
@@ -42,44 +42,9 @@
         <script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
         <script src="http://www.amcharts.com/lib/3/serial.js"></script>
         <script src="http://www.amcharts.com/lib/3/themes/light.js"></script>
-        <script src="http://amcharts.com/lib/3/plugins/export/export.js" type="text/javascript"></script>
+        <script src="http://amcharts.com/lib/3/plugins/export/export.js"></script>
         <link href="http://amcharts.com/lib/3/plugins/export/export.css" rel="stylesheet" type="text/css">
-
-        <style>
-            .display-block {
-                display: block;
-            }
-
-            .display-none {
-                display: none;
-            }
-
-            #chartdiv {
-                width       : 100%;
-                height      : 500px;
-                font-size   : 11px;  
-            }                                       
-
-            .amcharts-export-menu-top-right {
-              top: 10px;
-              right: 0;
-            }   
-
-            #district-report {
-                width       : 100%;
-                height      : 500px;
-                font-size   : 11px;  
-            }                                       
-            .am-chart {
-                width       : 100%;
-                height      : 500px;
-                font-size   : 11px;  
-            }   
-            .amcharts-export-menu-top-right {
-              top: 10px;
-              right: 0;
-            }                                                   
-        </style>
+        <link href="<?php echo url::base(); ?>assets/css/custom.css" rel="stylesheet" >
 
     </head>
     <body>
@@ -93,12 +58,12 @@
                     </div>
                 </li>
             
-                <li class="logo hidden-xs">
+                <li class="logo ">
                     <a href="<?php echo url::base(); ?>">
                         <?php echo $settings->name; ?>
                     </a>
                 </li>
-                
+            
                 <li class="pull-right">
                 <ul class="top-menu">
                     <li id="toggle-width">
@@ -107,35 +72,74 @@
                             <label for="tw-switch" class="ts-helper"></label>
                         </div>
                     </li>
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="tm-notification" href="#"><i class="tmn-counts">9</i></a>
-                        <div class="dropdown-menu dropdown-menu-lg pull-right">
+					
+					<!-- EMAILS-->
+					 <li  class="dropdown">
+                        <a data-toggle="dropdown" class="tm-message" id="email_notif" href="javascript:void(0);"><i id="email_count" class="tmn-counts"></i></a>
+				
+                      <div data-bind="with : messageVM" style="height : 400px;overflow:auto;" class="dropdown-menu dropdown-menu-lg pull-right c-overflow">
+                            <div class="listview" id="">
+                                <div class="lv-header">
+                                    Message
+                                </div>
+								
+                                <div  class="lv-body" id="emails" data-bind="foreach : userEmails">
+                                    <a class="lv-item viewEmail"   data-bind="attr : {dataemail : id},style : {backgroundColor : $parent.emailStatusCss(email_viewed)}" href="javascript:void(0);">
+                                        <div class="media" >
+                                            <div class="pull-left">
+                                                <img class="lv-img-sm" data-bind="attr : {src : $parent.addBaseURL(userAvatar)}" alt="Profile image">
+                                            </div>
+											 <div class="pull-right">
+                                                 <small class="lv-small" data-bind="text : $parent.emailStatus(email_viewed)"></small>
+                                            </div>
+                                            <div class="media-body">
+                                           <div class="lv-title" data-bind="text : fullName || 'User' "></div>
+                                           <small class="lv-small" data-bind="text : subject"></small>
+                    
+                                     <small class="lv-small" data-bind = "text: moment(created_at).format('MMMM DD, YYYY hh:mm A')"></small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                    
+                                <a class="lv-footer" href="<?php echo url::base();?>messages/index">View All</a>
+                            </div>
+                    
+                        </div>
+                    </li>
+					<!-- EMAILS-->
+					
+					<!-- NOTIFICATIONS-->
+                    <li  class="dropdown">
+                        <a data-toggle="dropdown" class="tm-notification" href="javascript:void(0);"><i id="expired_notif" class="tmn-counts"></i></a>
+				
+                      <div data-bind="with : notificationVM" style="height : 400px;overflow:auto;" class="dropdown-menu dropdown-menu-lg pull-right c-overflow">
                             <div class="listview" id="notifications">
                                 <div class="lv-header">
                                     Notification
                     
-                                    <ul class="actions">
+                                <!--    <ul class="actions">
                                         <li class="dropdown">
                                             <a href="#" data-clear="notification">
                                                 <i class="zmdi zmdi-check-all"></i>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </div>
 								
-                                <div class="lv-body">
-                                    <a class="lv-item" href="#">
+                                <div data-bind="foreach : notifications"  class="lv-body">
+                                    <a class="lv-item" data-bind="attr : {dataid : id}" href="javascript:void(0);">
                                         <div class="media">
                                             <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/1.jpg" alt="">
+                                                <img class="lv-img-sm" data-bind="attr : {src: $parent.addBaseURL(image_file_name)}"  alt="Item image">
                                             </div>
                                             <div class="media-body">
-                                                <div class="lv-title">David Belle</div>
-                                                <small class="lv-small">Cum sociis natoque penatibus et magnis dis parturient montes</small>
+                                                <div class="lv-title" data-bind="text : item_name"></div>
+                                                <small class="lv-small">Expiration Date: <small class="lv-small" data-bind = "text: moment(expiration_date).format('MMMM DD, YYYY hh:mm A')"></small></small>
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="lv-item" href="#">
+                                <!--    <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
                                                 <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/2.jpg" alt="">
@@ -156,8 +160,8 @@
                                                 <small class="lv-small">Phasellus a ante et est ornare accumsan at vel magnauis blandit turpis at augue ultricies</small>
                                             </div>
                                         </div>
-                                    </a>
-                                    <a class="lv-item" href="#">
+                                    </a>-->
+                                <!--     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
                                                 <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
@@ -167,8 +171,8 @@
                                                 <small class="lv-small">Ut vitae lacus sem ellentesque maximus, nunc sit amet varius dignissim, dui est consectetur neque</small>
                                             </div>
                                         </div>
-                                    </a>
-                                    <a class="lv-item" href="#">
+                                    </a>-->
+                               <!--     <a class="lv-item" href="#">
                                         <div class="media">
                                             <div class="pull-left">
                                                 <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
@@ -178,14 +182,15 @@
                                                 <small class="lv-small">Proin laoreet commodo eros id faucibus. Donec ligula quam, imperdiet vel ante placerat</small>
                                             </div>
                                         </div>
-                                    </a>
+                                    </a> -->
                                 </div>
                     
-                                <a class="lv-footer" href="#">View Previous</a>
+                                <a class="lv-footer" href="javascript:void(0);">View Previous</a>
                             </div>
                     
                         </div>
                     </li>
+					<!-- NOTIFICATIONS-->
                     <li class="dropdown hidden-xs">
                         <a data-toggle="dropdown" class="tm-task" href="#"><i class="tmn-counts">2</i></a>
                         <div class="dropdown-menu pull-right dropdown-menu-lg">
@@ -257,9 +262,9 @@
                             <li>
                                 <a href="#"><i class="zmdi zmdi-face"></i> Privacy Settings</a>
                             </li>
-                            <li>
+                          <!--  <li>
                                 <a href="#"><i class="zmdi zmdi-settings"></i> Other Settings</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                     <li class="hidden-xs" id="chat-trigger" data-trigger="#chat">
@@ -286,109 +291,45 @@
             ?>
             
             <aside id="chat">
+			    
                 <ul class="tab-nav tn-justified" role="tablist">
-                    <li role="presentation" class="active"><a href="#friends" aria-controls="friends" role="tab" data-toggle="tab">Friends</a></li>
-                    <li role="presentation"><a href="#online" aria-controls="online" role="tab" data-toggle="tab">Online Now</a></li>
+                    <li role="presentation" class="active"><a href="#friends" aria-controls="friends" role="tab" data-toggle="tab">Send Message</a></li>
+                  <!--  <li role="presentation"><a href="#online" aria-controls="online" role="tab" data-toggle="tab">Online Now</a></li> -->
                 </ul>
             
-                <div class="chat-search">
+                <div data-bind="with : messageVM" class="chat-search">
                     <div class="fg-line">
-                        <input type="text" class="form-control" placeholder="Search People">
+                        <input data-bind="textInput: userSearch" type="text" class="form-control" placeholder="Search People">
                     </div>
                 </div>
                 
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="friends">
-                        <div class="listview">
-                            <a class="lv-item" href="#">
+                <div data-bind="with : messageVM" style="height:inherit;" class="tab-content c-overflow">
+                    <div role="tabpanel" class="tab-pane fade in active" id="friends" style="height:auto;">
+                        <!-- ko if: userList -->
+                        <div class="listview" id="userView" data-bind="foreach : userList" >
+                            <a class="lv-item sendMessage" data-bind="attr : {dataid : id}"  href="javascript:void(0);">
                                 <div class="media">
                                     <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/2.jpg" alt="">
-                                        <i class="chat-status-busy"></i>
+                                        <img class="lv-img-sm" data-bind="attr : {src : $parent.addBaseURL(userAvatar)}" alt="">
                                     </div>
                                     <div class="media-body">
-                                        <div class="lv-title">Jonathan Morris</div>
-                                        <small class="lv-small">Available</small>
-                                    </div>
-                                </div>
-                            </a>
-                            
-                            <a class="lv-item" href="#">
-                                <div class="media">
-                                    <div class="pull-left">
-                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/1.jpg" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="lv-title">David Belle</div>
-                                        <small class="lv-small">Last seen 3 hours ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            
-                            <a class="lv-item" href="#">
-                                <div class="media">
-                                    <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/3.jpg" alt="">
-                                        <i class="chat-status-online"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="lv-title">Fredric Mitchell Jr.</div>
-                                        <small class="lv-small">Availble</small>
-                                    </div>
-                                </div>
-                            </a>
-                            
-                            <a class="lv-item" href="#">
-                                <div class="media">
-                                    <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
-                                        <i class="chat-status-online"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="lv-title">Glenn Jecobs</div>
-                                        <small class="lv-small">Availble</small>
-                                    </div>
-                                </div>
-                            </a>
-                            
-                            <a class="lv-item" href="#">
-                                <div class="media">
-                                    <div class="pull-left">
-                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/5.jpg" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="lv-title">Bill Phillips</div>
-                                        <small class="lv-small">Last seen 3 days ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            
-                            <a class="lv-item" href="#">
-                                <div class="media">
-                                    <div class="pull-left">
-                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/6.jpg" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="lv-title">Wendy Mitchell</div>
-                                        <small class="lv-small">Last seen 2 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="lv-item" href="#">
-                                <div class="media">
-                                    <div class="pull-left p-relative">
-                                        <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/7.jpg" alt="">
-                                        <i class="chat-status-busy"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <div class="lv-title">Teena Bell Ann</div>
-                                        <small class="lv-small">Busy</small>
+                                        <div class="lv-title" data-bind="text : fullName || username "></div>
+                                        <small class="lv-small" data-bind="text : office_name || 'Admin' "></small>
                                     </div>
                                 </div>
                             </a>
                         </div>
+                        <!-- /ko -->
+
+                        <!-- ko ifnot: userList().length -->
+                        <div class="listview" id="userView">
+                            <center><h4 class="text-muted">No user found.</h4></center>     
+                        </div>
+                        <!-- /ko -->
                     </div>
-                    <div role="tabpanel" class="tab-pane fade" id="online">
+					
+					
+                  <!--  <div role="tabpanel" class="tab-pane fade" id="online">
                         <div class="listview">
                             <a class="lv-item" href="#">
                                 <div class="media">
@@ -442,8 +383,9 @@
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
+               
             </aside>
             
             
@@ -523,7 +465,6 @@
         
         <!-- Javascript Libraries -->
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/libs/lodash.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/js/jquery.dataTables.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/datatables/js/dataTables.bootstrap.min.js"></script>
@@ -536,6 +477,8 @@
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
 		
         <script src="<?php echo url::base(); ?>assets/js/plugins/knockout-file-bind.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/plugins/bootstrap-fileinput-master/js/fileinput.min.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/plugins/bootstrap-fileinput-master/js/fileinput_locale_LANG.js"></script>
         
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/moment/min/moment.min.js"></script>
         <script src="<?php echo url::base(); ?>assets/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
@@ -566,9 +509,11 @@
         <script src="<?php echo url::base(); ?>assets/js/app/customBindings.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/settings.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/xhr.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/helpers/chartConstructor.js"></script>
         
         <?php  if($this->current_role == 'admin'){?>
         <!-- Knockout ViewModels for ADMIN-->
+        <script src="<?php echo url::base(); ?>assets/js/app/reports/admin.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/allDataObjects.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/categoryVM.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/itemVM.js"></script>
@@ -578,6 +523,8 @@
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/profileVM.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/settingVM.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/purchaseVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/notificationVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/messageVM.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/userVM.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/requestVM.js"></script>         
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/officeBudgetVM.js"></script>
@@ -588,6 +535,8 @@
         <!-- Knockout ViewModels for OFFICE USER -->
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/allDataObjects.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/budgetRequestVM.js"></script>
+		        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/notificationVM.js"></script>
+        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/messageVM.js"></script>
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/requestVM.js"></script>
         <?php } ?>
 
@@ -731,43 +680,43 @@
            //  }];
            
             
-            function AmChartConstructor(URL, catField, valField, el, lineColor) {
-                $.getJSON(window.INVENTO.baseURL + "reports/" + URL).done(function(chartData) {
-                    var chart = new AmCharts.AmSerialChart();
-                    chart.dataProvider = chartData;
-                    chart.categoryField = catField;
-                    chart.export = {enabled:true};
-                    chart.responsive = {enabled:true};
-                    chart.angle = 30;
-                    chart.depth3D = 15;
-                    var graph = new AmCharts.AmGraph();
-                    graph.valueField = valField;
-                    graph.type = "column";
-                    graph.lineColor = lineColor || "#555";
-                    graph.fillColorsField = "color";
-                    graph.fillAlphas = 0.8;
-                    graph.balloonText = "[[category]]: <b>[[value]]</b>"
-                    graph.colors = ["#542654"];
+            // function AmChartConstructor(URL, catField, valField, el, lineColor, rotate) {
+            //     $.getJSON(window.INVENTO.baseURL + "reports/" + URL).done(function(chartData) {
+            //         var chart = new AmCharts.AmSerialChart();
+            //         chart.dataProvider = chartData;
+            //         chart.categoryField = catField;
+            //         chart.export = {enabled:true};
+            //         chart.responsive = {enabled:true};
+            //         chart.angle = 30;
+            //         chart.depth3D = 15;
+            //         chart.rotate = rotate;
 
-                    chart.addGraph(graph);
+            //         var graph = new AmCharts.AmGraph();
+            //         graph.valueField = valField;
+            //         graph.type = "column";
+            //         graph.lineColor = lineColor || "#555";
+            //         graph.fillColorsField = "color";
+            //         graph.fillAlphas = 0.8;
+            //         graph.balloonText = "[[category]]: <b>[[value]]</b>"
+            //         graph.colors = ["#542654"];
 
-                    chart.write(el);
-                    graph.animationPlayed = true;
-                    var categoryAxis = chart.categoryAxis;
-                    categoryAxis.autoGridCount = true;
-                    categoryAxis.gridCount = chartData.length;
-                    categoryAxis.gridPosition = "start";
-                    categoryAxis.labelRotation = 90;
-                });
-            }
+            //         chart.addGraph(graph);
 
-            AmCharts.ready(function(){
+            //         chart.write(el);
+                   
+            //         var categoryAxis = chart.categoryAxis;
+            //         categoryAxis.autoGridCount  = false;
+            //         categoryAxis.gridCount = chartData.length;
+            //         categoryAxis.gridPosition = "start";
+            //         categoryAxis.labelRotation = 90;
+            //     });
+            // }
 
 
-                AmChartConstructor("getDistrictStatistics", "name","offices","district-report","#FF5722");
-                AmChartConstructor("getItemStatistics", "item","quantity","chartdiv");
-                AmChartConstructor("getOfficeBudgetStatistics", "office_name","budget","office-budget-report","#8BC34A");
-            });          
+           
+
+
+                  
         </script>
     </body>
   

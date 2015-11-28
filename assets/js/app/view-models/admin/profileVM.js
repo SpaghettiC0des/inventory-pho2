@@ -23,10 +23,10 @@
 		console.log(data);
 		
 		x.post( "profile/user_info" , data).done( function ( res ) {
-			w.notif( "Profile has been Updated!", "success" );
+			swal("Profile has been successfully updated!", "", "success");
 
 		}).fail( function() {
-			w.notif( "Whoops! Something went wrong.", "danger");
+		swal("Whoops! Something went wrong.", "", "error");
 		});
 	};
 	
@@ -40,10 +40,10 @@
 		console.log(data);
 		
 		x.post( "profile/contact_info" , data).done( function ( res ) {
-			w.notif( "Profile has been Updated!", "success" );
+			swal("Profile has been successfully updated!", "", "success");
 
 		}).fail( function() {
-			w.notif( "Whoops! Something went wrong.", "danger");
+			swal("Whoops! Something went wrong.", "", "error");
 		});
 	};
 

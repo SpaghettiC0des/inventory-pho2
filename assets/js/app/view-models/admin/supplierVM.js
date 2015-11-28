@@ -23,7 +23,8 @@
 		sVM = supplierVM,
 		$editSupplier = $("#editSupplierModal");
 
-	sVM.edit = function(_id) {
+	$("#suppliersDT").on("click", ".supplier-edit", function() {
+	var _id = $(this).data("id");
 		var supplier = ko.utils.arrayFilter(w.INVENTO.VM.dataObjects.allSuppliers(),
 				function(supplier) {
 					return supplier.id == _id;
@@ -38,8 +39,10 @@
 		s.address(supplier.address);
 		sVM.updateID(_id);
 		$editSupplier.modal("show");
-	};
-	sVM.deleteSupplier = function(_id) {
+	});
+	
+	$("#suppliersDT").on("click", ".supplier-delete", function() {
+	var _id = $(this).data("id");
 		swal({
 			title: "Are you sure?",
 			type: "warning",
@@ -53,7 +56,9 @@
 			if (isConfirm) {
 				x.post("suppliers/delete/" + _id).done(function(res) {
 					if (res) {
+						$("#supplierTR_" + _id).addClass("animated zoomOutDown").hide('slow');
 						success("deleted");
+						//swal.close();
 					}
 
 				}).fail(function() {
@@ -62,7 +67,8 @@
 
 			}
 		});
-	};
+	});
+	
 	sVM.handleSubmit = function() {
 		var data = ko.toJS(sVM);
 		delete data.handleSubmit;
@@ -80,10 +86,10 @@
 				sVM.email(undefined);
 				sVM.address(undefined);
 
-				w.notif("New Supplier added!", "success");
+				swal("New Supplier added!","","success");
 			}
 		}).fail(function() {
-			w.notif("Whoops! Something went wrong.", "danger");
+			error();
 		});
 	};
 

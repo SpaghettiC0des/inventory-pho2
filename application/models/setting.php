@@ -16,8 +16,8 @@ class Setting_Model extends ORM {
 		return $query;
 		}
 		
-		 	public function getOne(){
- 		return $this->db->getwhere('settings', array('id'=>"1"));
+	public function getOne(){
+ 		return $this->db->getwhere('settings', array('id'=>"1"))->as_array();
  	}
 	
 	public function get_one_profile($id){

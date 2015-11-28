@@ -52,4 +52,8 @@ class Suppliers_Controller extends Dashboard_Controller {
             echo $this->supplier_model->delete($id);
         }
     }
+
+    public function reports(){
+        $this->template->content = new View('suppliers/report');
+    }
 }

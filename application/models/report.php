@@ -23,13 +23,13 @@ class Report_Model extends ORM
     
     public function get_sum_purchases($monthFrom, $monthTo, $year, $supplier_id) {
         $query = @"SELECT `purchases`.*
-             SUM (grand_total) as purchasesTotal
-             FROM (`purchases`)
-             WHERE month >= $monthFrom
-             AND month <= $monthTo
-             AND year = $year
-             AND supplier_id = $supplier_id
-            ";
+            SUM (grand_total) as purchasesTotal
+            FROM (`purchases`)
+            WHERE month >= $monthFrom
+            AND month <= $monthTo
+            AND year = $year
+            AND supplier_id = $supplier_id";
+            
         return $this->db->query($query);
     }
 }

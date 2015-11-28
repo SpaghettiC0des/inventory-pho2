@@ -2,7 +2,7 @@
 	"use strict";
 
 	function error() {
-		swal("Something went wrong. Please try again.", "", "error")
+		swal("Whoops! Something went wrong. Please try again.", "", "error")
 	}
 
 	function success(msg) {
@@ -26,7 +26,8 @@
 		}, 500);
 	});
 
-	cVM.edit = function(_id) {
+	$("#categoriesDT").on("click", ".category-edit", function() {
+	var _id = $(this).data("id");
 		var category = ko.utils.arrayFilter(w.INVENTO.VM.dataObjects.allCategories(),
 			function(category) {
 				return category.id == _id;
@@ -37,9 +38,10 @@
 		cVM.updateID(_id);
 
 		$editCategory.modal("show");
-	};
+	});
 
-	cVM.deleteCategory = function(_id) {
+	$("#categoriesDT").on("click", ".category-delete", function() {
+	var _id = $(this).data("id");
 		swal({
 			title: "Are you sure?",
 			type: "warning",
@@ -53,6 +55,7 @@
 			if (isConfirm) {
 				x.post("categories/delete/" + _id).done(function(res) {
 					if (res) {
+						$("#categoryTR_" + _id).addClass("animated zoomOutDown").hide('slow');
 						success("deleted");
 					}
 
@@ -62,7 +65,7 @@
 
 			}
 		});
-	};
+	});
 
 	cVM.handleSubmit = function() {
 		x.post("categories/save", {
@@ -76,7 +79,7 @@
 			success("added");
 
 		}).fail(function() {
-			w.notif("Whoops! Something went wrong.", "danger");
+			error();
 		});
 	};
 

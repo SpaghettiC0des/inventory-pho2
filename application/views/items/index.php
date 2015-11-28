@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <table data-bind="dataTable" class="table table-striped">
+        <table data-bind="dataTable" id="itemsDT" class="table table-striped">
             <thead>
                 <tr>
                     <th class="text-center">Image</th>
@@ -37,8 +37,8 @@
             <tbody data-bind="with: itemVM">
                 <?php foreach ($items as $item) : ?>
                     <?php if(isset($item->item_stocks[0])) {?>
-                        <tr>
-                            <td><img src="<?php echo url::site(); ?>assets/uploads/default.png" width="50" height="50" alt=""></td>
+                        <tr id="itemTR_<?php echo $item->id?>">
+                            <td><img src="<?php if(!empty($item->image_file_name)){ echo url::base().$item->image_file_name; }else{ echo url::site()."assets/uploads/default.png";}?>" width="50" height="50" alt=""></td>
                             <td><strong><?php echo $item->code; ?></strong></td>
                             <td>
                                 <strong><?php echo $item->name; ?> 
@@ -58,13 +58,13 @@
                             <td>
                                 <div class="btn-group">
                                     <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn bgm-bluegray btn-xs item-edit">Edit</a>
-                                    <a href="javascript:void(0);" class="btn btn-danger btn-xs">&times;</a>
+                                    <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn btn-danger btn-xs item-delete">&times;</a>
                                 </div>
                             </td>
                         </tr>
                         <?php } else {?>
-                            <tr>
-                                <td><img src="<?php echo url::site(); ?>assets/uploads/user-1-5642fe6f687c8-acne-set_thumb.JPG" width="50" height="50" alt=""></td>
+                            <tr id="itemTR_<?php echo $item->id?>">
+                               <td><img src="<?php if(!empty($item->image_file_name)){ echo url::base().$item->image_file_name; }else{ echo url::site()."assets/uploads/default.png";}?>" width="50" height="50" alt=""></td>
                                 <td><strong><?php echo $item->code; ?></strong></td>
                                 <td>
                                     <strong><?php echo $item->name; ?> 
@@ -76,7 +76,7 @@
                                 <td>
                                     <div class="btn-group">
                                         <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn bgm-bluegray btn-xs item-edit">Edit</a>
-                                        <a href="javascript:void(0);" class="btn btn-danger btn-xs">&times;</a>
+                                        <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn btn-danger btn-xs item-delete">&times;</a>
                                     </div>
                                 </td>
                             </tr>

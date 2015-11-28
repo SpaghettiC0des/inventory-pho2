@@ -4,7 +4,7 @@
     </div>
     
     <div class="card-body card-padding">
-        <table data-bind="dataTable" class="table table-striped">
+        <table data-bind="dataTable" id="suppliersDT" class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -17,7 +17,7 @@
             </thead>
             <tbody data-bind = "with: supplierVM">
                 <?php foreach ($suppliers as $supplier) { ?>
-                    <tr>
+                    <tr id="supplierTR_<?php echo $supplier->id?>">
                         <td><?php echo $supplier->name; ?></td>
                         <td><?php echo $supplier->representative; ?></td>
                         <td><?php echo $supplier->contact_number; ?></td>
@@ -25,8 +25,8 @@
                         <td><?php echo $supplier->address; ?></td>
                         <td>
                             <div class="btn-group">
-                                <a href="javascript:void(0);" data-bind = "click: function(){edit(<?php echo $supplier->id; ?>)}" class="btn bgm-bluegray btn-xs">Edit</a>
-                                <a href="javascript:void(0);" data-bind = "click: function(){deleteSupplier(<?php echo $supplier->id; ?>)}" class="btn btn-danger btn-xs">&times;</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $supplier->id?>" class="btn bgm-bluegray btn-xs supplier-edit">Edit</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $supplier->id?>" class="btn btn-danger btn-xs supplier-delete">&times;</a>
                             </div>
                         </td>
                     </tr>

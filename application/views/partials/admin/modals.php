@@ -320,6 +320,7 @@
                     <h4 class="modal-title">System Settings</h4>
                 </div>
                 <div class="modal-body">
+				
                     <div class="form-group">
                         <div class="col-md-12">
                             <label for="category-name" class="control-label">Site Name</label>
@@ -328,6 +329,7 @@
                             </div>
                         </div>
                     </div>
+					
                        <div class="form-group">
                         <div class="col-md-12">
                            <label for="category-name" class="control-label">Site Address</label>
@@ -355,37 +357,45 @@
                             </div>
                         </div>
                     </div>
-					
-					 <div class="form-group">
-                        <div class="col-md-12">
+				
+					 <div data-bind="with: settingVM" class="form-group">
+						<div class="col-md-6">
                             <label for="category-description" class="control-label">Expired Item Notification</label>
                             <div class="fg-line">
-                             	<select  name="item-expiration" id="item-expiration" required class="form-control">
-                    				<option value="3days" <?php# $settings->item_expiration=="3days"?$selected="selected":$selected="";echo $selected;?>>3 days before expiration</option>
-                    				<option value="1week" <?php# $settings->item_expiration=="1week"?$selected="selected":$selected="";echo $selected;?>>1 week before expiration</option>
-                    				<option value="1month" <?php# $settings->item_expiration=="1month"?$selected="selected":$selected="";echo $selected;?>>1 month before expiration</option>
+                             	<select data-bind="value: notifyBy" name="notiftype" id="notiftype" class="selectpicker" required>
+                    				<option value="byDay" <?php $settings->notiftype=="byDay"?$selected="selected":$selected="";echo $selected;?>>By Day</option>
+                    				<option value="byWeek" <?php $settings->notiftype=="byWeek"?$selected="selected":$selected="";echo $selected;?>>By Week</option>
+                    				<option value="byMonth" <?php $settings->notiftype=="byMonth"?$selected="selected":$selected="";echo $selected;?>>By Month</option>
                     			</select>
+                            </div>
+                        </div>
+						
+						<div class="col-md-6">
+                            <label for="category-description" class="control-label"></label>
+                            <div class="fg-line">
+                             	<select data-bind="selectPicker: selectedNotifyByValue,
+                                        selectPickerOptions: { optionsArray: notifyByValues }" 
+                                            name="" id="" class="selectpicker" data-live-search="true" required>
+                                </select>
+                            </div>
+                        </div>
+						
+                    </div>
+					
+					 <div class="form-group">
+                        <div class="col-md-8">
+                            <label for="category-description" class="control-label">Site Favicon</label>
+                            <div class="fg-line">
+							<input type="hidden" id="preview_image" value="<?php echo $favicon->location;?>" />
+                             	<input type="file" accept="image/*" id="site-favicon" name="site-favicon">
                             </div>
                         </div>
                     </div>
 					
-		              <div class="col-md-8">
-                            <label for="item-image" class="control-label">Site Favicon</label>
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
-                                <div>
-                                    <span class="btn btn-info btn-file">
-                                        <span class="fileinput-new">Select image</span>
-                                        <span class="fileinput-exists">Change</span>
-                                        <input id="test-upload" type="file" name="site-favicon" >
-                                    </span>
-                                    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                </div>
-                            </div>
-                        </div>
+		    
 					
                 </div>
-				
+				<br><br>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -538,18 +548,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <div class="col-md-3">
-                            <label for="item-image" class="control-label">Image(Opional)</label>
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
-                                <div>
-                                    <span class="btn btn-info btn-file">
-                                        <span class="fileinput-new">Select image</span>
-                                        <span class="fileinput-exists">Change</span>
-                                        <input data-bind="file: image_file_name" id="test-upload" type="file" name="item-image">
-                                    </span>
-                                    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                </div>
+                       <div class="col-md-3">
+                            <label for="category-description" class="control-label">Site Favicon</label>
+                            <div class="fg-line">
+                             	<input type="file" data-bind="file : image_file_name" accept="image/*" id="additem-image" name="image_file_name">
                             </div>
                         </div>
 
@@ -643,18 +645,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <div class="col-md-3">
-                            <label for="item-image" class="control-label">Image(Opional)</label>
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"></div>
-                                <div>
-                                    <span class="btn btn-info btn-file">
-                                        <span class="fileinput-new">Select image</span>
-                                        <span class="fileinput-exists">Change</span>
-                                        <input id="test-upload" type="file" name="item-image">
-                                    </span>
-                                    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                </div>
+					
+                    <div class="col-md-4">
+                            <label for="category-description" class="control-label">Item Image</label>
+                            <div class="fg-line" id="editItemImage">
+                  	<input  type="file" accept="image/*" id="item-image" name="item-image">
                             </div>
                         </div>
 
@@ -970,6 +965,64 @@
     </div>
 </div>
 
+<!-- Edit Transaction Modal -->
+<div data-bind = "with : transactionVM" class="modal fade" id="editTransactionModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Edit Transaction</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label for="transaction-date" class="control-label">Date</label>
+                            <input data-bind = "dateTimePicker: date" type="text" class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder="0000-00-00 00:00">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label for="transaction-office-id" class="control-label">Offices</label>
+                            <select data-bind="selectPicker: office_id, 
+                                 optionsText: 'name', optionsCaption: 'Select Office', optionsValue: 'id',
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allOffices }" 
+                                        name="transaction-office-id" id="transaction-office-id" class="selectpicker" data-live-search="true" required>
+                            </select>
+                        </div>
+                        <div data-bind = "style: {display: isVisible}" class="col-md-6">
+                            <label for="transaction-ref-no" class="control-label">Reference Number</label>
+                            <select data-bind="selectPicker: details, 
+                                optionsText: 'reference_no', optionsCaption: 'Select Reference No',
+                                    selectPickerOptions: { optionsArray: selectedOfficeRefNos }" 
+                                        name="transaction-office-id" id="transaction-office-id" class="selectpicker" data-live-search="true" required>
+                            </select>                           
+                        </div>
+                    </div>
+
+                    <div data-bind = "style: {display: isVisible}" class="form-group">
+                        <div class="col-md-6">
+                            <label for="transaction-amount" class="control-label">Amount (Php)</label>
+                            <input data-bind = "textInput: amount" type="number" min="1" step=".1" class="form-control text-center">
+                        </div>
+                        <div data-bind = "style: {display: hasGrandTotal}" class="col-md-6">
+                            <label for="transaction-total" class="control-label">Grand Total (Php)</label>
+                            <input data-bind = "value: grandTotal" type="number" class="form-control text-center" readonly="">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button data-bind = "enable: canSave" type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <!-- Add Request Modal -->
 <div data-bind = "with : requestVM" class="modal fade" id="addRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -1058,7 +1111,7 @@
                                         <td data-bind = "text: name"></td>
                                         <td>
                                             <div class="fg-line">
-                                                <input data-bind = "textInput: quantity" type="number" min="1" step="1" class="form-control text-center">    
+                                                <input data-bind = "textInput: quantity" type="number" min="1" step="1" class="form-control text-center qty">    
                                             </div>
                                         </td>
                                         <td data-bind = "text: cost"></td>
@@ -1252,6 +1305,85 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- email -->
+<div data-bind = "with : messageVM" class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" data-bind="submit : emailSending" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Send Message</h4>
+                </div>
+                <div class="modal-body">
+				 <label for="user-name" class="control-label">To: <span data-bind="text : receiverName"></span></label>
+				</br>
+				</br>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="fg-line">
+                                <input data-bind = "value : subject" id="email-subject" name="email-subject" type="text" class="form-control" placeholder="Subject *" required>
+                            </div>
+                        </div>
+                    </div>
+					
+			      <div class="form-group">
+				  <div class="col-md-12">
+                                <div class="fg-line">
+                                    <textarea class="form-control" data-bind="value : content" rows="5" placeholder="Type your Message *" id="email-content" name="email-content" required></textarea>
+                                </div>
+                                </div>
+                            </div>
+					
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Reply Email -->
+<div data-bind = "with : messageVM" class="modal fade" id="replyEmailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" data-bind="submit : replyEmailSending" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Reply Message</h4>
+                </div>
+                <div class="modal-body">
+				 <label for="user-name" class="control-label">Reply To: <span data-bind="text : receiverName"></span></label>
+				</br>
+				</br>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <div class="fg-line">
+                                <input data-bind = "value : subject" id="email-subject" name="email-subject" type="text" class="form-control" placeholder="Subject *" required>
+                            </div>
+                        </div>
+                    </div>
+					
+			      <div class="form-group">
+				  <div class="col-md-12">
+                                <div class="fg-line">
+                                    <textarea class="form-control" data-bind="value : content" rows="5" placeholder="Type your Message *" id="email-content" name="email-content" required></textarea>
+                                </div>
+                                </div>
+                            </div>
+					
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>

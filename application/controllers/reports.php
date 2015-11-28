@@ -12,7 +12,7 @@ class Reports_Controller extends Controller
     }
     
     public function getItemStatistics() {
-        if (request::is_ajax() AND request::method() == 'get') {
+        if (request::is_ajax() ) {
             $this->auto_render = FALSE;
             
             $this->auto_render = FALSE;
@@ -31,61 +31,113 @@ class Reports_Controller extends Controller
         }
     }
     
-    public function getDistrictStatistics() {
-        if(request::is_ajax() AND request::method() == 'get'){
+    public function getOnStockItemStatistics() {
+        if (request::is_ajax() ) {
             $this->auto_render = FALSE;
-            $districts = $this->district_model->districtStatistics();
-
-            echo json_encode($districts);
+            
+            echo json_encode($this->item_model->getAllOnStock()->result_array());
         }
     }
     
-    public function getOfficeBudgetStatistics(){
-        if(request::is_ajax() AND request::method() == 'get'){
+    public function getExpiredItemStatistics() {
+        if (request::is_ajax() ) {
+            $this->auto_render = FALSE;
+            
+            echo json_encode($this->item_model->getAllExpired()->result_array());
+        }
+    }
+    
+    public function getDistrictStatistics() {
+        if (request::is_ajax() ) {
+            $this->auto_render = FALSE;
+
+            $filter = security::xss_clean($this->input->post('filter'));
+
+            if(isset($filter)){
+                if(is_array($filter)){
+                    $districts = $this->district_model->districtStatistics($filter);
+                    echo json_encode($districts);
+                    return;
+                }
+
+                $districts = $this->district_model->districtStatistics($filter);
+                echo json_encode($districts);
+                return;
+            }
+            $districts = $this->district_model->districtStatistics();
+            echo json_encode($districts);   
+        }
+    }
+    
+    public function getOfficeBudgetStatistics() {
+        if (request::is_ajax() ) {
             $this->auto_render = FALSE;
             
             $budgets = $this->budget_model->with('office')->find_all();
             $arr = array();
             foreach ($budgets as $budget) {
-                array_push($arr, array(
-                    'office_name' => $budget->office->name,
-                    'budget' => $budget->amount_given,
-                ));
+                array_push($arr, array('office_name' => $budget->office->name, 'budget' => $budget->amount_given,));
             }
-
+            
             echo json_encode($arr);
         }
     }
-
-    public function getBudget($office_id) {
-        if (request::is_ajax() && request::method() === 'post') {
+    
+    public function getCategoryStatistics() {
+        if (request::is_ajax() ) {
+            $this->auto_render = FALSE;
+            echo json_encode($this->category_model->reports());
+        }
+    }
+    
+    public function getSupplierStatistics() {
+        if (request::is_ajax() ) {
+            $this->auto_render = FALSE;
+            echo json_encode($this->supplier_model->reports());
+        }
+    }
+    
+    public function getPurchaseStatistics() {
+        if (request::is_ajax() ) {
+            $this->auto_render = FALSE;
+            echo json_encode($this->purchase_model->reports());
+        }
+    }
+    
+    public function getTransactionStatistics() {
+        if (request::is_ajax() ) {
+            $this->auto_render = FALSE;
+            echo json_encode($this->transaction_model->report());
+        }
+    }
+    
+    public function getRequestStatistics() {
+        if (request::is_ajax() ) {
+            $this->auto_render = FALSE;
+            echo json_encode($this->request_model->report());
+        }
+    }
+    
+    public function getUserStatistics() {
+        if (request::is_ajax() ) {
             $this->auto_render = FALSE;
             
-            $budget = $this->budget_model->getOne($office_id)->as_array();
-            echo json_encode($budget);
+            $q = @"SELECT r.name as role, COUNT(ru.role_id) as role_count FROM users u, roles_users ru, roles r
+                WHERE ru.role_id != 1
+                AND u.id = ru.user_id
+                AND ru.role_id = r.id
+                GROUP BY ru.role_id";
+
+            echo json_encode($this->db->query($q)->result_array());
         }
     }
     
     public function getData($id) {
-        if (request::is_ajax() && request::method() === 'get') {
+        if (request::is_ajax() && request::method() === 'post') {
             $this->auto_render = FALSE;
             
             $requestData[] = $this->request_model->find($id)->as_array();
             echo json_encode($requestData);
-        }
-    }
-    public function save() {
-        if (request::is_ajax() && request::method() === 'post') {
-            $this->auto_render = FALSE;
-            $post = security::xss_clean($this->input->post());
-            
-            if ($post['status'] == 'Approved') {
-                echo (float)$post['grand_total'];
-            }
-            
-            // $this->request_model->insert( $post );
-            
-            
         }
     }
     
@@ -121,6 +173,41 @@ class Reports_Controller extends Controller
             
             //print_r(json_encode($arrays));exit;
             echo json_encode($arrays);
+        }
+    }
+    
+    public function get_expired_item_notification($notiftype, $notifdate) {
+        
+        if (request::is_ajax() && request::method() === 'post') {
+            $this->auto_render = FALSE;
+            $currentDate = date("Y-m-d");
+            if ($notiftype == "byDay") {
+                $date = "+" . $notifdate . " days";
+                $expiration_date = date("Y-m-d", strtotime($date));
+                
+                //  $expiration_date = $notifdate." days";
+                
+                
+            } 
+            elseif ($notiftype == "byWeek") {
+                $date = "+" . $notifdate . " weeks";
+                $expiration_date = date("Y-m-d", strtotime($date));
+                
+                //  $expiration_date = $notifdate." weeks";
+                
+                
+            } 
+            else {
+                $date = "+" . $notifdate . " months";
+                $expiration_date = date("Y-m-d", strtotime($date));
+                
+                //$expiration_date = $notifdate." months";
+                
+                
+            }
+            
+            $notifications = $this->item_model->get_expiring_item($expiration_date);
+            echo json_encode($notifications);
         }
     }
 }

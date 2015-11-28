@@ -27,12 +27,14 @@
 			monthFrom : ko.observable(),
             monthTo : ko.observable(),
             year : ko.observable(),
-
+			notifType : ko.observableArray(),
             requestData: ko.observableArray([]),
             SimpleLineData: ko.observable(),
         },
         repVM = reportVM;
-
+		
+	
+	
     repVM.displayText = function(d) {
         return "REF NO. " + d.reference_no + " " + d.item_name + " (" + d.code + ")";
     };

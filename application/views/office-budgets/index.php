@@ -3,7 +3,7 @@
         <h2>All Office Budgets <h2>
     </div>
     <div class="card-body card-padding">
-        <table data-bind = "dataTable" class="table table-striped">
+        <table data-bind = "dataTable" id="officeBudgetsDT" class="table table-striped">
             <thead>
                 <tr>
                     <th>Office</th>
@@ -17,7 +17,7 @@
             </thead>
             <tbody data-bind = "with: officeBudgetVM">
                 <?php foreach ($budgets as $budget) { ?>
-                    <tr>
+                    <tr id="officeBudgetTR_<?php echo $budget->id; ?>">
                         <td><strong><?php echo $budget->office->name; ?></strong></td>
                         <td class="text-center">₱ <strong><?php echo $budget->amount_given; ?></strong></td>
                         <td class="text-center">₱ <strong><?php echo $budget->amount_left; ?></strong></td>
@@ -26,8 +26,8 @@
                         <td class="text-center"><?php echo date('M d, Y h:m A',strtotime($budget->updated_at)) ?></td>
                         <td>
                             <div class="btn-group">
-                                <a href="javascript:void(0);" data-bind = "click: function(){edit(<?php echo $budget->id; ?>)}" class="btn bgm-bluegray btn-xs">Edit</a>
-                                <a href="javascript:void(0);" data-bind = "click: function(){deleteBudget(<?php echo $budget->id; ?>)}" class="btn btn-danger btn-xs">&times;</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $budget->id?>" class="btn bgm-bluegray btn-xs budget-edit">Edit</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $budget->id?>" class="btn btn-danger btn-xs budget-delete">&times;</a>
                             </div>
                         </td>
                     </tr>

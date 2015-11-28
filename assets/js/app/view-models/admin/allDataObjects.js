@@ -8,7 +8,9 @@
 			allDistricts: ko.observableArray([]),
 			allOffices: ko.observableArray([]),
 			allReferenceNumbers: ko.observableArray([]),
+			allUsers: ko.observableArray([]),
 			settings: ko.observableArray([]),
+
 		},
 		DO = dataObjects;
 
@@ -19,7 +21,9 @@
 		DO.allDistricts(res.districts);
 		DO.allOffices(res.offices);
 		DO.allReferenceNumbers(res.reference_numbers);
+		DO.allUsers(res.users);
 		DO.settings(res.settings);
+
 		//	var test = ko.toJS(res.settings[0].configs);
 		// console.log(ko.toJS(res.settings[0].configs));
 		//DO.settings(test);

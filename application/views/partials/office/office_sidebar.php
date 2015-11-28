@@ -18,7 +18,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="zmdi zmdi-settings"></i> Settings</a>
+                    <a href="#"><i class="zmdi zmdi-settings"></i>Account Settings</a>
                 </li>
                 <li>
                     <a href="<?php echo url::base().'dashboard/logout'; ?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>

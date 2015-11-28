@@ -1,6 +1,7 @@
 (function(w, j, ko) {
 	"use strict";
 	var x = w.INVENTO.XHR,
+		ChartConstructor = w.INVENTO.helpers.chartConstructor,
 		DO = w.INVENTO.VM.dataObjects,
 		districtVM = {
 			name: ko.observable(),
@@ -19,7 +20,8 @@
 		$("#editDistrictModal").modal("show");
 	});
 
-	dVM.deleteDistrict = function(_id) {
+	$("#districtsDT").on("click", ".district-delete", function() {
+		var _id = $(this).data("id");
 		swal({
 			title: "Are you sure?",
 			type: "warning",
@@ -35,18 +37,17 @@
 				x.post("districts/delete/" + _id).done(function(res) {
 					if (res) {
 						$("#districtTR_" + _id).addClass("animated zoomOutDown").hide('slow');
-						swal.close();
-						// swal("Deleted!", "", "success");
+						swal("District deleted!", "", "success");
+						//	swal.close();
+						//w.notif("District Deleted.", "success");
 					}
 				}).fail(function() {
-					w.notif("Whoops! Something went wrong.", "error");
+					swal("Whoops! Something went wrong.", "", "error");
 				});
-
-
 			}
 		});
+	});
 
-	};
 	dVM.handleSubmit = function() {
 		x.post("districts/save", {
 			name: dVM.name()
@@ -57,10 +58,11 @@
 				DO.allDistricts.push(newDistrict[0]);
 				dVM.name(undefined);
 
-				w.notif("New District added!", "success");
+				$("#addDistrictModal").modal("hide");
+				swal("New District added!", "", "success");
 			}
 		}).fail(function() {
-			w.notif("Whoops! Something went wrong.", "danger");
+			swal("Whoops! Something went wrong.", "", "error");
 		});
 	};
 
@@ -75,18 +77,43 @@
 		}).done(function(res) {
 			if (res) {
 				$("#editDistrictModal").modal("hide");
-				var res = JSON.parse(res)[0];
+				var res = JSON.parse(res)[0],
+					allDistricts = w.INVENTO.VM.dataObjects.allDistricts;
 
-				var test = _.findIndex(w.INVENTO.VM.dataObjects.allDistricts(),function(d){
-					return d == res;
+				allDistricts.remove(function(d) {
+					return d.id == _id;
 				});
 
-				console.log(test);return;
-				dtData[0] = res.name;
-				dtData[2] = moment(res.updated_at).format("MMM DD, YYYY");
+				allDistricts.push(res);
+				dtData[0] = "<strong>" + res.name + "</strong>";
+				dtData[2] = moment(res.updated_at).format("MMMM DD, YYYY hh:mm A");
 				districtsDT.row(tableRow).data(dtData).draw();
 
-				// swal("Updated!", "", "success");
+				swal("District Updated to " + res.name + "!", "", "success");
+			}
+
+		}).fail(function() {
+			swal("Whoops! Something went wrong.", "", "error");
+		});
+	};
+
+	dVM.getLastYear = function() {
+		var filter = {
+			filter: moment().subtract(1, 'year').format('YYYY-MM-DD')
+		};
+
+		x.post("reports/getDistrictStatistics", filter).done(function(res) {
+			if (res) {
+				w.districtsReport.clear();
+				w.districtsReport.dataProvider = res;
+				w.districtsReport.validateData();return;
+				ChartConstructor({
+					title: "Offices per district",
+					catField: "name",
+					valField: "offices",
+					element: "district-report",
+					balloonText: "[[category]] : [[value]] office/s"
+				}, res);
 			}
 
 		}).fail(function() {

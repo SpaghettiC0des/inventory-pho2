@@ -83,13 +83,58 @@
 
         x.post("users/save", data).done(function(res) {
             if (res) {
-                w.notif("New user added!", "success");
+                swal("New user added!","","success");
             }
 
         }).fail(function() {
-            w.notif("Whoops! Something went wrong.", "error");
+            swal("Whoops! Something went wrong.","","error");
         });
-    }
+    };
+	
+	// uVM.userList = function () {
+		// $.ajax({
+		// url: "users/getUserList/",
+		// type: 'GET',
+		// async: false,
+		// success: function (data) {
+		
+	//	var decoded = $.parseJSON(data);
+		// console.log(data);
+	
+		// },
+	// });	
+		
+	// };
+	
+	$("#usersDT").on("click", ".user-delete", function() {
+		var _id = $(this).data("id");
+		swal({
+			title: "Are you sure?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete it!",
+			cancelButtonText: "Cancel",
+			closeOnConfirm: false,
+			closeOnCancel: true
+
+		}, function(isConfirm) {
+			if (isConfirm) {
+				x.post("users/delete/" + _id).done(function(res) {
+					if (res) {
+						$("#userTR" + _id).addClass("animated zoomOutDown").hide('slow');
+						swal("User deleted!", "", "success");
+						//	swal.close();
+						//w.notif("District Deleted.", "success");
+					}
+				}).fail(function() {
+					swal("Whoops! Something went wrong.", "", "error");
+				});
+			}
+		});
+	});
+	
+	
 
     w.INVENTO.VM.userVM = uVM;
 

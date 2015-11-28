@@ -68,9 +68,9 @@
 		}
 
 		x.post("purchases/save", data).done(function(res) {
-			w.notif("New Purchase added!", "success");
+			swal("New Purchase added!","","success");
 		}).fail(function() {
-			w.notif("Whoops! Something went wrong.", "danger");
+			swal("Whoops! Something went wrong.","","errror");
 		});
 	};
 
@@ -86,7 +86,7 @@
 		    }
 		    
 		}).fail(function(){
-		    w.notif("Whoops! Something went wrong.", "error");
+		    swal("Whoops! Something went wrong.","","errror");
 		});
 	};
 	w.INVENTO.VM.purchaseVM = pVM;

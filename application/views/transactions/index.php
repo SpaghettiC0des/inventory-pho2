@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <table data-bind="dataTable" class="table table-striped">
+        <table data-bind="dataTable" id="transactionsDT" class="table table-striped">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -36,7 +36,7 @@
             </thead>
             <tbody>
                 <?php foreach ($transactions as $transaction) : ?>
-                    <tr>
+                    <tr id="transactionTR_<?php echo $transaction->id?>">
                         <td><?php echo date('M d, Y h:m A',strtotime($transaction->datetime)) ?></td>
                         <td><strong><?php echo $transaction->reference_no; ?></strong></td>
                         <td><?php echo $transaction->office->name; ?></td>
@@ -51,8 +51,8 @@
                         </td>
                         <td>
                            <div class="btn-group">
-                                <a href="javascript:void(0);"class="btn bgm-bluegray btn-xs">Edit</a>
-                                <a href="javascript:void(0);"class="btn btn-danger btn-xs">&times;</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $transaction->id?>" class="btn bgm-bluegray btn-xs transaction-edit">Edit</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $transaction->id?>"class="btn btn-danger btn-xs transaction-delete">&times;</a>
                            </div>
                         </td>
                     </tr>

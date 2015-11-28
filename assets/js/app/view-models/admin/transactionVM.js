@@ -6,7 +6,7 @@
     }
 
     function success(msg) {
-        swal("trasaction " + msg + "!", "", "success");
+        swal("Trasaction " + msg + "!", "", "success");
     }
 
 
@@ -15,6 +15,7 @@
             date: ko.observable(),
             details: ko.observable(),
             office_id: ko.observable(),
+            updateID: ko.observable(),
             amount: ko.observable(1),
             selectedOfficeRefNos: ko.observableArray([]),
             isVisible: ko.observable('none'),
@@ -82,8 +83,54 @@
             }
 
         }).fail(function() {
-            w.notif("Whoops! Something went wrong.", "error");
+            swal("Whoops! Something went wrong.","","error");
         });
     };
+	
+	$("#transactionsDT").on("click", ".transaction-delete", function() {
+	var _id = $(this).data("id");
+		swal({
+			title: "Are you sure?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete it!",
+			cancelButtonText: "Cancel",
+			closeOnConfirm: false,
+			closeOnCancel: true
+
+		}, function(isConfirm) {
+			if (isConfirm) {
+				x.post("transactions/delete/" + _id).done(function(res) {
+					if (res) {
+						$("#transactionTR_" + _id).addClass("animated zoomOutDown").hide('slow');
+						//swal.close();
+						swal("Transaction deleted!", "", "success");
+						//w.notif("District Deleted.", "success");
+					}
+				}).fail(function() {
+					swal("Whoops! Something went wrong.", "", "error");
+				});
+			}
+		});
+	});
+	
+	$("#transactionsDT").on("click", ".transaction-edit", function() {
+var _id = $(this).data("id");
+        x.getJ("office_budgets/getBudget/" + _id).done(function(res) {
+            if (res) {
+                tVM.updateID(_id);
+              //  tVM.edit_year(moment(res.year, 'YYYY'));
+              //  tVM.edit_office_id(res.office_id);
+              //  tVM.edit_amount(res.amount_given);
+
+                $("#editTransactionModal").modal("show");
+            }
+
+        }).fail(function() {
+            w.notif("Whoops! Something went wrong.", "error");
+        });
+	});
+	
     w.INVENTO.VM.transactionVM = tVM;
 }(window, jQuery, ko));

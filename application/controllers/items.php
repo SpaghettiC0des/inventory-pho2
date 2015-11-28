@@ -48,6 +48,7 @@ class Items_Controller extends Dashboard_Controller {
         if(request::is_ajax() && request::method() == 'post'){
             $this->auto_render = FALSE;
             $post = security::xss_clean( $this->input->post() );
+			//print_r($post);exit;
 			$filename = '';
 			if(!empty($post['image_file_name'])){
 			$data = explode(',', $post['image_file_name']);
@@ -79,12 +80,48 @@ class Items_Controller extends Dashboard_Controller {
         if(request::is_ajax() AND request::method() == 'post'){
             $this->auto_render = FALSE;
             $post = security::xss_clean($this->input->post());
-
+			
+			$filename = '';
+			if(!empty($post['image_file_name'])){
+			$data = explode(',', $post['image_file_name']);
+			$entry = base64_decode($data[1]);
+			$image = imagecreatefromstring($entry);
+			$filename = "assets/uploads/items/items-".uniqid().".jpeg";
+			$directory = dirname(__FILE__).DIRECTORY_SEPARATOR."../../".$filename;
+			header ( 'Content-type:image/jpeg' );
+			imagejpeg($image, $directory);
+			imagedestroy ( $image );
+			$post = array(
+			"category_id" => $post['category_id'],
+			"code" => $post['code'],
+			"name" => $post['name'],
+			"quantity" => $post['quantity'],
+			"unit" => $post['unit'],
+			"cost" => $post['cost'],
+			"price" => $post['price'],
+			"description" => $post['description'],
+			"image_file_name" => $filename
+			);
+			}
             $this->item_model->update($post, $id);
+			log_helper::add("1",$this->user_log,$this->user_id,"Updated Item named ".$post['name']);
         }   
     }   
     public function handleUpload(){
         $this->auto_render = FALSE;
         echo $this->input->post();
+    }
+	
+	public function delete($id){
+        if( request::is_ajax() && request::method() === 'post') {
+            $this->auto_render = FALSE;
+			 $item = $this->item_model->find($id);
+			log_helper::add("1",$this->user_log,$this->user_id,"Item deleted named ".$item->name.".");
+            echo $this->item_model->delete($id);
+        }
+    }
+	
+    public function reports(){
+        $this->template->content = new View('items/report');
     }
 }

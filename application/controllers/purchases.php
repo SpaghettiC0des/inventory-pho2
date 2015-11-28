@@ -13,11 +13,7 @@ class Purchases_Controller extends Dashboard_Controller {
     public function getPurchaseDetails($id){
         $this->auto_render = FALSE;
         $details = $this->purchase_model->getPurchaseDetails($id);
-        // echo Kohana::debug($details);
-        // echo gettype($details);
-        echo json_encode($details);
-        // echo Kohana::debug($data);
-        
+        echo json_encode($details);     
     }
 
     public function save(){
@@ -40,12 +36,12 @@ class Purchases_Controller extends Dashboard_Controller {
                     $this->item_stock_model->insert($items[$i]);
                     $i++;
                 }
-
-                // echo Kohana::debug($items[0]);
-                // echo json_encode($items);
-
             }
         }
+    }
+
+    public function reports(){
+        $this->template->content = new View('purchases/report');
     }
 
 }

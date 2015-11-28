@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <table data-bind="dataTable" class="table table-striped">
+        <table data-bind="dataTable" id="categoriesDT" class="table table-striped">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -34,14 +34,14 @@
             </thead>
             <tbody data-bind = "with: categoryVM">
                 <?php foreach ($categories as $category) : ?>
-                    <tr>
+                    <tr id="categoryTR_<?php echo $category->id;?>">
                         <td><strong><?php echo $category->name; ?></strong></td>
                         <td><?php echo \Carbon\Carbon::parse( $category->created_at )->toFormattedDateString(); ?></td>
                         <td><?php echo \Carbon\Carbon::parse( $category->updated_at )->toFormattedDateString(); ?></td>
                         <td>
                            <div class="btn-group">
-                               <a href="javascript:void(0);" data-bind = "click: function(){edit(<?php echo $category->id; ?>)}" class="btn bgm-bluegray btn-xs">Edit</a>
-                               <a href="javascript:void(0);" data-bind = "click: function(){deleteCategory(<?php echo $category->id; ?>)}" class="btn btn-danger btn-xs">&times;</a>
+                               <a href="javascript:void(0);" data-id="<?php echo $category->id; ?>" class="btn bgm-bluegray btn-xs category-edit">Edit</a>
+                               <a href="javascript:void(0);" data-id="<?php echo $category->id; ?>" class="btn btn-danger btn-xs category-delete">&times;</a>
                            </div>
                         </td>
                     </tr>

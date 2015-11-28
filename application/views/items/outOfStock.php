@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <table data-bind="dataTable" class="table table-striped">
+        <table data-bind="dataTable" id="itemsDT" class="table table-striped">
             <thead>
                 <tr>
                     <th>Reference No.</th>
@@ -35,17 +35,17 @@
             </thead>
             <tbody>
                 <?php foreach ($items as $item) : ?>
-                    <tr>
+                    <tr id="itemTR_<?php echo $item->id?>">
                         <td><strong><?php echo $item->reference_no; ?></strong></td>
                         <td><strong><?php echo $item->code; ?></strong></td>
                         <td><strong><?php echo $item->item_name; ?></td>
                         <td class="text-center"><?php echo "$item->quantity ".inflector::plural($item->unit,$item->quantity); ?></td>
                         <td><?php echo date('D M d, Y',strtotime($item->expiration_date));?></td>
                         <td>
-                            <div class="btn-group">
-                                <a href="javascript:void(0);"  class="btn bgm-bluegray btn-xs">Edit</a>
-                                <a href="javascript:void(0);" class="btn btn-danger btn-xs">&times;</a>
-                            </div>
+                                  <div class="btn-group">
+                                    <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn bgm-bluegray btn-xs item-edit">Edit</a>
+                                    <a href="javascript:void(0);" data-item-id="<?php echo $item->id; ?>" class="btn btn-danger btn-xs item-delete">&times;</a>
+                                </div>
                         </td>
                     </tr>
                 <?php endforeach ?>

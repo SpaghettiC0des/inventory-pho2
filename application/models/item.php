@@ -13,7 +13,7 @@ class Item_Model extends ORM
     }
     
     public function update($data, $id) {
-        return $this->db->update('items', $data, array('id'=>$id));
+        return $this->db->update('items', $data, array('id' => $id));
     }
     public function getOne($id) {
         return $this->db->getwhere('items', array('id' => $id));
@@ -39,5 +39,15 @@ class Item_Model extends ORM
     
     public function getNewlyAdded() {
         return $this->db->get('items');
+    }
+	
+	public function get_expiring_item($condition)
+	{
+	return $this->db->orderby('expiration_date','ASC')->getwhere('vw_all_items', array('expiration_date >=' => date('Y-m-d'),'expiration_date <=' => $condition))->result_array();
+
+		 //$q = @"SELECT vw_all_items.* FROM vw_all_items WHERE expiration_date >= $fromdate AND expiration_date <= $todate ORDER BY expiration_date ASC";
+		
+        //return $this->db->query($q);
+        
     }
 }

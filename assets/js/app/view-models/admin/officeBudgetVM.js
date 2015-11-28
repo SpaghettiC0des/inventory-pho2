@@ -30,12 +30,13 @@
                 obVM.canSave(true);
             }
         }).fail(function() {
-            w.notif("Whoops! Something went wrong.", "error");
+           swal("Whoops! Something went wrong.", "", "success");
         });
     });
 
 
-    obVM.edit = function(_id) {
+	$("#officeBudgetsDT").on("click", ".budget-edit", function() {
+		var _id = $(this).data("id");
         x.getJ("office_budgets/getBudget/" + _id).done(function(res) {
             if (res) {
                 obVM.updateID(_id);
@@ -49,9 +50,10 @@
         }).fail(function() {
             w.notif("Whoops! Something went wrong.", "error");
         });
-    };
+    });
 
-    obVM.deleteBudget = function(_id){
+	$("#officeBudgetsDT").on("click", ".budget-delete", function() {
+		var _id = $(this).data("id");
         swal({
             title: "Are you sure?",
             type: "warning",
@@ -65,7 +67,9 @@
             if (isConfirm) {
                 x.post("office_budgets/delete/"+ _id).done(function(res){
                     if (res) {
-                        swal("Office budget deleted!","", "success");  
+                       $("#officeBudgetTR_" + _id).addClass("animated zoomOutDown").hide('slow');
+						//swal.close();
+						 swal("Office Budget deleted!", "", "success");
                     }
 
                 }).fail(function(){
@@ -75,7 +79,7 @@
                 
             }
         });
-    };
+    });
 
     obVM.handleSubmit = function() {
         var data = {
@@ -86,12 +90,14 @@
         };
 
         x.post("office_budgets/save", data).done(function(res) {
-            if (res) {
-                w.notif("New Office budget added!", "success");
-            }
+		//console.log(res);
+          //  if (res) {
+                  $("#addOfficeBudgetModal").modal("hide");
+                swal("New Office Budget added!", "", "success");
+        //    }
 
         }).fail(function() {
-            w.notif("Whoops! Something went wrong.", "error");
+            swal("Whoops! Something went wrong.", "", "error");
         });
     };
 
@@ -108,7 +114,7 @@
             }
 
         }).fail(function() {
-            w.notif("Whoops! Something went wrong.", "error");
+           swal("Whoops! Something went wrong.", "", "error");
         });
     };
     w.INVENTO.VM.officeBudgetVM = obVM;
