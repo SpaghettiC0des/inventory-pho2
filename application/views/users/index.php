@@ -27,17 +27,17 @@
                         <td><?php echo $user->email; ?></td>
                         <td class="text-center">
                             <?php 
-                               // $office = $user->office->name; 
-                              //  if($office){
-                               //     echo $office;
-                              //  }else{
+                               $office = $user->office->name; 
+                               if($office){
+                                   echo $office;
+                               }else{
                             ?>
                                 <label class="label label-warning">N/A</label>
-                            <?php //} ?>
+                            <?php } ?>
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a href="javascript:void(0);" data-id="<?php echo $user->id?>" class="btn bgm-bluegray btn-xs user-edit">Edit</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $user->id?>" class="btn bgm-bluegray btn-xs user-changeRole">Change Role</a>
                                 <a href="javascript:void(0);" data-id="<?php echo $user->id?>" class="btn btn-danger btn-xs user-delete">&times;</a>
                             </div>
                         </td>

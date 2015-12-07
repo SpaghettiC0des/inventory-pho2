@@ -3,7 +3,6 @@ defined('SYSPATH') OR die('No direct access allowed.');
 
 class Reports_Controller extends Controller
 {
-    
     public function index() {
         $index = new View('reports/index');
         
@@ -51,20 +50,9 @@ class Reports_Controller extends Controller
         if (request::is_ajax() ) {
             $this->auto_render = FALSE;
 
-            $filter = security::xss_clean($this->input->post('filter'));
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
 
-            if(isset($filter)){
-                if(is_array($filter)){
-                    $districts = $this->district_model->districtStatistics($filter);
-                    echo json_encode($districts);
-                    return;
-                }
-
-                $districts = $this->district_model->districtStatistics($filter);
-                echo json_encode($districts);
-                return;
-            }
-            $districts = $this->district_model->districtStatistics();
+            $districts = $this->district_model->districtStatistics($filter);
             echo json_encode($districts);   
         }
     }
@@ -73,13 +61,10 @@ class Reports_Controller extends Controller
         if (request::is_ajax() ) {
             $this->auto_render = FALSE;
             
-            $budgets = $this->budget_model->with('office')->find_all();
-            $arr = array();
-            foreach ($budgets as $budget) {
-                array_push($arr, array('office_name' => $budget->office->name, 'budget' => $budget->amount_given,));
-            }
-            
-            echo json_encode($arr);
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
+
+            $budgets = $this->budget_model->officeBudgetStatistics($filter);
+            echo json_encode($budgets);
         }
     }
     
@@ -118,6 +103,15 @@ class Reports_Controller extends Controller
         }
     }
     
+    public function getOfficeRequestStatistics(){
+        if(request::is_ajax()){
+            $this->auto_render = FALSE;
+            $auth = new Auth;
+            $office_id = $auth->get_user()->office_id;
+            echo json_encode($this->request_model->office_report($office_id));
+        }
+    }
+
     public function getUserStatistics() {
         if (request::is_ajax() ) {
             $this->auto_render = FALSE;

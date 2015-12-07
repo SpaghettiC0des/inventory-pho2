@@ -48,17 +48,20 @@
 		iVM.updateID(itemID);
 		x.getJ("items/getOne/" + itemID).done(function(res) {
 			if (res) {
-			$("#editItemImage").html("").append("<input  type=file accept=image/* id=item-image name=item-image>");
-				$("#item-image").fileinput({
+			//var input = $("#itemImage");
+			//input.replaceWith(input.val('').clone(true));
+			$("#editItemImage").html("").append("<input type='file' accept='image/*' data-bind='file : image_file_name' id='eItemImage' name='item-image'>");
+	
+				$("#eItemImage").fileinput({
 					browseClass: "btn btn-primary",
 					showCaption: false,
 					showRemove: false,
-
 					showUpload: false,
 					initialPreview: [
 						"<img src='" +_base + res.image_file_name + "' class='file-preview-image' alt='No Files was Uploaded'  width='213' height='160'>"
 					]
 				});
+				
 				iVM.category_id(res.category_id);
 				iVM.image_file_name(res.image_file_name);
 				iVM.category_id(res.category_id);
@@ -110,23 +113,44 @@
 	});
 
 	iVM.handleUpdate = function() {
-		// console.log(iVM.updateID());return;
-		var data = ko.toJS(iVM);
-		delete data.edit;
-		delete data.handleSubmit;
-		delete data.handleUpdate;
-		delete data.updateID;
+		//console.log(iVM.updateID());return;
+		//var file = document.getElementById("eItemImage").value;
+		//iVM.image_file_name(file);
+		 // var formData = new FormData($("form#editItem")[0]);
+		//console.log(formData);return;
+		// var data = ko.toJS(iVM);
+		// delete data.edit;
+		// delete data.handleSubmit;
+		// delete data.handleUpdate;
+		// delete data.updateID;
 
-		x.post("items/update/" + iVM.updateID(), data).done(function(res) {
+		// x.post("items/update/" + iVM.updateID(), data).done(function(res) {
 			//if (res) {
-				$("#editItemModal").modal("hide");
-				swal("Item Updated!", "", "success");
-		//}
+				// $("#editItemModal").modal("hide");
+				// swal("Item Updated!", "", "success");
+		}
 
-		}).fail(function() {
-			swal("Whoops! Something went wrong.", "", "error");
+		// }).fail(function() {
+			// swal("Whoops! Something went wrong.", "", "error");
+		// });
+	// };
+	
+	$("#notifDD").on('click','.notificationLink',function () {
+		var notifId = $(this).attr('dataid');
+		x.getJ("items/getOne/" + notifId).done(function(res){
+				iVM.image_file_name(_base+res.image_file_name);
+				iVM.code(res.code);
+				iVM.name(res.name);
+				iVM.quantity(res.quantity);
+				iVM.unit(res.unit);
+				$("#viewExpiringItemModal").modal("show");
+		}).fail(function () {
+		swal("Whoops! Something went wrong.", "", "error");
 		});
-	};
+	
+		//console.log(localStorage.notifId);
+	
+		});
 
 	w.INVENTO.VM.itemVM = iVM;
 

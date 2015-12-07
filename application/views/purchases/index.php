@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <table data-bind="dataTable" class="table table-striped">
+        <table data-bind="dataTable" id="purchaseDT" class="table table-striped">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -43,7 +43,7 @@
                         <td class="text-center"><?php echo $purchase->status ; ?></td>
                         <td>
                             <div class="btn-group">
-                                <a data-bind = "click: function(){ getFullDetails(<?php echo $purchase->id; ?>)}" href="javascript:void(0);" class="btn btn-primary btn-sm">View</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $purchase->id; ?>" class="btn btn-primary btn-sm view-purchase">View</a>
                             </div> 
                         </td>
                     </tr>

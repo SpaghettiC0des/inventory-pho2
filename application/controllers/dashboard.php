@@ -242,7 +242,6 @@ class Dashboard_Controller extends Template_Controller {
     }
 
     public function index(){
-
         $post = array(
             'username' => 'user1',
             'email' => 'user@1.com',

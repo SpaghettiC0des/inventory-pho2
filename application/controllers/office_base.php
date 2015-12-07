@@ -16,7 +16,8 @@ class Office_Base_Controller extends Template_Controller
         
         if (!$this->auth->logged_in()) {
             $this->session->set("requested_url", "/" . url::current());
-             // this will redirect from the login page back to this page/
+            
+            // this will redirect from the login page back to this page/
             url::redirect('/auth');
         } 
         else if ($this->auth->logged_in('admin')) {
@@ -126,7 +127,7 @@ class Office_Base_Controller extends Template_Controller
         else {
             $this->user_id = "0";
         }
-
+        
         $this->office_id = $this->auth->get_user()->office_id;
     }
     

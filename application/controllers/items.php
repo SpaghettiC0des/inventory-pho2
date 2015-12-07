@@ -80,33 +80,51 @@ class Items_Controller extends Dashboard_Controller {
         if(request::is_ajax() AND request::method() == 'post'){
             $this->auto_render = FALSE;
             $post = security::xss_clean($this->input->post());
+			$item = $this->item_model->find($id)->as_array();
 			
-			$filename = '';
-			if(!empty($post['image_file_name'])){
-			$data = explode(',', $post['image_file_name']);
-			$entry = base64_decode($data[1]);
-			$image = imagecreatefromstring($entry);
-			$filename = "assets/uploads/items/items-".uniqid().".jpeg";
-			$directory = dirname(__FILE__).DIRECTORY_SEPARATOR."../../".$filename;
-			header ( 'Content-type:image/jpeg' );
-			imagejpeg($image, $directory);
-			imagedestroy ( $image );
-			$post = array(
-			"category_id" => $post['category_id'],
-			"code" => $post['code'],
-			"name" => $post['name'],
-			"quantity" => $post['quantity'],
-			"unit" => $post['unit'],
-			"cost" => $post['cost'],
-			"price" => $post['price'],
-			"description" => $post['description'],
-			"image_file_name" => $filename
-			);
+		if (!empty($_FILES['item-image']['name'])) {
+
+			$targetPath = 'assets/uploads/items/';
+			$filename = $_FILES['item-image']['name'];
+			$tempname = $_FILES['item-image']['tmp_name'];
+			$temp = explode(".",$filename);
+			$extension = end($temp);
+			
+			 if(!is_dir($targetPath)){
+					mkdir($targetPath, 0700);
+						$salt = 'items-'.uniqid().'-';
+						$targetFile =  $targetPath.$salt.$filename;
+						$this->start_upload($targetFile,$tempname);
+					}else{
+						$salt = 'items-'.uniqid().'-';
+						$targetFile =  $targetPath.$salt.$filename;  
+						$this->start_upload($targetFile,$tempname);
+					}
+			
+			}else{
+			$targetFile = $item['image_file_name'];
 			}
+			
+			$post = array(
+			"category_id" => $post['item-category'],
+			"code" => $post['item-code'],
+			"name" => $post['item-name'],
+			"quantity" => $item['quantity'],
+			"unit" => $post['item-unit'],
+			"cost" => $post['item-cost'],
+			"price" => $post['item-price'],
+			"description" => $post['item-description'],
+			"image_file_name" => $targetFile
+			);
             $this->item_model->update($post, $id);
 			log_helper::add("1",$this->user_log,$this->user_id,"Updated Item named ".$post['name']);
         }   
     }   
+	
+	public function start_upload($targetFile,$tempFile){
+		  move_uploaded_file($tempFile,$targetFile); 
+	}
+	
     public function handleUpload(){
         $this->auto_render = FALSE;
         echo $this->input->post();
@@ -115,9 +133,9 @@ class Items_Controller extends Dashboard_Controller {
 	public function delete($id){
         if( request::is_ajax() && request::method() === 'post') {
             $this->auto_render = FALSE;
-			 $item = $this->item_model->find($id);
+			$item = $this->item_model->find($id);
 			log_helper::add("1",$this->user_log,$this->user_id,"Item deleted named ".$item->name.".");
-            echo $this->item_model->delete($id);
+            echo $this->item_model->delete($item->id);
         }
     }
 	

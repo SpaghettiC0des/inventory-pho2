@@ -2,6 +2,8 @@
     "use strict";
     var helpers = w.INVENTO.helpers;
 
+    w.INVENTO.AmCharts = w.INVENTO.AmCharts || {};
+    
     function createChart(options, data) {
         return AmCharts.makeChart(options.element, {
             type: "serial",
@@ -39,7 +41,7 @@
 
         if (options.URL) {
             $.getJSON(window.INVENTO.baseURL + "reports/" + options.URL).done(function(data) {
-                w[options.chartName] = createChart(options, data);
+                w.INVENTO.AmCharts[options.chartName] = createChart(options, data);
             });
         } else {
             createChart(options, data);

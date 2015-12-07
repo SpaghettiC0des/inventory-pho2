@@ -47,8 +47,9 @@
 		}else{
 		return _base + "assets/uploads/default.png";
 		}
-			
-			};
+	};
+	
+
 
 	w.INVENTO.VM.notificationVM = nVM;
 

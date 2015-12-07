@@ -106,12 +106,12 @@
                         <div class="col-md-6">
                             <label for="budget-request-year" class="control-label">Year</label>
                             <input data-bind = "dateTimePicker : year, 
-                                dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
-                                    class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm" required>
+                                dateTimePickerOptions:{format:'YYYY'}" type="text" 
+                                    class="form-control input-mask" data-mask="0000-00-00" placeholder = "YYYY" required>
                         </div>
                         <div class="col-md-6">
                             <label for="" class="control-label">Request Amount (Php)</label>
-                            <input data-bind="textInput: amount" type="number" class="form-control text-center">
+                            <input data-bind="textInput: amount" type="number" class="form-control text-center" placeholder="Php 0.00">
                         </div> 
                     </div>
                     

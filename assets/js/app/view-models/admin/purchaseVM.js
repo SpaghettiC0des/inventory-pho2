@@ -1,10 +1,6 @@
 (function(w, j, ko) {
 	"use strict";
 
-	function computeSubTotal(o) {
-		console.log(o);
-	}
-
 	function Item(data) {
 		var obj = {
 			item_id: data.id,
@@ -29,7 +25,7 @@
 			items: ko.observableArray([]),
 			status: ko.observable(),
 
-			fullDetails:ko.observableArray([]),
+			fullDetails: ko.observableArray([]),
 		},
 		pVM = purchaseVM;
 
@@ -50,7 +46,7 @@
 
 	pVM.handleSubmit = function() {
 		var _items = ko.toJS(pVM.items());
-		$.each(_items, function(){
+		$.each(_items, function() {
 			this.expiration_date = moment(this.expiration_date).format('YYYY-MM-DD');
 			delete this.code;
 			delete this.name;
@@ -68,26 +64,30 @@
 		}
 
 		x.post("purchases/save", data).done(function(res) {
-			swal("New Purchase added!","","success");
+			swal("New Purchase added!", "", "success");
 		}).fail(function() {
-			swal("Whoops! Something went wrong.","","errror");
+			swal("Whoops! Something went wrong.", "", "errror");
 		});
 	};
 
+	$("#purchaseDT").on("click", ".view-purchase", function(e) {
+		e.preventDefault();
+		swal("Processing...","","info");
+		var _id = $(this).data("id");
+		x.getJ("purchases/getPurchaseDetails/" + _id).done(function(res) {
+			if (res) {
+				swal.close();
+				// var data = res;
+				// data.items = JSON.parse(res.items);
 
-	pVM.getFullDetails = function(_id){
-		x.getJ("purchases/getPurchaseDetails/" + _id).done(function(res){
-		    if (res) {
-		    	// var data = res;
-		    	// data.items = JSON.parse(res.items);
+				pVM.fullDetails(res);
+				$("#viewPurchaseDetailsModal").modal("show");
+			}
 
-		    	pVM.fullDetails(res);
-		    	$("#viewPurchaseDetailsModal").modal("show");
-		    }
-		    
-		}).fail(function(){
-		    swal("Whoops! Something went wrong.","","errror");
+		}).fail(function() {
+			swal("Whoops! Something went wrong.", "", "errror");
 		});
-	};
+	});
+
 	w.INVENTO.VM.purchaseVM = pVM;
 }(window, jQuery, ko));

@@ -91,13 +91,14 @@ class Auth_User_Model extends ORM {
 	 * @param  string   save the user if
 	 * @return boolean
 	 */
+
 	public function change_password(array & $array, $save = FALSE)
 	{
 		$array = Validation::factory($array)
 			->pre_filter('trim')
 			->add_rules('password', 'required', 'length[5,127]')
 			->add_rules('password_confirm', 'matches[password]');
-
+			
 		if ($status = $array->validate())
 		{
 			// Change the password

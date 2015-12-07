@@ -20,7 +20,6 @@
                         <td>
                             <div class="btn-group">
                                 <a data-bind = "click: function(){edit(<?php echo $request->id; ?>)}" href="javascript:void(0)" class="btn btn-primary btn-xs">Edit</a>
-                                <a href="javascipt:void(0)" class="btn btn-primary btn-xs">Update Status</a>
                                 <a data-bind = "click: function(){view(<?php echo $request->id; ?>)}" href="javascript:void(0)" class="btn btn-primary btn-xs">View</a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-xs">&times;</a>
                             </div>

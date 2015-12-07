@@ -2,7 +2,7 @@
 /**
  * @package  Core
  *
- * Sets the default route to "welcome"
+ * Sets the default route to "auth"
  */
 $config['_default'] = 'auth';
 
@@ -23,6 +23,15 @@ $config['all-expired-items'] = 'items/expired';
 $config['all-transactions'] = 'transactions/index';
 $config['all-partial-transactions'] = 'transactions/allPartial';
 $config['all-paid-transactions'] = 'transactions/allPaid';
+
+/**
+ * Office Budget Routes
+ */
+$config['all-budgets'] = 'office_budgets';
+$config['approved-budgets'] = 'office_budgets/approvedBudgets';
+$config['pending-budgets'] = 'office_budgets/pendingBudgets';
+
+
 
 // ADMIN ROUTES: END
 

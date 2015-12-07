@@ -33,4 +33,12 @@ class Request_Model extends ORM
 
         return $this->db->query($q)->result_array();
     }
+
+    public function office_report($office_id){
+        $q = @"SELECT r.status, COUNT(r.status) AS status_count FROM requests r
+            WHERE r.office_id = $office_id
+            GROUP BY r.status";
+
+        return $this->db->query($q)->result_array();
+    }
 }

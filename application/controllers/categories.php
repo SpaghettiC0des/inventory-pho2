@@ -51,8 +51,9 @@ class Categories_Controller extends Dashboard_Controller
         if (request::is_ajax() && request::method() === 'post') {
             $this->auto_render = FALSE;
             $category = $this->category_model->find($id);
+            echo $this->category_model->delete($category->id);
             log_helper::add("1", $this->user_log, $this->user_id, "Deleted Category named " . $category->name . ".");
-            echo $this->category_model->delete($id);
+            
         }
     }
 

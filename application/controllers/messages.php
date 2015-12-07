@@ -15,14 +15,26 @@ class Messages_Controller extends Dashboard_Controller
             $post = security::xss_clean($this->input->post());
 			$senderId = $this->auth->get_user()->id;
 			$receiver = $this->category_model->getOneUser($post['receiverId']);
-						print_r($post['receiverId']);exit;
+						
 			$decodeUserInfo = json_decode($receiver[0]->user_information,TRUE);
+			if(!empty($receiver[0]->user_information)){
+				$log_name = $decodeUserInfo['fullname'];
+				}else{
+				$log_name = $receiver[0]->username;
+				}
+				
+			$dataConvo = array(
+			"user_one" => $senderId,
+			"user_two" => $post['receiverId'],
+			);
+			$convoId = $this->email_model->insertConvo($dataConvo);
 
 			$dataSent = array(
 			"email_data" => $post['content'],
 			"subject" => $post['subject'],
 			"receiver_id" => $post['receiverId'],
 			"sender_id" => $senderId,
+			"parent_id" => $convoId,
 			"notif_viewed" => 0,
 			"email_viewed" => 0,
 			"email_deleted" => 0,
@@ -30,7 +42,40 @@ class Messages_Controller extends Dashboard_Controller
 			//print_r($post);exit;
 			//$this->auth->get_user()->id
            $latest = $this->email_model->insert($dataSent);
-          log_helper::add("1", $this->user_log, $this->user_id, "Message Sent to " . $decodeUserInfo['fullname'] . ".");
+          log_helper::add("1", $this->user_log, $this->user_id, "Message Sent to " . $log_name . ".");
+            
+          //  echo json_encode($latest);
+        }
+    }
+	
+	    public function reply_email() {
+        if (request::is_ajax() && request::method() === 'post') {
+            $this->auto_render = FALSE;
+            $post = security::xss_clean($this->input->post());
+			$senderId = $this->auth->get_user()->id;
+			$receiver = $this->category_model->getOneUser($post['receiverId']);
+						
+			$decodeUserInfo = json_decode($receiver[0]->user_information,TRUE);
+			if(!empty($receiver[0]->user_information)){
+				$log_name = $decodeUserInfo['fullname'];
+				}else{
+				$log_name = $receiver[0]->username;
+				}
+
+			$dataSent = array(
+			"email_data" => $post['content'],
+			"subject" => $post['subject'],
+			"receiver_id" => $post['receiverId'],
+			"sender_id" => $senderId,
+			"parent_id" => $post['parentId'],
+			"notif_viewed" => 0,
+			"email_viewed" => 0,
+			"email_deleted" => 0,
+			);
+			//print_r($post);exit;
+			//$this->auth->get_user()->id
+           $latest = $this->email_model->insert($dataSent);
+          log_helper::add("1", $this->user_log, $this->user_id, "Reply Message Sent to " . $log_name . ".");
             
           //  echo json_encode($latest);
         }
@@ -78,7 +123,11 @@ class Messages_Controller extends Dashboard_Controller
 	public function viewMessage($id){
 		 $index = new View('messages/viewMessage');
 		 $index->email = $this->email_model->getOneEmail($id)->current();
+		 $index->replies = $this->email_model->getAllConvoEmail($index->email->parent_id);
+	//	$this->template->content = $replies;
         $this->template->content = $index; 
+
+		
 		 $this->email_model->emailViewed($id);
 		}
 		

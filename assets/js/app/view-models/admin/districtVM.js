@@ -1,11 +1,32 @@
 (function(w, j, ko) {
 	"use strict";
+
+	function Filter(filter) {
+		x.post("reports/getDistrictStatistics", {
+			filter: filter
+		}).done(function(res) {
+			var res = JSON.parse(res);
+			if (res) {
+				w.districtsReport.dataProvider = res;
+				w.districtsReport.validateData();
+			} else {
+				swal("No Record Found", "", "warning");
+			}
+
+		}).fail(function() {
+			w.notif("Whoops! Something went wrong.", "error");
+		});
+	}
+
+
 	var x = w.INVENTO.XHR,
 		ChartConstructor = w.INVENTO.helpers.chartConstructor,
 		DO = w.INVENTO.VM.dataObjects,
 		districtVM = {
 			name: ko.observable(),
 			updateID: ko.observable(),
+			filterStart: ko.observable(),
+			filterEnd: ko.observable(),
 		},
 		dVM = districtVM;
 
@@ -97,29 +118,64 @@
 		});
 	};
 
-	dVM.getLastYear = function() {
-		var filter = {
-			filter: moment().subtract(1, 'year').format('YYYY-MM-DD')
-		};
+	dVM.filter = function(e) {
+		var filterBy = e.target.getAttribute("filter"),
+			filter = null;
 
-		x.post("reports/getDistrictStatistics", filter).done(function(res) {
-			if (res) {
-				w.districtsReport.clear();
-				w.districtsReport.dataProvider = res;
-				w.districtsReport.validateData();return;
-				ChartConstructor({
-					title: "Offices per district",
-					catField: "name",
-					valField: "offices",
-					element: "district-report",
-					balloonText: "[[category]] : [[value]] office/s"
-				}, res);
-			}
 
-		}).fail(function() {
-			w.notif("Whoops! Something went wrong.", "error");
-		});
+		switch (filterBy) {
+			case "last-year":
+				filter = moment().startOf("year").subtract(1, "year").format("YYYY");
+				break;
+			case "this-year":
+				filter = moment().startOf("year").format("YYYY");
+				break;
+			case "last-month":
+				filter = {
+					start: moment().startOf("month").subtract(1, "month").format("YYYY-MM-DD"),
+					end: moment().endOf("month").subtract(1, "month").format("YYYY-MM-DD"),
+				};
+				break;
+			case "this-month":
+				filter = {
+					start: moment().startOf("month").format("YYYY-MM-DD"),
+					end: moment().format("YYYY-MM-DD")
+				};
+				break;
+			case "last-week":
+				filter = {
+					start: moment().startOf("week").subtract(1, "week").format("YYYY-MM-DD"),
+					end: moment().endOf("week").subtract(1, "week").format("YYYY-MM-DD")
+				};
+				break;
+			case "this-week":
+				filter = {
+					start: moment().startOf("week").format("YYYY-MM-DD"),
+					end: moment().endOf("week").format("YYYY-MM-DD")
+				};
+				break;
+			case "custom":
+
+				$("#customFilterModal").modal("show");
+				break;
+			default:
+				filter = null;
+		}
+
+		if (($("#customFilterModal").data('bs.modal') || {}).isShown && !dVM.filterStart() && !dVM.filterEnd()) {
+			return;
+		}
+
+		Filter(filter);
 	};
 
+	dVM.getCustomFilter = function(){
+		var filter = {
+			start: moment(dVM.filterStart()).format("YYYY-MM-DD"),
+			end: moment(dVM.filterEnd()).format("YYYY-MM-DD")
+		}
+
+		Filter(filter);
+	};
 	w.INVENTO.VM.districtVM = dVM;
 }(window, jQuery, ko));

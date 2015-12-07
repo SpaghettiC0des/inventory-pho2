@@ -1,6 +1,6 @@
 <div class="card animated fadeIn">
     <div class="card-header">
-        <h2><?php echo $header; ?><h2>
+        <h2>All Pending Budgets<h2>
     </div>
     <div class="card-body card-padding">
         <table data-bind = "dataTable" id="officeBudgetsDT" class="table table-striped">
@@ -26,8 +26,7 @@
                         <td class="text-center"><?php echo date('M d, Y h:m A',strtotime($budget->updated_at)) ?></td>
                         <td>
                             <div class="btn-group">
-                                <a href="javascript:void(0);" data-id="<?php echo $budget->id?>" class="btn bgm-bluegray btn-xs budget-edit">Edit</a>
-                                <a href="javascript:void(0);" data-id="<?php echo $budget->id?>" class="btn btn-danger btn-xs budget-delete">&times;</a>
+                                <a href="javascript:void(0);" data-id="<?php echo $budget->id?>" class="btn bgm-blue btn-xs budget-approve">Approve</a>
                             </div>
                         </td>
                     </tr>

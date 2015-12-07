@@ -1,5 +1,6 @@
 (function(w, $, ko) {
     "use strict";
+
     var x = w.INVENTO.XHR,
         budgetRequestVM = {
             year: ko.observable(),
@@ -9,19 +10,20 @@
 
     brVM.handleSubmit = function() {
         var data = {
-            year: brVM.year(),
-            amount: brVM.amount(),
-            type: 'budget'
+            year: moment(brVM.year()).format('YYYY'),
+            amount: brVM.amount()
         };
 
-        x.post('requests/requestBudget',data).done(function(res){
+        x.post('office/office_requests/requestBudget', data).done(function(res) {
             if (res) {
-                swal("Budget requested!","","success");    
+                $("#addBudgetRequestModal").modal("hide");
+                swal("Budget requested!", "", "success");
             }
-            
-        }).fail(function(){
-            w.notif("Whoops! Something went wrong.", "error");
+
+        }).fail(function() {
+            swal("Whoops!", "", "error");
         });
     };
     w.INVENTO.VM.budgetRequestVM = brVM;
+
 }(window, jQuery, ko));

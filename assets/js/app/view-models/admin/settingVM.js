@@ -39,7 +39,6 @@
 	};
 
 	seVM.notifyBy.subscribe(function(val) {
-
 		if (val == "byDay") {
 			for (i; i <= 31; i++) {
 				seVM.notifyByValues.push(i);
@@ -54,7 +53,6 @@
 			}
 		}
 
-		
 	});
 
 

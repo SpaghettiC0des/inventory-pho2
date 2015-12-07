@@ -27,7 +27,7 @@
         </div>
 
         <ul class="main-menu">
-            <li class="<?php echo $uriClass->dashboard; ?>"><a href="<?php echo url::base(); ?>dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a></li>
+            <li class="<?php echo $uriClass->dashboard; ?>"><a href="<?php echo url::base(); ?>office/dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a></li>
 
             <li class="sub-menu">
                 <a href="#"><i class="zmdi zmdi-mail-send"></i>Requests</a>

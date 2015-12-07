@@ -98,7 +98,7 @@
             q,
             officeBudget = parseFloat(localStorage.budget);
 
-        $.each(rVM.items(), function() {
+        ko.utils.arrayForEach(rVM.items(), function() {
             total = parseFloat(this.subTotal()) + total;
         });
 
@@ -114,15 +114,13 @@
             budget = rVM.budget(),
             q;
         if (budget < 0) {
-            $.each(rVM.items(), function() {
+            ko.utils.arrayForEach(rVM.items(), function() {
                 this.quantity(1);
-                
+
             });
 
             rVM.budget.notifySubscribers();
         }
-
-
 
     });
 
@@ -138,33 +136,33 @@
         };
 
         x.post("requests/save", data).done(function(res) {
-            //     if (res) {
-            swal("New Request added!", "", "success");
-            //   }
+            if (res) {
+                swal("New Request added!", "", "success");
+            }
 
         }).fail(function() {
             swal("Whoops! Something went wrong.", "", "error");
         });
     };
 
-    rVM.edit = function(_id) {
+    $("#requestsDT").on("click", ".request-edit", function() {
+        var _id = $(this).data("id");
+        
         x.getJ("requests/getData/" + _id).done(function(res) {
             res[0].items = JSON.parse(res[0].items);
-            // console.log(res.items);
             rVM.requestData(res);
             $("#editRequestModal").modal("show");
 
         }).fail(function() {
             swal("Whoops! Something went wrong.", "", "error");
         });
-    };
+    });
 
     rVM.view = function(_id) {
 
         x.getJ("requests/getData/" + _id).done(function(res) {
             if (res) {
                 res[0].items = JSON.parse(res[0].items);
-                // console.log(res.items);
                 rVM.requestData(res);
                 $("#viewRequestModal").modal("show");
             }
@@ -191,8 +189,6 @@
                     if (res) {
                         $("#requestTR_" + _id).addClass("animated zoomOutDown").hide('slow');
                         swal("Request deleted!", "", "success");
-                        //swal.close();
-                        //w.notif("District Deleted.", "success");
                     }
                 }).fail(function() {
                     swal("Whoops! Something went wrong.", "", "error");
@@ -204,6 +200,7 @@
 
     $("#addRequestModal").on("hide.bs.modal", function() {
         localStorage['budget'] = null;
+        console.log('hidden');
     });
     w.INVENTO.VM.requestVM = rVM;
 }(window, jQuery, ko));

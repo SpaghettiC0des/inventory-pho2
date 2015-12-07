@@ -31,7 +31,7 @@
 							$userAvatar = json_decode($email->user_avatar);
 							?>
                     <tr id="emailTR_<?php echo $email->id; ?>" data-id="<?php echo $email->id; ?>" class="emailTR" >
-                    <td><strong><?php echo $userInfo->fullname; ?>  <button class="zmdi zmdi-comment-more btn btn-link pull-right" data-trigger="hover" data-placement="right" data-toggle="popover" data-placement="top" data-content="Read Message"></button></strong></td>
+                    <td><strong><?php if(!empty($email->user_information)){echo $userInfo->fullname;}else{echo "User";} ?>  <button class="zmdi zmdi-comment-more btn btn-link pull-right" data-trigger="hover" data-placement="right" data-toggle="popover" data-placement="top" data-content="Read Message"></button></strong></td>
                     <td><?php echo $subject;?></td>
                     <td><?php if(!empty($email->officeName)){echo $email->officeName;}else{echo "Admin";}?></td>
                     <td><?php if($email->email_viewed == 0){echo "Unread";}else{echo "Viewed";}?></td>

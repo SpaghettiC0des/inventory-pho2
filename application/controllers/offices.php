@@ -15,7 +15,7 @@ class Offices_Controller extends Dashboard_Controller
     public function save() {
         if (request::is_ajax() && request::method() === 'post') {
             $this->auto_render = FALSE;
-            $post = security::xss_clean($this->input->post());   
+            $post = security::xss_clean($this->input->post());
             $latest = $this->office_model->insert($post);
             log_helper::add("1", $this->user_log, $this->user_id, "Added New Office named " . $post['name']);
             

@@ -34,7 +34,6 @@
         return "REF NO. " + d.reference_no + " " + d.item_name + " (" + d.code + ")";
     };
 
-
     rVM.selected_item.subscribe(function() {
         if (rVM.selected_item()) {
             rVM.lastItemAdded(rVM.selected_item());
@@ -50,8 +49,9 @@
     rVM.grandTotal = ko.pureComputed(function() {
         var total = 0,
             officeBudget = parseFloat(localStorage.budget);
-        $.each(rVM.items(), function() {
-            total = parseFloat(this.subTotal()) + total;
+
+        ko.utils.arrayForEach(rVM.items(), function(item) {
+            total = parseFloat(item.subTotal()) + total;
         });
 
         var currentBudget = officeBudget - total;
@@ -67,7 +67,8 @@
 
     rVM.budget.subscribe(function() {
         if (rVM.budget() < 0) {
-            alert('Warning! Not enough budget!');
+            $("#addRequestModal").modal("hide");
+            swal("Not enough budget!","","warning");
         }
     });
 

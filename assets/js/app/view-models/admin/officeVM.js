@@ -1,5 +1,6 @@
 (function(w, j, ko) {
 	"use strict";
+
 	var x = w.INVENTO.XHR,
 		officeVM = {
 			district_id: ko.observable(),

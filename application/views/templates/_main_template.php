@@ -17,7 +17,7 @@
         <link rel="apple-touch-icon" sizes="144x144" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-144x144.png">
         <link rel="apple-touch-icon" sizes="152x152" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-152x152.png">
         <link rel="apple-touch-icon" sizes="180x180" href="<?php echo url::base(); ?>assets/img/favicons/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="<?php echo url::base(); ?>/android-icon-192x192.png">
         <link rel="icon" type="image/png" sizes="32x32" href="<?php echo url::base(); ?>assets/img/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="96x96" href="<?php echo url::base(); ?>assets/img/favicons/favicon-96x96.png">
         <link rel="icon" type="image/png" sizes="16x16" href="<?php echo url::base(); ?>assets/img/favicons/favicon-16x16.png">
@@ -77,12 +77,12 @@
 					 <li  class="dropdown">
                         <a data-toggle="dropdown" class="tm-message" id="email_notif" href="javascript:void(0);"><i id="email_count" class="tmn-counts"></i></a>
 				
-                      <div data-bind="with : messageVM" style="height : 400px;overflow:auto;" class="dropdown-menu dropdown-menu-lg pull-right c-overflow">
+                      <div data-bind="with : messageVM"  class="dropdown-menu dropdown-menu-lg pull-right ">
                             <div class="listview" id="">
                                 <div class="lv-header">
                                     Message
                                 </div>
-								
+								<div style="height : 300px;overflow:auto;" class="c-overflow">
                                 <div  class="lv-body" id="emails" data-bind="foreach : userEmails">
                                     <a class="lv-item viewEmail"   data-bind="attr : {dataemail : id},style : {backgroundColor : $parent.emailStatusCss(email_viewed)}" href="javascript:void(0);">
                                         <div class="media" >
@@ -93,7 +93,7 @@
                                                  <small class="lv-small" data-bind="text : $parent.emailStatus(email_viewed)"></small>
                                             </div>
                                             <div class="media-body">
-                                           <div class="lv-title" data-bind="text : fullName || 'User' "></div>
+                                           <div class="lv-title" data-bind="text : fullName || username"></div>
                                            <small class="lv-small" data-bind="text : subject"></small>
                     
                                      <small class="lv-small" data-bind = "text: moment(created_at).format('MMMM DD, YYYY hh:mm A')"></small>
@@ -102,7 +102,8 @@
                                     </a>
                                 </div>
                     
-                                <a class="lv-footer" href="<?php echo url::base();?>messages/index">View All</a>
+                            </div>
+							 <a class="lv-footer" href="<?php echo url::base();?>messages/index">View All</a>
                             </div>
                     
                         </div>
@@ -113,22 +114,14 @@
                     <li  class="dropdown">
                         <a data-toggle="dropdown" class="tm-notification" href="javascript:void(0);"><i id="expired_notif" class="tmn-counts"></i></a>
 				
-                      <div data-bind="with : notificationVM" style="height : 400px;overflow:auto;" class="dropdown-menu dropdown-menu-lg pull-right c-overflow">
+                      <div data-bind="with : notificationVM" class="dropdown-menu dropdown-menu-lg pull-right ">
                             <div class="listview" id="notifications">
                                 <div class="lv-header">
                                     Notification
-                    
-                                <!--    <ul class="actions">
-                                        <li class="dropdown">
-                                            <a href="#" data-clear="notification">
-                                                <i class="zmdi zmdi-check-all"></i>
-                                            </a>
-                                        </li>
-                                    </ul> -->
                                 </div>
-								
-                                <div data-bind="foreach : notifications"  class="lv-body">
-                                    <a class="lv-item" data-bind="attr : {dataid : id}" href="javascript:void(0);">
+								<div style="height : 300px;overflow:auto;" class="c-overflow">
+                                <div data-bind="foreach : notifications" id="notifDD"  class="lv-body">
+                                    <a class="lv-item notificationLink" data-bind="attr : {dataid : id}" href="javascript:void(0);">
                                         <div class="media">
                                             <div class="pull-left">
                                                 <img class="lv-img-sm" data-bind="attr : {src: $parent.addBaseURL(image_file_name)}"  alt="Item image">
@@ -139,50 +132,8 @@
                                             </div>
                                         </div>
                                     </a>
-                                <!--    <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/2.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Jonathan Morris</div>
-                                                <small class="lv-small">Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/3.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Fredric Mitchell Jr.</div>
-                                                <small class="lv-small">Phasellus a ante et est ornare accumsan at vel magnauis blandit turpis at augue ultricies</small>
-                                            </div>
-                                        </div>
-                                    </a>-->
-                                <!--     <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Glenn Jecobs</div>
-                                                <small class="lv-small">Ut vitae lacus sem ellentesque maximus, nunc sit amet varius dignissim, dui est consectetur neque</small>
-                                            </div>
-                                        </div>
-                                    </a>-->
-                               <!--     <a class="lv-item" href="#">
-                                        <div class="media">
-                                            <div class="pull-left">
-                                                <img class="lv-img-sm" src="<?php echo url::base(); ?>assets/img/profile-pics/4.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <div class="lv-title">Bill Phillips</div>
-                                                <small class="lv-small">Proin laoreet commodo eros id faucibus. Donec ligula quam, imperdiet vel ante placerat</small>
-                                            </div>
-                                        </div>
-                                    </a> -->
+                             
+                                </div>
                                 </div>
                     
                                 <a class="lv-footer" href="javascript:void(0);">View Previous</a>
@@ -191,7 +142,7 @@
                         </div>
                     </li>
 					<!-- NOTIFICATIONS-->
-                    <li class="dropdown hidden-xs">
+              <!--      <li class="dropdown hidden-xs">
                         <a data-toggle="dropdown" class="tm-task" href="#"><i class="tmn-counts">2</i></a>
                         <div class="dropdown-menu pull-right dropdown-menu-lg">
                             <div class="listview">
@@ -249,7 +200,9 @@
                                 <a class="lv-footer" href="#">View All</a>
                             </div>
                         </div>
-                    </li>
+                    </li>-->
+					
+					
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="tm-settings" href="#"></a>
                         <ul class="dropdown-menu dm-icon pull-right">
@@ -512,32 +465,33 @@
         <script src="<?php echo url::base(); ?>assets/js/app/helpers/chartConstructor.js"></script>
         
         <?php  if($this->current_role == 'admin'){?>
-        <!-- Knockout ViewModels for ADMIN-->
-        <script src="<?php echo url::base(); ?>assets/js/app/reports/admin.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/allDataObjects.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/categoryVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/itemVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/districtVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/officeVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/supplierVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/profileVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/settingVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/purchaseVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/notificationVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/messageVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/userVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/requestVM.js"></script>         
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/officeBudgetVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/transactionVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/reportVM.js"></script>
-        
+            <!-- Knockout ViewModels for ADMIN-->
+            <script src="<?php echo url::base(); ?>assets/js/app/reports/admin.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/allDataObjects.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/categoryVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/itemVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/districtVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/officeVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/supplierVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/profileVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/settingVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/purchaseVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/notificationVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/messageVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/userVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/requestVM.js"></script>         
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/officeBudgetVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/transactionVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/reportVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/helpers/sidebarHelper.js"></script>
         <?php } else if ($this->current_role == 'office_user'){?>
-        <!-- Knockout ViewModels for OFFICE USER -->
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/allDataObjects.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/budgetRequestVM.js"></script>
-		        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/notificationVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/messageVM.js"></script>
-        <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/requestVM.js"></script>
+            <!-- Knockout ViewModels for OFFICE USER -->
+            <script src="<?php echo url::base(); ?>assets/js/app/reports/office.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/allDataObjects.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/budgetRequestVM.js"></script>
+    		<script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/notificationVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/admin/messageVM.js"></script>
+            <script src="<?php echo url::base(); ?>assets/js/app/view-models/office/requestVM.js"></script>
         <?php } ?>
 
         <script src="<?php echo url::base(); ?>assets/js/app/view-models/masterVM.js"></script>

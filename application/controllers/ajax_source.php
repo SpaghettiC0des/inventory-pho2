@@ -39,11 +39,15 @@ class Ajax_Source_Controller extends Controller
     
     public function office() {
         $auth = new Auth;
+
         $office_id = $auth->get_user()->office_id;
         $items = $this->item_model->getAllOnStock();
+        foreach ($items as $key => $value) {
+            $arr[$key] = $value;
+        }
+        $items = $arr;
         
         $budget_record = $this->budget_model->getOne($office_id);
-        
         foreach ($items as $key => $value) {
             $arr[$key] = $value;
         }

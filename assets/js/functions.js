@@ -903,6 +903,7 @@ $(document).ready(function() {
         showCaption: false,
         showRemove: false,
         showUpload: false,
+		
         //initialPreview: [
         //"<img src='' class='file-preview-image' alt='Item Image' title='Item Image' width='213' height='160'>"
         //]
@@ -921,13 +922,35 @@ $(document).ready(function() {
             }
         });
     });
+	
+	var base_url = INVENTO.baseURL;
+	
+	$("form#editItem").submit(function(event) {
+        //event.preventDefault(); // Totally stop stuff happening
+        var formData = new FormData($(this)[0]);
+        var itemId = $("#editItemId").val();
+        $.ajax({
+            url: base_url + "items/update/"+itemId,
+            type: 'POST',
+            data: formData,
+            async: false,
+            success: function(data, response, ajaxObj) {
+                $("#editItemModal").modal("hide");
+                swal("Item Updated!", "", "success");
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+        return false;
+    });
 
 
     $("form#profile_pic").submit(function(event) {
         //event.preventDefault(); // Totally stop stuff happening
         var formData = new FormData($(this)[0]);
         $.ajax({
-            url: "profile/profile_pic",
+            url: base_url + "profile/profile_pic",
             type: 'POST',
             data: formData,
             async: false,
@@ -947,7 +970,7 @@ $(document).ready(function() {
         //event.preventDefault(); // Totally stop stuff happening
         var formData = new FormData($(this)[0]);
         $.ajax({
-            url: "/inventory_pho2/settings/save",
+            url: base_url + "settings/save",
             type: 'POST',
             data: formData,
             async: false,
@@ -964,37 +987,34 @@ $(document).ready(function() {
 
     // var notifdate = $("#notificationdate").val();
     // var notiftype = $("#notificationtype").val();
-				
-	// $.ajax({
-		// url: "reports/get_expired_item_notification/"+notiftype+"/"+notifdate,
-		// type: 'POST',
-		// async: false,
-		// success: function (data,response,ajaxObj) {
-		// var decode = $.parseJSON(data);
-		// var notif = decode.length;
-		// $("#expired_notif").html(notif);
 
-		// },
-		
-		// });	
-		
-		
-		
-		
-		
-		
-		$("#notiftype").change(function () {
-			var type = $(this).val();
-			console.log(type);
-			var notifoptions = $("#notifdate");
-			if(type == "byWeek"){
-				notifoptions.empty().append('<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>');
-			}else if(type == "byMonth"){
-				notifoptions.empty().append('<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>');
-			}else{
-				notifoptions.empty().append('<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>');
-			}
-			});
-	
-		
+    // $.ajax({
+    // url: "reports/get_expired_item_notification/"+notiftype+"/"+notifdate,
+    // type: 'POST',
+    // async: false,
+    // success: function (data,response,ajaxObj) {
+    // var decode = $.parseJSON(data);
+    // var notif = decode.length;
+    // $("#expired_notif").html(notif);
+
+    // },
+
+    // });	
+
+
+
+    // $("#notiftype").change(function () {
+    // var type = $(this).val();
+    // console.log(type);
+    // var notifoptions = $("#notifdate");
+    // if(type == "byWeek"){
+    // notifoptions.empty().append('<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>');
+    // }else if(type == "byMonth"){
+    // notifoptions.empty().append('<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>');
+    // }else{
+    // notifoptions.empty().append('<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>');
+    // }
+    // });
+
+
 });

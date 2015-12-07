@@ -19,19 +19,26 @@ class District_Model extends ORM
     }
     
     public function districtStatistics($filter = FALSE) {
-        
         if ($filter) {
             if (is_array($filter)) {
-                return $this->db->orlike(array('created_at' => $filter['start'], 'created_at' => $filter['end']));
+                $start = $filter['start'];
+                $end = $filter['end'];
+                $query = @"SELECT d.name, COUNT(o.name) as offices FROM districts d, offices o
+                    WHERE d.created_at BETWEEN '$start' AND '$end'
+                    AND d.id = o.district_id
+                    GROUP BY d.id";
+
+                return $this->db->query($query)->result_array();
             }
             
             $query = @"SELECT d.name, COUNT(o.name) as offices FROM districts d, offices o
-            where d.id = o.district_id
-            AND d.created_at LIKE '$filter%'
-            GROUP BY d.id";
+                WHERE d.created_at LIKE '%$filter%'
+                AND d.id = o.district_id
+                GROUP BY d.id";
+
             return $this->db->query($query)->result_array();
         }
-
+        
         $query = @"SELECT d.name, COUNT(o.name) as offices FROM districts d, offices o
             where d.id = o.district_id
             GROUP BY d.id";

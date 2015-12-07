@@ -26,7 +26,7 @@ class Item_Model extends ORM
     }
     
     public function getAllOnStock() {
-        return $this->db->getwhere('vw_all_items', array('quantity > ' => 0));
+        return $this->db->groupby('reference_no')->getwhere('vw_all_items', array('quantity > ' => 0));
     }
     
     public function getAllOutOfStock() {

@@ -23,8 +23,7 @@ class Settings_Controller extends Dashboard_Controller {
 			$item_expiration = $this->input->post('item-expiration',null,true);
 			$notiftype = $this->input->post('notiftype',null,true);
 			$notifdate = $this->input->post('notifdate',null,true);
-			
-		//	print_r($_FILES['site-favicon']['tmp_name']);exit;
+		
 		if (!empty($_FILES['site-favicon']['name'])) {
 			$tempFile = $_FILES["site-favicon"]["tmp_name"];
 			$filename = $_FILES["site-favicon"]["name"];

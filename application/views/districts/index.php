@@ -23,7 +23,7 @@
                     <tr id="districtTR_<?php echo $district->id; ?>">
                         <td><strong><?php echo $district->name; ?></strong></td>
                         <td><?php echo date('F j, Y h:m A', strtotime($district->created_at));?></td>
-                        <td><?php echo date('F j, Y h:m A', strtotime($district->updated_at)); ?></td>
+                        <td><?php echo date('F j, Y h:m A', strtotime($district->updated_at));?></td>
                         <td>
                             <div class="btn-group">
                                 <button data-id="<?php echo $district->id; ?>" type="button" class="btn bgm-bluegray btn-xs district-edit">Edit</button>

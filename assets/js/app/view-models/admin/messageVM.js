@@ -9,7 +9,9 @@
 			subject: ko.observable(),
 			content: ko.observable(),
 			receiverName: ko.observable(),
+			username: ko.observable(),
 			emailId: ko.observable(),
+			parentId: ko.observable(),
 			senderName: ko.observable(),
 			userList: ko.observableArray([]),
 			fullName: ko.observableArray([]),
@@ -47,7 +49,7 @@
 					var userInfo = $.parseJSON(decoded[0].user_information);
 					mVM.receiverName(userInfo.fullname);
 				} else {
-					mVM.receiverName('User');
+					mVM.receiverName(decoded[0].username);
 				}
 				$("#sendEmailModal").modal("show");
 			},
@@ -91,10 +93,11 @@
 	};
 
 	mVM.replyEmailSending = function() {
-		x.post("messages/save_email", {
+		x.post("messages/reply_email", {
 			subject: mVM.subject(),
 			content: mVM.content(),
 			receiverId: mVM.receiverId(),
+			parentId: mVM.parentId(),
 		}).done(function(res) {
 			mVM.subject(undefined),
 				mVM.content(undefined),
@@ -154,8 +157,15 @@
 		mVM.emailId(emailid);
 		x.get("messages/getOneEmail/" + emailid).done(function(res) {
 			var decoded = $.parseJSON(res);
+			if(decoded.fullName){
 			mVM.receiverName(decoded.fullName);
+			}else{
+			mVM.receiverName(decoded.username);
+			}
 			mVM.receiverId(decoded.sender_id);
+			mVM.parentId(decoded.parent_id);
+			mVM.subject(decoded.subject);
+
 			$("#replyEmailModal").modal("show");
 		}).fail(function() {
 			swal("Whoops! Something went wrong.", "", "error");

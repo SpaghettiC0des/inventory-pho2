@@ -1,4 +1,3 @@
-;
 (function(w, j, ko) {
 	"use strict";
 
@@ -24,7 +23,7 @@
 		$editSupplier = $("#editSupplierModal");
 
 	$("#suppliersDT").on("click", ".supplier-edit", function() {
-	var _id = $(this).data("id");
+		var _id = $(this).data("id");
 		var supplier = ko.utils.arrayFilter(w.INVENTO.VM.dataObjects.allSuppliers(),
 				function(supplier) {
 					return supplier.id == _id;
@@ -40,9 +39,9 @@
 		sVM.updateID(_id);
 		$editSupplier.modal("show");
 	});
-	
+
 	$("#suppliersDT").on("click", ".supplier-delete", function() {
-	var _id = $(this).data("id");
+		var _id = $(this).data("id");
 		swal({
 			title: "Are you sure?",
 			type: "warning",
@@ -68,7 +67,7 @@
 			}
 		});
 	});
-	
+
 	sVM.handleSubmit = function() {
 		var data = ko.toJS(sVM);
 		delete data.handleSubmit;
@@ -86,7 +85,7 @@
 				sVM.email(undefined);
 				sVM.address(undefined);
 
-				swal("New Supplier added!","","success");
+				swal("New Supplier added!", "", "success");
 			}
 		}).fail(function() {
 			error();

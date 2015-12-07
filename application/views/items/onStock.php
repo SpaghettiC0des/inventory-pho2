@@ -35,7 +35,7 @@
             </thead>
             <tbody>
                 <?php foreach ($items as $item) : ?>
-                    <tr id="itemTR_<?php echo $item->id?>">
+                    <tr id="itemTR_<?php echo $item->id?>" class="">
                         <td><strong><?php echo $item->reference_no; ?></strong></td>
                         <td><strong><?php echo $item->code; ?></strong></td>
                         <td><strong><?php echo $item->item_name; ?></td>

@@ -144,7 +144,7 @@
                                 </div>
                             </div> -->
                             
-                            <div class="pmb-block">
+                            <div data-bind = "with : profileVM" class="pmb-block">
                                 <div class="pmbb-header">
                                     <h2><i class="zmdi zmdi-account m-r-5"></i> Basic Information</h2>
                                     
@@ -156,7 +156,7 @@
                                             
                                         <!--      <ul class="dropdown-menu dropdown-menu-right">
                                                 <li> -->
-                                                    <button data-pmb-action="edit" class="btn btn-primary btn-sm waves-effect" href="#">Edit</button>
+                                                    <button data-pmb-action="edit" id="userProfileInfo" data-id="<?php echo $this->user_id?>" class="btn btn-primary btn-sm waves-effect" href="#">Edit</button>
                                           <!--       </li>
                                             </ul>
                                         </li>-->
@@ -183,7 +183,7 @@
                                         </dl>
                                     </div>
                                     
-                                    <div data-bind = "with : profileVM" class="pmbb-edit">
+                                    <div  class="pmbb-edit">
 									 <form data-bind = "submit : handleBasic" action="" class="form-horizontal">
                                         <dl class="dl-horizontal">
                                             <dt class="p-t-10">Full Name</dt>
@@ -240,7 +240,7 @@
                             </div>
                        
                         
-                            <div class="pmb-block">
+                            <div data-bind = "with : profileVM" class="pmb-block">
                                 <div class="pmbb-header">
                                     <h2><i class="zmdi zmdi-phone m-r-5"></i> Contact Information</h2>
                                     
@@ -252,7 +252,7 @@
                                             
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li> -->
-                                                    <button data-pmb-action="edit" class="btn btn-primary btn-sm waves-effect" href="#">Edit</button>
+                                                    <button data-pmb-action="edit" id="updateContactInfo" data-id="<?php echo $this->user_id?>" class="btn btn-primary btn-sm waves-effect" href="#">Edit</button>
                                               <!--   </li>
                                             </ul>
                                         </li>-->
@@ -278,7 +278,7 @@
                                         </dl>
                                     </div>
                                     
-                                    <div data-bind = "with : profileVM" class="pmbb-edit">
+                                    <div  class="pmbb-edit">
 									<form data-bind = "submit : handleContact" action="" class="form-horizontal">
                                         <dl class="dl-horizontal">
                                             <dt class="p-t-10">Mobile Phone</dt>

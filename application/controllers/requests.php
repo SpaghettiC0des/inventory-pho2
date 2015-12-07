@@ -11,21 +11,6 @@ class Requests_Controller extends Dashboard_Controller
         $index->requests = $this->request_model->with('office')->find_all();
         $this->template->content = $index;
     }
-    public function requestBudget() {
-        if (request::is_ajax() && request::method() === 'post') {
-            $this->auto_render = FALSE;
-            
-            $post = security::xss_clean($this->input->post());
-            $post['office_id'] = 1;
-            $request = $this->request_model;
-            
-            // foreach ($post as $key => $value) {
-            //     $request->$key = $value;
-            // }
-            log_helper::add("1", $this->user_log, $this->user_id, "Requested a Budget");
-            echo json_encode($post);
-        }
-    }
     
     public function getBudget($office_id) {
         if (request::is_ajax() && request::method() === 'post') {

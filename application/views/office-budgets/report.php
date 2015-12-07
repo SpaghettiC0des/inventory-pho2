@@ -49,10 +49,17 @@
         </div>
 
         <div class="card-body card-padding">
-            <?php require Kohana::find_file('views/partials/admin','report_filter');?>
+            <div data-bind="with:officeBudgetVM">
+                <?php require Kohana::find_file('views/partials/admin','report_filter');?> 
+            </div>
+            
 
             <div id="office-budget-report" class="am-chart">
             </div>
         </div>
     </div>
+</div>
+
+<div data-bind="with:officeBudgetVM">
+    <?php require Kohana::find_file('views/partials/admin','custom_filter');?> 
 </div>

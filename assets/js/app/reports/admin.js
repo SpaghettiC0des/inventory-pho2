@@ -27,7 +27,7 @@
 
         ChartConstructor({
             URL: "getOfficeBudgetStatistics",
-            chartName: "busgetsReport",
+            chartName: "budgetsReport",
             title: "Budget Overview",
             catField: "office_name",
             valField: "budget",

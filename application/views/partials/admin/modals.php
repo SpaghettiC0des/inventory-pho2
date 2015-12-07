@@ -311,7 +311,7 @@
 </div>
 
 <!-- Settings -->
-<div class="modal fade" id="editSettingsModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" data-bind="settingVM" id="editSettingsModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <form method="post" id="system_setting" enctype="multipart/form-data" action="">
             <div class="modal-content">
@@ -375,7 +375,7 @@
                             <div class="fg-line">
                              	<select data-bind="selectPicker: selectedNotifyByValue,
                                         selectPickerOptions: { optionsArray: notifyByValues }" 
-                                            name="" id="" class="selectpicker" data-live-search="true" required>
+                                            name="notifdate" id="notifdate" class="selectpicker" data-live-search="true" required>
                                 </select>
                             </div>
                         </div>
@@ -549,7 +549,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                        <div class="col-md-3">
-                            <label for="category-description" class="control-label">Site Favicon</label>
+                            <label for="category-description" class="control-label">Item Image</label>
                             <div class="fg-line">
                              	<input type="file" data-bind="file : image_file_name" accept="image/*" id="additem-image" name="image_file_name">
                             </div>
@@ -635,21 +635,21 @@
 
 <!-- Edit Item Modal-->
 <div data-bind="with: itemVM" class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-hidden="true">
-    
+   
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form data-bind = "submit : handleUpdate"action="" class="form-horizontal">
+            <form data-bind = "submit : handleUpdate" action="" id="editItem" class="form-horizontal">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Edit Item</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-					
+					 <input type="hidden" id="editItemId" data-bind="value : updateID">
                     <div class="col-md-4">
                             <label for="category-description" class="control-label">Item Image</label>
                             <div class="fg-line" id="editItemImage">
-                  	<input  type="file" accept="image/*" id="item-image" name="item-image">
+                  	<input  type="file" accept="image/*" data-bind="file : image_file_name" id="eItemImage" name="item-image">
                             </div>
                         </div>
 
@@ -685,20 +685,20 @@
                             <label for="item-unit" class="control-label">Unit</label>
                             <div class="dtp-container fg-line">
                                 <input data-bind = "textInput : unit" id="item-unit" 
-                                    type="text" class="form-control" placeholder = "e.g. Box, Bottles, etc." required>
+                                    type="text" class="form-control" name="item-unit" placeholder = "e.g. Box, Bottles, etc." required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="item-cost" class="control-label">Cost</label>
                             <div class="dtp-container fg-line">
-                                <input data-bind = "textInput : cost" id="item-cost" 
+                                <input data-bind = "textInput : cost" id="item-cost" name="item-cost"
                                     type="number" min="1" step=".1" class="form-control text-center" placeholder="Unit cost" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label for="item-price" class="control-label">Price</label>
                             <div class="dtp-container fg-line">
-                                <input data-bind = "textInput : price" id="item-price" 
+                                <input data-bind = "textInput : price" id="item-price" name="item-price"
                                     type="number" min="1" step=".1" class="form-control text-center" placeholder="Php" required>
                             </div>
                         </div>
@@ -1253,7 +1253,7 @@
                         <div class="col-md-12">
                             <label for="user-name" class="control-label">Username</label>
                             <div class="fg-line">
-                                <input data-bind = "textInput: username" type="text" class="form-control" placeholder="New username" required>    
+                                <input data-bind = "textInput: username, event: {keyup: checkUsername}" type="text" class="form-control" placeholder="New username" required>    
                             </div>
                             
                         </div>
@@ -1263,7 +1263,7 @@
                         <div class="col-md-12">
                             <label for="user-email" class="control-label">Email</label>
                             <div class="fg-line">
-                                <input data-bind = "textInput:email" type="email" class="form-control" placeholder="New user email" required>    
+                                <input data-bind = "textInput:email, event: {keyup: checkEmail}" type="email" class="form-control" placeholder="New user email" required>    
                             </div>
                             
                         </div>
@@ -1303,7 +1303,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button data-bind="enable: validationPassed" type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </form>
@@ -1367,23 +1367,171 @@
                     <div class="form-group">
                         <div class="col-md-6">
                             <div class="fg-line">
-                                <input data-bind = "value : subject" id="email-subject" name="email-subject" type="text" class="form-control" placeholder="Subject *" required>
+                               <input readonly="" data-bind = "value : subject" id="email-subject" name="email-subject" type="text" class="form-control" placeholder="Subject *" required>
                             </div>
                         </div>
                     </div>
 					
-			      <div class="form-group">
-				  <div class="col-md-12">
-                                <div class="fg-line">
-                                    <textarea class="form-control" data-bind="value : content" rows="5" placeholder="Type your Message *" id="email-content" name="email-content" required></textarea>
-                                </div>
-                                </div>
+			        <div class="form-group">
+				        <div class="col-md-12">
+                            <div class="fg-line">
+                                <textarea class="form-control" data-bind="value : content" rows="15" placeholder="Type your Message *" id="email-content" name="email-content" required></textarea>
                             </div>
+                        </div>
+                    </div>
 					
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Send</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- View Expiring Item -->
+<div data-bind = "with : itemVM" class="modal fade" id="viewExpiringItemModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+	   <form action="" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">View Expiring Item Notification</h4>
+                </div>
+                <div class="modal-body">
+				<table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Item Image</th>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><img data-bind="attr : {src : image_file_name}" height="50px" width="50px" alt="Item Image" /></td>
+                                        <td data-bind="text : code"></td>
+                                        <td data-bind="text : name"></td>
+                                        <td data-bind="text : quantity"></td>
+                                        <td data-bind="text : unit"></td>
+                                    </tr>
+                                 
+                                </tbody>
+                            </table>
+       
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- Change Password Modal 
+<div data-bind = "with : userVM" class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form data-bind = "submit : changePassword" action="" class="form-horizontal" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Change Password</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div data-bind = "css: hasError " class="form-group">
+					             <div class="col-md-10">
+                            <div class="fg-line">
+                                <label for="user-password" class="control-label">Old Password</label>
+                     <input data-bind = "textInput: typedPassword,attr:{ type: pwdViewToggle }" id="user-password" 
+                                    name="user-password" class="form-control" maxlength="13" placeholder="New user Pasword" required>      
+                            </div>
+                            <small data-bind = "text: errorMsg" class="help-block"></small>
+
+                        </div>
+					
+                        <div class="col-md-10">
+                            <div class="fg-line">
+                                <label for="user-password" class="control-label">New Password</label>
+                          <input data-bind = "textInput: password,attr:{ type: pwdViewToggle }" id="user-password" 
+                                    name="user-password" class="form-control" maxlength="13" placeholder="New user Pasword" required>      
+                            </div>
+                            <small data-bind = "text: errorMsg" class="help-block"></small>
+                        </div>
+
+                        <div class="col-md-2">
+                            <br><br>
+                            <div class="toggle-switch" data-ts-color="blue" data-toggle="tooltip" data-placement="top" 
+                                title="Show password">
+
+                               <label for="user-show-password" class="ts-label"></label>
+                               <input data-bind = "checked: pwdView" id="user-show-password" type="checkbox"  hidden="hidden">
+                               <label for="user-show-password" class="ts-helper"></label>
+                           </div>
+                        </div>
+                    </div>
+                    
+                    <div data-bind="css: passwordMismatched,style: {display: hasPassword}" class="form-group">
+					
+			
+					
+					
+                        <div class="col-md-12">
+                            <div class="fg-line">
+                                <label for="user-password-retype" class="control-label">Re-type Password</label>
+                                <input data-bind="textInput: password_retype" name="user-password-retype" id="user-password-retype" type="password" class="form-control">
+                            </div>
+                            <small data-bind = "text: pwedCheckMsg" class="help-block"></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>-->
+
+
+<!-- Change Role Modal -->
+<div data-bind = "with : userVM" class="modal fade" id="changeRoleModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form  action="" data-bind="submit : changeRole" class="form-horizontal" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Change Role</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            <label for="user-role" class="control-label">Role</label>
+                            <select data-bind="value: role" name="user-role" id="user-role" class="selectpicker">
+                                <option value="2">Admin</option>
+                                <option value="3">Office User</option>
+                            </select required>
+                        </div>
+                        <div data-bind="style: {display: isOffice}" class="col-md-7">
+                            <label for="user-office" class="control-label">Offices</label>
+                            <select data-bind="selectPicker: office_id, 
+                                 optionsText: 'name', optionsCaption: 'Select office',optionsValue:'id',
+                                    selectPickerOptions: { optionsArray: $parent.dataObjects.allOffices }" 
+                                        name="user-office" id="user-office" class="selectpicker" data-live-search="true" required>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>

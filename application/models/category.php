@@ -45,5 +45,31 @@ class Category_Model extends ORM
 			";
         return $this->db->query($query)->result_array();
 		}
+		
+	public function updateUser($id,$data)
+	{
+	$query = $this->db
+	->where("users.id",$id)
+	->update("users",$data);
+	return $query;
+	}
+	
+	public function updateUserRole($id,$data)
+	{
+	$query = $this->db
+	->where("roles_users.user_id",$id)
+	->where("roles_users.role_id !=",1)
+	->update("roles_users",$data);
+	return $query;
+	}
+	
+	public function getOneRolesUsers($id)
+	{
+		$query = $this->db
+		->where("roles_users.user_id",$id)
+		->where("roles_users.role_id !=",1)
+		->get("roles_users");
+		return $query;
+		}
 	
 }

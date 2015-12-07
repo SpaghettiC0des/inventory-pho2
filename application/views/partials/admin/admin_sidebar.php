@@ -21,7 +21,7 @@
                     <a href="#"><i class="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
                 </li> -->
                 <li>
-                    <a href="#"><i class="zmdi zmdi-settings"></i>Account Settings</a>
+                <!--    <a href="javascript:void(0);" id="changePassword" data-id="<?php echo $this->user_id?>"><i class="zmdi zmdi-settings"></i>Change Password</a> -->
                 </li>
                 <li>
                     <a href="<?php echo url::base().'dashboard/logout'; ?>"><i class="zmdi zmdi-time-restore"></i> Logout</a>
@@ -30,32 +30,34 @@
         </div>
 
         <ul class="main-menu">
-            <li class=""><a href="<?php echo url::base(); ?>dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a></li>
+            <li><a href="<?php echo url::base(); ?>dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a></li>
             <li class="sub-menu">
-                <a href="#"><i class="zmdi zmdi-pin-drop"></i> Districts</a>
+                <a href="<?php echo url::base(); ?>districts"><i class="zmdi zmdi-pin-drop"></i> Districts</a>
 
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#addDistrictModal">Add</a></li>
-                    <li><a class="" href="<?php echo url::base(); ?>districts">List</a></li>
+                    <li><a href="<?php echo url::base(); ?>districts">List</a></li>
                     <li><a href="<?php echo url::base(); ?>districts/reports">Reports</a></li>
                 </ul>
             </li>
 
             <li class="sub-menu">
-                <a href="#"><i class="zmdi zmdi-case"></i> Offices</a>
+                <a href="<?php echo url::base(); ?>offices"><i class="zmdi zmdi-case"></i> Offices</a>
 
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#addOfficeModal">Add</a></li>
-                    <li><a class="" href="<?php echo url::base(); ?>offices">List</a></li>
+                    <li><a href="<?php echo url::base(); ?>offices">List</a></li>
                 </ul>
             </li>
             
             <li class="sub-menu">
-                <a href="#"><i class="zmdi zmdi-money"></i> Office Budgets</a>
+                <a href="<?php echo url::base(); ?>office_budgets"><i class="zmdi zmdi-money"></i> Office Budgets</a>
 
                 <ul>
                     <li><a href="#" data-toggle="modal" data-target="#addOfficeBudgetModal">Add</a></li>
-                    <li><a href="<?php echo url::base(); ?>office_budgets">List</a></li>
+                    <li><a href="<?php echo url::base(); ?>all-budgets">All</a></li>
+                    <li><a href="<?php echo url::base(); ?>approved-budgets">Approved</a></li>
+                    <li><a href="<?php echo url::base(); ?>pending-budgets">Pending</a></li>
                     <li><a href="<?php echo url::base(); ?>office_budgets/reports">Reports</a></li>
                 </ul>
             </li>
