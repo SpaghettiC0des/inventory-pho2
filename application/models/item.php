@@ -40,14 +40,46 @@ class Item_Model extends ORM
     public function getNewlyAdded() {
         return $this->db->get('items');
     }
-	
-	public function get_expiring_item($condition)
-	{
-	return $this->db->orderby('expiration_date','ASC')->getwhere('vw_all_items', array('expiration_date >=' => date('Y-m-d'),'expiration_date <=' => $condition))->result_array();
-
-		 //$q = @"SELECT vw_all_items.* FROM vw_all_items WHERE expiration_date >= $fromdate AND expiration_date <= $todate ORDER BY expiration_date ASC";
-		
+    
+    public function get_expiring_item($condition) {
+        return $this->db->orderby('expiration_date', 'ASC')->getwhere('vw_all_items', array('expiration_date >=' => date('Y-m-d'), 'expiration_date <=' => $condition))->result_array();
+        
+        //$q = @"SELECT vw_all_items.* FROM vw_all_items WHERE expiration_date >= $fromdate AND expiration_date <= $todate ORDER BY expiration_date ASC";
+        
         //return $this->db->query($q);
         
+        
+    }
+
+    public function itemStatistics($filter, $condition = TRUE){
+        if($filter){
+            if(is_array($filter)){
+                $start = $filter['start'];
+                $end = $filter['end'];
+
+                $query = @"SELECT i.name AS item, IF(iss.quantity > 0,iss.quantity, 0) AS quantity, IF(iss.quantity > 0,'#03A9F4', '#8BC34A') AS color FROM items i
+                    LEFT JOIN item_stocks iss ON i.id = iss.item_id
+                    WHERE i.created_at BETWEEN '$start' AND '$end'
+                    
+                    AND $condition
+                    GROUP BY i.id";
+
+                return $this->db->query($query)->result_array();
+            }
+
+            $query = @"SELECT i.name AS item, IF(iss.quantity > 0,iss.quantity, 0) AS quantity, IF(iss.quantity > 0,'#03A9F4', '#8BC34A') AS color FROM items i
+                LEFT JOIN item_stocks iss ON i.id = iss.item_id
+                WHERE i.created_at LIKE '%$filter%'
+                AND $condition
+                GROUP BY i.id";
+
+            return $this->db->query($query)->result_array();
+        }
+
+        $query = @"SELECT i.name AS item, IF(iss.quantity > 0,iss.quantity, 0) AS quantity, IF(iss.quantity > 0,'#03A9F4', '#8BC34A') AS color FROM items i
+            LEFT JOIN item_stocks iss ON i.id = iss.item_id
+            WHERE $condition
+            GROUP BY i.id";
+        return $this->db->query($query)->result_array();
     }
 }

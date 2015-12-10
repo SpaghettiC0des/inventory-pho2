@@ -60,11 +60,26 @@ class Office_Budgets_Controller extends Dashboard_Controller
             $this->auto_render = FALSE;
             $post = security::xss_clean($this->input->post());
             
+
             $officeBudget = $this->budget_model->find($id);
+
+            $transactionTotal = $this->transaction_model->getTransactionTotal($officeBudget->office_id);
+            
+            if($transactionTotal){
+                $transactionTotal = (float)$transactionTotal[0]->sum;
+                $amount_given = (float)$post['amount_given'];
+
+                if($amount_given > $transactionTotal){
+                    $post['amount_left'] = $amount_given - $transactionTotal;
+                }else{
+                    echo -1; return;
+                }
+            }
+            
             foreach ($post as $key => $value) {
                 $officeBudget->$key = $value;
             }
-            log_helper::add("2", $this->user_log, $this->user_id, "Updated a Office Budget.");
+            log_helper::add("2", $this->user_log, $this->user_id, "Updated an Office Budget.");
             echo $officeBudget->save();
         }
     }

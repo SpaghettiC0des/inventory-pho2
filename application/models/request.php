@@ -34,6 +34,33 @@ class Request_Model extends ORM
         return $this->db->query($q)->result_array();
     }
 
+    public function requestStatistics($filter){
+        if($filter){
+            if(is_array($filter)){
+                $start = $filter['start'];
+                $end = $filter['end'];
+
+                $q = @"SELECT r.status, COUNT(r.status) AS status_count FROM requests r
+                    WHERE r.created_at BETWEEN $start AND $end
+                    GROUP BY r.status"; 
+
+                return $this->db->query($q)->result_array();
+            }
+
+            $q = @"SELECT r.status, COUNT(r.status) AS status_count FROM requests r
+                WHERE r.created_at LIKE '%$filter%'
+                GROUP BY r.status"; 
+
+            return $this->db->query($q)->result_array();
+        }
+
+
+       $q = @"SELECT r.status, COUNT(r.status) AS status_count FROM requests r
+           GROUP BY r.status"; 
+
+        return $this->db->query($q)->result_array();
+    }
+
     public function office_report($office_id){
         $q = @"SELECT r.status, COUNT(r.status) AS status_count FROM requests r
             WHERE r.office_id = $office_id

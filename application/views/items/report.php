@@ -11,7 +11,7 @@
             </h2>
         </div>
         <div class="card-body card-padding">
-            <div>
+            <div data-bind="with: itemVM" class="chart-container" chart-name="allItemsReport" data-href="getItemStatistics">
                 <?php require Kohana::find_file('views/partials/admin','report_filter');?>
             </div>
             
@@ -23,7 +23,7 @@
         <div class="card-header">
             <h2>On Stock Item Statistics</h2>
             <div class="card-body card-padding">
-                <div>
+                <div data-bind="with: itemVM" class="chart-container" chart-name="onStockItemsReport" data-href="getOnStockItemStatistics">
                     <?php require Kohana::find_file('views/partials/admin','report_filter');?>
                 </div>
 
@@ -36,7 +36,7 @@
         <div class="card-header">
             <h2>Expired Items</h2>
             <div class="card-body card-padding">
-                <div>
+                <div data-bind="with: itemVM" class="chart-container" chart-name="expiredItemsReport" data-href="getExpiredItemStatistics">
                     <?php require Kohana::find_file('views/partials/admin','report_filter');?>
                 </div>
 
@@ -44,4 +44,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div data-bind="with: itemVM">
+    <?php require Kohana::find_file('views/partials/admin','custom_filter');?>
 </div>

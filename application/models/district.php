@@ -27,7 +27,7 @@ class District_Model extends ORM
                     WHERE d.created_at BETWEEN '$start' AND '$end'
                     AND d.id = o.district_id
                     GROUP BY d.id";
-
+                
                 return $this->db->query($query)->result_array();
             }
             
@@ -35,7 +35,7 @@ class District_Model extends ORM
                 WHERE d.created_at LIKE '%$filter%'
                 AND d.id = o.district_id
                 GROUP BY d.id";
-
+            
             return $this->db->query($query)->result_array();
         }
         

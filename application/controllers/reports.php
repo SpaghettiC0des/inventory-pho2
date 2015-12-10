@@ -11,109 +11,126 @@ class Reports_Controller extends Controller
     }
     
     public function getItemStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
             
-            $this->auto_render = FALSE;
-            $items = $this->item_model->with('item_stocks')->find_all();
-            $arr = array();
-            foreach ($items as $key) {
-                if ($key->item_stocks[0]) {
-                    array_push($arr, array("item" => $key->name, "quantity" => $key->item_stocks[0]->quantity, "color" => "#03A9F4"));
-                } 
-                else {
-                    
-                    array_push($arr, array("item" => $key->name, "quantity" => 0, "color" => "#8BC34A"));
-                }
-            }
-            echo json_encode($arr);
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
+            
+            $items = $this->item_model->itemStatistics($filter);
+            echo json_encode($items);
         }
     }
     
     public function getOnStockItemStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
+
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
             
-            echo json_encode($this->item_model->getAllOnStock()->result_array());
+            $items = $this->item_model->itemStatistics($filter,'iss.quantity > 0 AND iss.expiration_date >= CURRENT_DATE()');
+            echo json_encode($items);
         }
     }
     
     public function getExpiredItemStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
             
-            echo json_encode($this->item_model->getAllExpired()->result_array());
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
+
+            $items = $this->item_model->itemStatistics($filter,"iss.expiration_date <= CURRENT_DATE()");
+            echo json_encode($items);
         }
     }
     
     public function getDistrictStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
-
+            
             $filter = security::xss_clean($this->input->post('filter')) or NULL;
-
+            
             $districts = $this->district_model->districtStatistics($filter);
-            echo json_encode($districts);   
+            echo json_encode($districts);
         }
     }
     
     public function getOfficeBudgetStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
             
             $filter = security::xss_clean($this->input->post('filter')) or NULL;
-
+            
             $budgets = $this->budget_model->officeBudgetStatistics($filter);
             echo json_encode($budgets);
         }
     }
     
     public function getCategoryStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
-            echo json_encode($this->category_model->reports());
+            
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
+            
+            $categories = $this->category_model->categoryStatistics($filter);
+            echo json_encode($categories);
         }
     }
     
     public function getSupplierStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
-            echo json_encode($this->supplier_model->reports());
+            
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
+            
+            $suppliers = $this->supplier_model->supplierStatistics($filter);
+            echo json_encode($suppliers);
         }
     }
     
     public function getPurchaseStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
-            echo json_encode($this->purchase_model->reports());
+
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
+
+            $purchases = $this->purchase_model->purchaseStatistics($filter);
+            echo json_encode($purchases);
         }
     }
     
     public function getTransactionStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
-            echo json_encode($this->transaction_model->report());
+
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
+
+            $transactions = $this->transaction_model->transactionStatistics($filter);
+            echo json_encode($transactions);
         }
     }
     
     public function getRequestStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
-            echo json_encode($this->request_model->report());
+
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
+
+            $requests = $this->request_model->requestStatistics($filter);
+            echo json_encode($requests);
         }
     }
     
-    public function getOfficeRequestStatistics(){
-        if(request::is_ajax()){
+    public function getOfficeRequestStatistics() {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
             $auth = new Auth;
             $office_id = $auth->get_user()->office_id;
             echo json_encode($this->request_model->office_report($office_id));
         }
     }
-
+    
     public function getUserStatistics() {
-        if (request::is_ajax() ) {
+        if (request::is_ajax()) {
             $this->auto_render = FALSE;
             
             $q = @"SELECT r.name as role, COUNT(ru.role_id) as role_count FROM users u, roles_users ru, roles r
@@ -121,7 +138,7 @@ class Reports_Controller extends Controller
                 AND u.id = ru.user_id
                 AND ru.role_id = r.id
                 GROUP BY ru.role_id";
-
+            
             echo json_encode($this->db->query($q)->result_array());
         }
     }

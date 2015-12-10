@@ -19,12 +19,35 @@ class Supplier_Model extends ORM
         return $this->db->get('suppliers')->result_array($isArray);
     }
     
-    public function reports() {
-        $q = @"SELECT s.name AS supplier_name, COUNT(p.supplier_id) AS item_count 
+    public function supplierStatistics($filter) {
+        if ($filter) {
+            if (is_array($filter)) {
+                $start = $filter['start'];
+                $end = $filter['end'];
+                $query = @"SELECT s.name AS supplier_name, COUNT(p.supplier_id) AS item_count 
+                    FROM vw_purchase_details p, suppliers s
+                    WHERE s.created_at BETWEEN '$start' AND '$end'
+                    AND p.supplier_id = s.id
+                    GROUP BY p.supplier_id";
+                
+                return $this->db->query($query)->result_array();
+            }
+            
+           $query = @"SELECT s.name AS supplier_name, COUNT(p.supplier_id) AS item_count 
+                FROM vw_purchase_details p, suppliers s
+                WHERE s.created_at LIKE '%$filter%'
+                AND p.supplier_id = s.id
+                GROUP BY p.supplier_id";
+
+            return $this->db->query($query)->result_array();
+        }
+
+       $query = @"SELECT s.name AS supplier_name, COUNT(p.supplier_id) AS item_count 
             FROM vw_purchase_details p, suppliers s
             WHERE p.supplier_id = s.id
             GROUP BY p.supplier_id";
 
-        return $this->db->query($q)->result_array();
+        return $this->db->query($query)->result_array();
+
     }
 }

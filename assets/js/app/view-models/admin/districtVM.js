@@ -1,24 +1,6 @@
 (function(w, j, ko) {
 	"use strict";
 
-	function Filter(filter) {
-		x.post("reports/getDistrictStatistics", {
-			filter: filter
-		}).done(function(res) {
-			var res = JSON.parse(res);
-			if (res) {
-				w.districtsReport.dataProvider = res;
-				w.districtsReport.validateData();
-			} else {
-				swal("No Record Found", "", "warning");
-			}
-
-		}).fail(function() {
-			w.notif("Whoops! Something went wrong.", "error");
-		});
-	}
-
-
 	var x = w.INVENTO.XHR,
 		ChartConstructor = w.INVENTO.helpers.chartConstructor,
 		DO = w.INVENTO.VM.dataObjects,
@@ -29,6 +11,25 @@
 			filterEnd: ko.observable(),
 		},
 		dVM = districtVM;
+
+
+	function Filter(filter) {
+		x.post("reports/getDistrictStatistics", {
+			filter: filter
+		}).done(function(res) {
+			var res = JSON.parse(res);
+			if (res) {
+				w.INVENTO.AmCharts.districtsReport.dataProvider = res;
+				w.INVENTO.AmCharts.districtsReport.validateData();
+			} else {
+				swal("No Record Found", "", "warning");
+			}
+
+		}).fail(function() {
+			w.notif("Whoops! Something went wrong.", "error");
+		});
+	}
+
 
 	$("#districtsDT").on("click", ".district-edit", function() {
 		var _id = $(this).data("id");

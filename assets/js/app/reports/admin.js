@@ -71,7 +71,7 @@
             URL: "getOnStockItemStatistics",
             chartName: "onStockItemsReport",
             title: "Stocks",
-            catField: "item_name",
+            catField: "item",
             valField: "quantity",
             element: "onstock-items-report",
             color: "color",
@@ -82,7 +82,7 @@
             URL: "getExpiredItemStatistics",
             chartName: "expiredItemsReport",
             title: "Stocks",
-            catField: "item_name",
+            catField: "item",
             valField: "quantity",
             element: "expired-items-report",
             balloonText: "[[category]] : [[value]]"

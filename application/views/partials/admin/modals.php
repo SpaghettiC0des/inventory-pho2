@@ -386,7 +386,7 @@
                         <div class="col-md-8">
                             <label for="category-description" class="control-label">Site Favicon</label>
                             <div class="fg-line">
-							<input type="hidden" id="preview_image" value="<?php echo $favicon->location;?>" />
+							<input type="hidden" id="preview_image" value="<?php echo url::base().$favicon->location;?>" />
                              	<input type="file" accept="image/*" id="site-favicon" name="site-favicon">
                             </div>
                         </div>

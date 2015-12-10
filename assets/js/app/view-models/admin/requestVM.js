@@ -1,20 +1,6 @@
 (function(w, j, ko) {
     "use strict";
 
-    function Item(_item) {
-        var obj = {
-            code: _item.code,
-            name: _item.item_name,
-            quantity: ko.observable(1),
-            cost: _item.cost,
-        };
-        obj.subTotal = ko.pureComputed(function() {
-            return (parseFloat(obj.quantity()) * parseFloat(obj.cost)).toFixed(2);
-        });
-
-        return obj;
-    }
-
     var x = w.INVENTO.XHR,
         requestVM = {
             datetime: ko.observable(),
@@ -27,9 +13,43 @@
             budget: ko.observable(0.00),
 
             requestData: ko.observableArray([]),
+
+            filterStart: ko.observable(),
+            filterEnd: ko.observable(),
         },
         rVM = requestVM;
 
+    function Item(_item) {
+        var obj = {
+            code: _item.code,
+            name: _item.item_name,
+            quantity: ko.observable(1),
+            cost: _item.cost
+
+        };
+        obj.subTotal = ko.pureComputed(function() {
+            return (parseFloat(obj.quantity()) * parseFloat(obj.cost)).toFixed(2);
+        });
+
+        return obj;
+    }
+
+    function Filter(filter) {
+        x.post("reports/getRequestStatistics", {
+            filter: filter
+        }).done(function(res) {
+            var res = JSON.parse(res);
+            if (res) {
+                w.INVENTO.AmCharts.requestsReport.dataProvider = res;
+                w.INVENTO.AmCharts.requestsReport.validateData();
+            } else {
+                swal("No Record Found", "", "warning");
+            }
+
+        }).fail(function() {
+            w.notif("Whoops! Something went wrong.", "error");
+        });
+    }
     rVM.displayText = function(d) {
         return "REF NO. " + d.reference_no + " " + d.item_name + " (" + d.code + ")";
     };
@@ -147,7 +167,7 @@
 
     $("#requestsDT").on("click", ".request-edit", function() {
         var _id = $(this).data("id");
-        
+
         x.getJ("requests/getData/" + _id).done(function(res) {
             res[0].items = JSON.parse(res[0].items);
             rVM.requestData(res);
@@ -197,6 +217,65 @@
         });
     });
 
+    rVM.filter = function(e) {
+        var filterBy = e.target.getAttribute("filter"),
+            filter = null;
+
+
+        switch (filterBy) {
+            case "last-year":
+                filter = moment().startOf("year").subtract(1, "year").format("YYYY");
+                break;
+            case "this-year":
+                filter = moment().startOf("year").format("YYYY");
+                break;
+            case "last-month":
+                filter = {
+                    start: moment().startOf("month").subtract(1, "month").format("YYYY-MM-DD"),
+                    end: moment().endOf("month").subtract(1, "month").format("YYYY-MM-DD"),
+                };
+                break;
+            case "this-month":
+                filter = {
+                    start: moment().startOf("month").format("YYYY-MM-DD"),
+                    end: moment().format("YYYY-MM-DD")
+                };
+                break;
+            case "last-week":
+                filter = {
+                    start: moment().startOf("week").subtract(1, "week").format("YYYY-MM-DD"),
+                    end: moment().endOf("week").subtract(1, "week").format("YYYY-MM-DD")
+                };
+                break;
+            case "this-week":
+                filter = {
+                    start: moment().startOf("week").format("YYYY-MM-DD"),
+                    end: moment().endOf("week").format("YYYY-MM-DD")
+                };
+                break;
+            case "custom":
+
+                $("#customFilterModal").modal("show");
+                break;
+            default:
+                filter = null;
+        }
+
+        if (($("#customFilterModal").data('bs.modal') || {}).isShown && !rVM.filterStart() && !rVM.filterEnd()) {
+            return;
+        }
+
+        Filter(filter);
+    };
+
+    rVM.getCustomFilter = function() {
+        var filter = {
+            start: moment(rVM.filterStart()).format("YYYY-MM-DD"),
+            end: moment(rVM.filterEnd()).format("YYYY-MM-DD")
+        }
+
+        Filter(filter);
+    };
 
     $("#addRequestModal").on("hide.bs.modal", function() {
         localStorage['budget'] = null;

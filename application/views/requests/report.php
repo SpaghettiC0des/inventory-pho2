@@ -11,10 +11,14 @@
             </h2>
         </div>
         <div class="card-body card-padding">
-            <div>
+            <div data-bind="with: requestVM">
                 <?php require Kohana::find_file('views/partials/admin','report_filter');?>
             </div>
             <div id="requests-report" class="am-chart"></div>
         </div>
     </div>
+</div>
+
+<div data-bind="with: requestVM">
+    <?php require Kohana::find_file('views/partials/admin','custom_filter');?>
 </div>

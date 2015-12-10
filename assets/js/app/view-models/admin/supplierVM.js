@@ -1,14 +1,6 @@
 (function(w, j, ko) {
 	"use strict";
 
-	function success(msg) {
-		swal("Supplier " + msg + "!", "", "success");
-	}
-
-	function error() {
-		swal("Something went wrong. Please try again.", "", "error");
-	}
-
 	var x = w.INVENTO.XHR,
 		supplierVM = {
 			name: ko.observable(),
@@ -18,9 +10,36 @@
 			address: ko.observable(),
 
 			updateID: ko.observable(),
+			filterStart: ko.observable(),
+			filterEnd: ko.observable(),
 		},
 		sVM = supplierVM,
 		$editSupplier = $("#editSupplierModal");
+
+	function Filter(filter) {
+		x.post("reports/getSupplierStatistics", {
+			filter: filter
+		}).done(function(res) {
+			var res = JSON.parse(res);
+			if (res) {
+				w.INVENTO.AmCharts.suppliersReport.dataProvider = res;
+				w.INVENTO.AmCharts.suppliersReport.validateData();
+			} else {
+				swal("No Record Found", "", "warning");
+			}
+
+		}).fail(function() {
+			w.notif("Whoops! Something went wrong.", "error");
+		});
+	}
+
+	function success(msg) {
+		swal("Supplier " + msg + "!", "", "success");
+	}
+
+	function error() {
+		swal("Something went wrong. Please try again.", "", "error");
+	}
 
 	$("#suppliersDT").on("click", ".supplier-edit", function() {
 		var _id = $(this).data("id");
@@ -109,6 +128,66 @@
 			$editSupplier.modal("hide");
 			error();
 		});
+	};
+
+	sVM.filter = function(e) {
+		var filterBy = e.target.getAttribute("filter"),
+			filter = null;
+
+
+		switch (filterBy) {
+			case "last-year":
+				filter = moment().startOf("year").subtract(1, "year").format("YYYY");
+				break;
+			case "this-year":
+				filter = moment().startOf("year").format("YYYY");
+				break;
+			case "last-month":
+				filter = {
+					start: moment().startOf("month").subtract(1, "month").format("YYYY-MM-DD"),
+					end: moment().endOf("month").subtract(1, "month").format("YYYY-MM-DD"),
+				};
+				break;
+			case "this-month":
+				filter = {
+					start: moment().startOf("month").format("YYYY-MM-DD"),
+					end: moment().format("YYYY-MM-DD")
+				};
+				break;
+			case "last-week":
+				filter = {
+					start: moment().startOf("week").subtract(1, "week").format("YYYY-MM-DD"),
+					end: moment().endOf("week").subtract(1, "week").format("YYYY-MM-DD")
+				};
+				break;
+			case "this-week":
+				filter = {
+					start: moment().startOf("week").format("YYYY-MM-DD"),
+					end: moment().endOf("week").format("YYYY-MM-DD")
+				};
+				break;
+			case "custom":
+
+				$("#customFilterModal").modal("show");
+				break;
+			default:
+				filter = null;
+		}
+
+		if (($("#customFilterModal").data('bs.modal') || {}).isShown && !sVM.filterStart() && !sVM.filterEnd()) {
+			return;
+		}
+
+		Filter(filter);
+	};
+
+	sVM.getCustomFilter = function() {
+		var filter = {
+			start: moment(sVM.filterStart()).format("YYYY-MM-DD"),
+			end: moment(sVM.filterEnd()).format("YYYY-MM-DD")
+		}
+
+		Filter(filter);
 	};
 	w.INVENTO.VM.supplierVM = sVM;
 }(window, jQuery, ko));
