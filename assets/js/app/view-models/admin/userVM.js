@@ -15,22 +15,45 @@
             pwedCheckMsg: ko.observable(),
             updateId: ko.observable(),
 
-            validationPassed: ko.observable()
+            validationPassed: ko.observable(),
+
+            filterStart: ko.observable(),
+            filterEnd: ko.observable(),
         },
         uVM = userVM;
 
-    uVM.checkUsername = function(e){
-        x.post("users/checkUsername", {username: e.username()}).done(function(res){
-            if(res && $.trim(e.username())){
+    function Filter(filter) {
+        x.post("reports/getUserStatistics", {
+            filter: filter
+        }).done(function(res) {
+            var res = JSON.parse(res);
+            if (res) {
+                w.INVENTO.AmCharts.usersReport.dataProvider = res;
+                w.INVENTO.AmCharts.usersReport.validateData();
+            } else {
+                swal("No Record Found", "", "warning");
+            }
+
+        }).fail(function() {
+            w.notif("Whoops! Something went wrong.", "error");
+        });
+    }
+    uVM.checkUsername = function(e) {
+        x.post("users/checkUsername", {
+            username: e.username()
+        }).done(function(res) {
+            if (res && $.trim(e.username())) {
                 return e.validationPassed(true);
             }
             e.validationPassed(false);
         });
     };
 
-    uVM.checkEmail = function(e){
-        x.post("users/checkEmail", {email: e.email()}).done(function(res){
-            if(res && $.trim(e.email())){
+    uVM.checkEmail = function(e) {
+        x.post("users/checkEmail", {
+            email: e.email()
+        }).done(function(res) {
+            if (res && $.trim(e.email())) {
                 return e.validationPassed(true);
             }
             e.validationPassed(false);
@@ -143,7 +166,7 @@
             return;
         }
 
-        x.post("users/changePassword/"+uVM.updateId(), data).done(function(res) {
+        x.post("users/changePassword/" + uVM.updateId(), data).done(function(res) {
             if (res) {
                 swal("User Password updated!", "", "success");
             }
@@ -152,54 +175,32 @@
             swal("Whoops! Something went wrong.", "", "error");
         });
     };
-    // uVM.userList = function () {
-    // $.ajax({
-    // url: "users/getUserList/",
-    // type: 'GET',
-    // async: false,
-    // success: function (data) {
 
-		// }, function(isConfirm) {
-			// if (isConfirm) {
-				// x.post("users/delete/" + _id).done(function(res) {
-					// if (res) {
-						// $("#userTR" + _id).addClass("animated zoomOutDown").hide('slow');
-						// swal("User deleted!", "", "success");
-						//	swal.close();
-						//w.notif("District Deleted.", "success");
-					// }
-				// }).fail(function() {
-					// swal("Whoops! Something went wrong.", "", "error");
-				// });
-			// }
-		// });
-	// });
-	
-	$("#changePassword").on('click' , function () {
-		var _id = $(this).data("id");
-		x.get('users/getOneUser/' + _id).done(function(res){
-			var decoded = $.parseJSON(res);
-			uVM.updateId(_id);
-			uVM.old_password(decoded[0].password);
-			$("#changePasswordModal").modal('show');
-			}).fail(function() {
-					swal("Whoops! Something went wrong.", "", "error");
-				});
-		});
-		
-		$("#usersDT").on('click','.user-changeRole' , function () {
-				var _id = $(this).data("id");
-				x.get('users/getOneUser/' + _id).done(function(res){
-			var decoded = $.parseJSON(res);
-				uVM.updateId(_id);
-				//uVM.office_id(decoded[0].office_id);
-			$("#changeRoleModal").modal('show');
-			}).fail(function() {
-					swal("Whoops! Something went wrong.", "", "error");
-				});	
-			});
-	
-	
+    $("#changePassword").on('click', function() {
+        var _id = $(this).data("id");
+        x.get('users/getOneUser/' + _id).done(function(res) {
+            var decoded = $.parseJSON(res);
+            uVM.updateId(_id);
+            uVM.old_password(decoded[0].password);
+            $("#changePasswordModal").modal('show');
+        }).fail(function() {
+            swal("Whoops! Something went wrong.", "", "error");
+        });
+    });
+
+    $("#usersDT").on('click', '.user-changeRole', function() {
+        var _id = $(this).data("id");
+        x.get('users/getOneUser/' + _id).done(function(res) {
+            var decoded = $.parseJSON(res);
+            uVM.updateId(_id);
+            //uVM.office_id(decoded[0].office_id);
+            $("#changeRoleModal").modal('show');
+        }).fail(function() {
+            swal("Whoops! Something went wrong.", "", "error");
+        });
+    });
+
+
 
     // },
     // });	
@@ -258,6 +259,26 @@
         });
     });
 
+
+    uVM.filter = function(e) {
+        var filterBy = e.target.getAttribute("filter"),
+            filter = null;
+
+
+        switch (filterBy) {
+            case "admin":
+                filter = 2;
+                break;
+            case "office":
+                filter = 3;
+                break;
+            default:
+                filter = null;
+                break
+        }
+
+        Filter(filter);
+    };
 
 
     w.INVENTO.VM.userVM = uVM;

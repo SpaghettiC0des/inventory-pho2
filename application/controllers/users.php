@@ -151,4 +151,8 @@ class Users_Controller extends Dashboard_Controller
             echo $this->user_model->delete($id);
         }
     }
+
+    public function reports(){
+        $this->template->content = new View('users/report');
+    }
 }

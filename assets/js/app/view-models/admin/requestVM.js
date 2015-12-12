@@ -34,6 +34,16 @@
         return obj;
     }
 
+    function RequestsData(data){
+        var obj = {
+            datetime: ko.observable(data.datetime || ''),
+            reference_no: ko.observable(data.reference_no || ''),
+            items: ko.observableArray(data.items || []),
+        };
+
+        return obj;
+    }
+
     function Filter(filter) {
         x.post("reports/getRequestStatistics", {
             filter: filter
@@ -165,17 +175,30 @@
         });
     };
 
-    $("#requestsDT").on("click", ".request-edit", function() {
-        var _id = $(this).data("id");
+    $("#requestsDT").on("click", ".request-action-btn", function() {
+        var _id = $(this).data("id"),
+            action = $(this).data("action");
 
-        x.getJ("requests/getData/" + _id).done(function(res) {
-            res[0].items = JSON.parse(res[0].items);
-            rVM.requestData(res);
-            $("#editRequestModal").modal("show");
+        switch (action) {
+            case "edit":
+                x.getJ("requests/getData/" + _id).done(function(res) {
+                    res[0].items = JSON.parse(res[0].items);
+                    rVM.requestData(new RequestsData(res[0]));
+                    $("#editRequestModal").modal("show");
+                    console.log(rVM.requestData());
+                }).fail(function() {
+                    swal("Whoops! Something went wrong.", "", "error");
+                });
 
-        }).fail(function() {
-            swal("Whoops! Something went wrong.", "", "error");
-        });
+                break;
+            case "update":
+                break;
+            case "delete":
+                break;
+            default:
+
+        }
+
     });
 
     rVM.view = function(_id) {

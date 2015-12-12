@@ -133,13 +133,9 @@ class Reports_Controller extends Controller
         if (request::is_ajax()) {
             $this->auto_render = FALSE;
             
-            $q = @"SELECT r.name as role, COUNT(ru.role_id) as role_count FROM users u, roles_users ru, roles r
-                WHERE ru.role_id != 1
-                AND u.id = ru.user_id
-                AND ru.role_id = r.id
-                GROUP BY ru.role_id";
+            $filter = security::xss_clean($this->input->post('filter')) or NULL;
             
-            echo json_encode($this->db->query($q)->result_array());
+            echo json_encode($this->user_model->userStatistics($filter));
         }
     }
     

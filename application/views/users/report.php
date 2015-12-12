@@ -48,8 +48,12 @@
             </h2>
         </div>
         <div class="card-body card-padding">
-            <div>
-                <?php require Kohana::find_file('views/partials/admin','report_filter');?>
+            <div data-bind="with: userVM">
+                <div class="btn-group">
+                    <div data-bind="click: filter.bind('e',event)" class="btn btn-success" filter="all">All</div>
+                    <div data-bind="click: filter.bind('e',event)" class="btn btn-primary" filter="admin">Admin Only</div>
+                    <div data-bind="click: filter.bind('e',event)" class="btn btn-warning" filter="office">Office User Only</div>
+                </div>
             </div>
             <div id="users-report" class="am-chart"></div>
         </div>

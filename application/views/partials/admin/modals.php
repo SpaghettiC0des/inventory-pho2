@@ -1143,10 +1143,23 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Edit Request</h4>
                 </div>
-                <div class="modal-body">
+                <div data-bind="with: requestData" class="modal-body">
                     
                     <div class="form-group">
-                        
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label for="request-date" class="control-label">Date</label>
+                                <input data-bind = "dateTimePicker : datetime, 
+                                    dateTimePickerOptions:{format:'YYYY-MM-DD hh:mm'}" type="text" 
+                                        class="form-control input-mask" data-mask="0000-00-00 00:00" placeholder = "YYYY-MM-DD hh:mm" required>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <ul data-bind="foreach: items">
+                                <li data-bind="text: name"></li>
+                            </ul>
+                        </div>
                     </div>
                     
                 </div>
