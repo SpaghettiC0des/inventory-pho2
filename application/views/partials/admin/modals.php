@@ -1136,16 +1136,16 @@
 </div>
 <!-- Edit Request Modal -->
 <div data-bind = "with : requestVM" class="modal fade" id="editRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form data-bind = "submit : handleSubmit" action="" class="form-horizontal">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Edit Request</h4>
                 </div>
-                <div data-bind="with: requestData" class="modal-body">
-                    
-                    <div class="form-group">
+                <!-- ko if: requestData().length -->
+                <div class="modal-body">
+                    <div data-bind="with: requestData()[0]">
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label for="request-date" class="control-label">Date</label>
@@ -1156,13 +1156,65 @@
 
                         </div>
                         <div class="form-group">
-                            <ul data-bind="foreach: items">
-                                <li data-bind="text: name"></li>
-                            </ul>
+                            <div class="col-md-6">
+                                <label for="request-ref-no" class="control-label">Reference Number</label>
+                                <input data-bind = "textInput: reference_no" type="text" class="form-control input-mask" data-mask="A0-000-0000" placeholder="A0-000-0000">                            
+                            </div>
+                            <div class="col-md-4">
+                                <label for="request-status" class="control-label">Status</label>
+                                <select data-bind = "value: status" name="request-status" id="request-status" class="selectpicker">
+                                    <option value="Received">Received</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <table class="table table-striped table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Quantity</th>
+                                            <th>Cost</th>
+                                            <th>Subtotal</th>
+                                            <th class="text-center">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Grand Total (Php)</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th data-bind = "text: $parent.editGrandTotal"></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody data-bind = "foreach: items">
+                                        <tr>
+                                            <td data-bind = "text: code"></td>
+                                            <td data-bind = "text: name"></td>
+                                            <td>
+                                                <div class="fg-line">
+                                                    <input data-bind = "textInput: quantity" type="number" min="1" step="1" class="form-control text-center qty">    
+                                                </div>
+                                            </td>
+                                            <td data-bind = "text: cost"></td>
+                                            <td data-bind = "text: subTotal"></td>
+                                            <td class="text-center">
+                                            
+                                                <button data-bind = "click: $parents[1].editRemoveItem" class="btn btn-danger btn-xs">&times;</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>                      
                     </div>
-                    
                 </div>
+                <!-- /ko -->
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -1188,7 +1240,7 @@
                             <div class="well">
                                 Request Date:<strong data-bind = "text: datetime"></strong>  <br /> 
                                 Status: <strong data-bind = "text: status"></strong>  <br />    
-                                Grand Total: <strong data-bind = "text: 'Php '  + grand_total"></strong>        
+                                Grand Total: <strong data-bind = "text: 'Php '  + 'grand_total'"></strong>        
                             </div>
                         </div>
                     </div>

@@ -17,9 +17,11 @@
             filterStart: ko.observable(),
             filterEnd: ko.observable(),
         },
-        rVM = requestVM;
+        rVM = requestVM,
+        $editRequestModal = $("#editRequestModal");
 
     function Item(_item) {
+
         var obj = {
             code: _item.code,
             name: _item.item_name,
@@ -34,13 +36,34 @@
         return obj;
     }
 
-    function RequestsData(data){
+    function EditItem(_item) {
+
+        var obj = {
+            code: _item.code,
+            name: _item.name,
+            quantity: ko.observable(_item.quantity),
+            cost: _item.cost
+
+        };
+        obj.subTotal = ko.pureComputed(function() {
+            return (parseFloat(obj.quantity()) * parseFloat(obj.cost)).toFixed(2);
+        });
+
+        return obj;
+    }
+
+    function RequestsData(data) {
+        var arr = [],
+            items = ko.utils.arrayForEach(data.items, function(item) {
+                arr.push(new EditItem(item));
+            });
+
         var obj = {
             datetime: ko.observable(data.datetime || ''),
+            status: ko.observable(data.status),
             reference_no: ko.observable(data.reference_no || ''),
-            items: ko.observableArray(data.items || []),
+            items: ko.observableArray(arr),
         };
-
         return obj;
     }
 
@@ -119,9 +142,30 @@
     });
 
     rVM.removeItem = function(item) {
-        rVM.items.remove(item);
+        rVM.items.remove(item) || rvm.requestData()[0].items.remove(item);
     };
+    rVM.editRemoveItem = function(item) {
+        var items = rVM.requestData()[0].items;
 
+        if (items().length > 1) {
+            return items.remove(item);
+        }
+        $editRequestModal.modal("hide");
+
+        swal({
+            title: "Cannot empty request items!",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonColor: "#DD6B55",
+            closeOnConfirm: true,
+        }, function(isConfirm) {
+            if (isConfirm) {
+
+                $editRequestModal.modal("show");
+
+            }
+        });
+    };
     rVM.grandTotal = ko.pureComputed(function() {
 
         var total = 0,
@@ -137,6 +181,16 @@
         rVM.budget(currentBudget.toFixed(2));
         return total.toFixed(2);
 
+    });
+
+    rVM.editGrandTotal = ko.pureComputed(function() {
+        var total = 0;
+
+        ko.utils.arrayForEach(rVM.requestData()[0].items(), function(item) {
+            total = parseFloat(item.subTotal()) + total;
+        });
+
+        return total;
     });
 
     rVM.budget.subscribe(function() {
@@ -183,9 +237,10 @@
             case "edit":
                 x.getJ("requests/getData/" + _id).done(function(res) {
                     res[0].items = JSON.parse(res[0].items);
-                    rVM.requestData(new RequestsData(res[0]));
-                    $("#editRequestModal").modal("show");
-                    console.log(rVM.requestData());
+                    rVM.requestData([RequestsData(res[0])]);
+
+                    $editRequestModal.modal("show");
+
                 }).fail(function() {
                     swal("Whoops! Something went wrong.", "", "error");
                 });
